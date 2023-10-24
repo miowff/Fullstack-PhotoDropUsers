@@ -1,0 +1,23 @@
+AuthorizeUser:
+  handler: src/lambdas/authorizer.handler
+
+GetCode:
+  handler: src/lambdas/users/getCode.handler
+  events:
+    - httpApi:
+        path: /code
+        method: GET
+
+Login:
+  handler: src/lambdas/users/login.handler
+  events:
+    - httpApi:
+        path: /login
+        method: POST
+
+Registration:
+  handler: src/lambdas/users/registration.handler
+  events:
+    - httpApi:
+        path: /registration
+        method: POST
