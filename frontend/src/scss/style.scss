@@ -14,6 +14,46 @@
     line-height: 15px;
     border-radius: 30px;
     cursor: pointer;
+
+    &:disabled {
+        opacity: 0.3;
+    }
+}
+
+.photo-buttons-group {
+    position: inherit;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    justify-content: center;
+    font-family: FuturaPtDefault;
+
+    img {
+        margin: 0 auto;
+    }
+
+    p {
+        color: white;
+        font-size: 14px;
+
+    }
+
+    span {
+        cursor: pointer;
+    }
+
+    &__see-in-frame {
+        font-family: FuturaPtHeavy;
+        width: 300px;
+        height: 50px;
+        font-size: 22px;
+        border-radius: 30px;
+        border: 1px solid;
+        border-color: white;
+        background: rgba(28, 28, 28, 0);
+        color: white;
+        cursor: pointer;
+    }
 }
 
 .header {
@@ -210,6 +250,37 @@
 
     &__button-container {
         padding-top: 25px;
+    }
+}
+
+.pop-up-photo-container {
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.9);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    flex-direction: column;
+
+    &__close {
+        position: absolute;
+        top: 25px;
+        left: 40px;
+        width: 24px;
+        height: 30px;
+        z-index: 110;
+        cursor: pointer;
+        background-image: url("../public/images/X.svg");
+    }
+
+    &__buttons {
+        position: absolute;
+        bottom: 65px;
+        right: 480px;
     }
 }
 

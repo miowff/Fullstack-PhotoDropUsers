@@ -5,19 +5,12 @@ GetCode:
   handler: src/lambdas/users/getCode.handler
   events:
     - httpApi:
-        path: /code
-        method: GET
-
-Login:
-  handler: src/lambdas/users/login.handler
-  events:
-    - httpApi:
-        path: /login
+        path: /request-code
         method: POST
 
-Registration:
-  handler: src/lambdas/users/registration.handler
+LoginOrRegister:
+  handler: src/lambdas/users/loginOrRegister.handler
   events:
     - httpApi:
-        path: /registration
+        path: /login-or-register
         method: POST

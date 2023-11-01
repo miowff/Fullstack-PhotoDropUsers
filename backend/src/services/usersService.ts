@@ -2,9 +2,8 @@ import { IUsersRepository } from "src/db/IRepositories/IUsersRepository";
 import { IUsersService } from "./IServices/IUsersService";
 import { InsertUser, SelectUser } from "src/db/entities/users";
 import { TokensResponse } from "src/models/tokensResponse";
-import { LoginModel, RegistrationModel } from "src/models/user";
+import { LoginRegistrationModel } from "src/models/user";
 import { usersRepository } from "src/db/repositories/usersRepository";
-import { ApiError } from "src/errors/apiError";
 import { ICodesService } from "./IServices/ICodesService";
 import { codesService } from "./codesService";
 import { jwtTokenService } from "./utils/jwtTokensService";
@@ -15,37 +14,24 @@ class UsersService implements IUsersService {
     private readonly usersRepository: IUsersRepository<InsertUser, SelectUser>,
     private readonly codesService: ICodesService
   ) {}
-  loginUser = async (loginModel: LoginModel): Promise<TokensResponse> => {
-    const { phoneNumber, code } = loginModel;
-    const existsUsers = await this.usersRepository.getByPhoneNumber(
-      phoneNumber
-    );
-    if (!existsUsers) {
-      throw ApiError.NotFound("User");
-    }
-    await this.codesService.validateCode(phoneNumber, code);
-    return await jwtTokenService.generateAccessToken(existsUsers.id);
-  };
-  registerUser = async (
-    registrationModel: RegistrationModel
+  loginOrRegister = async (
+    request: LoginRegistrationModel
   ): Promise<TokensResponse> => {
-    const { phoneNumber, email, code, fullName } = registrationModel;
+    const { phoneNumber, code } = request;
     const existsUsers = await this.usersRepository.getByPhoneNumber(
       phoneNumber
     );
-    if (existsUsers) {
-      throw ApiError.AlreadyExists("User");
-    }
     await this.codesService.validateCode(phoneNumber, code);
-    const userId = randomUUID();
-    const newUser: InsertUser = {
-      id: userId,
-      email,
-      phoneNumber,
-      fullName,
-    };
-    await this.usersRepository.addUser(newUser);
-    return await jwtTokenService.generateAccessToken(userId);
+    if (!existsUsers) {
+      const userId = randomUUID();
+      const newUser: InsertUser = {
+        id: userId,
+        phoneNumber,
+      };
+      await this.usersRepository.addUser(newUser);
+      return await jwtTokenService.generateAccessToken(userId);
+    }
+    return await jwtTokenService.generateAccessToken(existsUsers.id);
   };
 }
 

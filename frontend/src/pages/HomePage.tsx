@@ -1,9 +1,13 @@
-import { NoPhotosYet } from "../components/NoPhotosYet";
+import { Footer } from "../components/Footer";
+import { Header } from "../components/Header";
+import { NoPhotosYet } from "../components/HomePage/NoPhotosYet";
 
 export function HomePage() {
   return (
-    <div>
+    <>
+      <Header />
       <NoPhotosYet />
-    </div>
+      <Footer />
+    </>
   );
 }

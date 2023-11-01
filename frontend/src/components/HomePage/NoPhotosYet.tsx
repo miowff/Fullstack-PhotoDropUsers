@@ -1,9 +1,20 @@
-import NewSms from "../public/images/NewSms.svg";
-import ChaseBaker from "../public/images/ArtistsPrints/ChaseBaker.jpg";
-import JorgeGardner from "../public/images/ArtistsPrints/JorgeGardner.jpg";
+import NewSms from "../../public/images/NewSms.svg";
+import ChaseBaker from "../../public/images/ArtistsPrints/ChaseBaker.jpg";
+import JorgeGardner from "../../public/images/ArtistsPrints/JorgeGardner.jpg";
+import { useState } from "react";
+import { PopUpPhoto } from "./PopUpPhoto";
+
 export function NoPhotosYet() {
+  const [photo, setPhoto] = useState<string>("");
+  const [isPopUpPhotoVisible, setPopUpPhotoVisible] = useState<boolean>(false);
   return (
     <section className="no-photos-yet">
+      {isPopUpPhotoVisible && (
+        <PopUpPhoto
+          photoUrl={photo}
+          setPopUpPhotoVisible={setPopUpPhotoVisible}
+        />
+      )}
       <div className="no-photos-yet__content">
         <div className="container">
           <div className="no-photos-yet__info">
@@ -25,7 +36,13 @@ export function NoPhotosYet() {
               Browse Artist Prints
             </h4>
             <div className="no-photos-yet__artists-prints-thumbnails">
-              <div className="no-photos-yet__artists-prints-thumbnail">
+              <div
+                className="no-photos-yet__artists-prints-thumbnail"
+                onClick={() => {
+                  setPhoto(ChaseBaker);
+                  setPopUpPhotoVisible(true);
+                }}
+              >
                 <img
                   className="no-photos-yet__artists-prints-image"
                   src={ChaseBaker}
@@ -33,7 +50,13 @@ export function NoPhotosYet() {
                 />
               </div>
 
-              <div className="no-photos-yet__artists-prints-thumbnail">
+              <div
+                className="no-photos-yet__artists-prints-thumbnail"
+                onClick={() => {
+                  setPhoto(JorgeGardner);
+                  setPopUpPhotoVisible(true);
+                }}
+              >
                 <img
                   className="no-photos-yet__artists-prints-image"
                   src={JorgeGardner}

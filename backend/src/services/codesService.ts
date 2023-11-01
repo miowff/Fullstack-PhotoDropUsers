@@ -37,9 +37,11 @@ class CodesService implements ICodesService {
     phoneNumber: string,
     userCode: string
   ): Promise<void> => {
-    const { code, sentTime } = await this.phoneCodesRepository.getCode(
-      phoneNumber
-    );
+    const existsCode = await this.phoneCodesRepository.getCode(phoneNumber);
+    if (!existsCode) {
+      throw ApiError.NotFound("Code");
+    }
+    const { code, sentTime } = existsCode;
     if (!code) {
       throw ApiError.NotFound("Confirmation Code");
     }

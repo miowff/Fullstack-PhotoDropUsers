@@ -1,10 +1,4 @@
-export interface LoginModel {
+export interface LoginRegistrationModel {
   phoneNumber: string;
   code: string;
-}
-export interface RegistrationModel {
-  phoneNumber: string;
-  email: string;
-  code: string;
-  fullName: string;
 }
