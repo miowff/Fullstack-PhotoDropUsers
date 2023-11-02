@@ -1,6 +1,7 @@
 import { TokensResponse } from "src/models/tokensResponse";
-import { LoginRegistrationModel } from "src/models/user";
+import { LoginRegistrationModel, UserModel } from "src/models/user";
 
 export interface IUsersService {
   loginOrRegister(request: LoginRegistrationModel): Promise<TokensResponse>;
+  getById(userId: string): Promise<UserModel>;
 }

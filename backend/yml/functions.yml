@@ -1,6 +1,11 @@
 AuthorizeUser:
   handler: src/lambdas/authorizer.handler
 
+PhotosReceivedDispatcher:
+  handler: src/lambdas/photos/photosReceivedDispatcher.handler
+  events:
+    - sns: photosUploadedAlerts
+
 GetCode:
   handler: src/lambdas/users/getCode.handler
   events:
@@ -14,3 +19,12 @@ LoginOrRegister:
     - httpApi:
         path: /login-or-register
         method: POST
+
+GetCurrent:
+  handler: src/lambdas/users/getCurrentUser.handler
+  events:
+    - httpApi:
+        path: /current-user
+        method: GET
+        authorizer:
+          name: usersAuthorizer

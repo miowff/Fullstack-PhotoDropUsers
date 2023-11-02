@@ -16,7 +16,7 @@ provider:
       allowedOrigins: ["*"]
       allowedHeaders: ["*"]
     authorizers:
-      photographersAuthorizer:
+      usersAuthorizer:
         type: request
         functionName: AuthorizeUser
         identitySource: $request.header.Authorization

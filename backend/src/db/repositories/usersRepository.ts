@@ -16,5 +16,12 @@ class UsersRepository implements IUsersRepository<InsertUser, SelectUser> {
   addUser = async (user: InsertUser): Promise<void> => {
     await this.db.insert(users).values(user);
   };
+  getById = async (userId: string): Promise<SelectUser> => {
+    const result = await this.db
+      .select()
+      .from(users)
+      .where(eq(users.id, userId));
+    return result[0];
+  };
 }
 export const usersRepository = new UsersRepository(db);
