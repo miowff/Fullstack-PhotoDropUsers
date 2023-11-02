@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
 import { LestGetStarted } from "./pages/LestGetStarted";
 import { PrivateWrapper } from "./utils/protectedRoute";
@@ -6,14 +6,15 @@ import { useEffect } from "react";
 
 function App() {
   const location = useLocation();
-
+  const navigate = useNavigate();
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const token = searchParams.get("token");
     if (token) {
       localStorage.setItem("authToken", token);
+      navigate("/");
     }
-  }, [location.search]);
+  });
   return (
     <div className="wrapper">
       <Routes>
