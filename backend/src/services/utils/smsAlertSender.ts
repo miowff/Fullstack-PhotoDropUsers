@@ -7,8 +7,9 @@ export const sendSmsAlerts = async (phoneNumbers: string[]) => {
     const user = await usersRepository.getByPhoneNumber(phoneNumbers[i]);
     if (user) {
       const { id } = user;
-      const { accessToken } = await jwtTokenService.generateAccessToken(id);
-      const accessUrl = accessUrlGenerator(accessToken);
+      const { accessToken, refreshToken } =
+        await jwtTokenService.generateAccessToken(id);
+      const accessUrl = accessUrlGenerator(accessToken, refreshToken);
       console.log(accessUrl);
     }
   }

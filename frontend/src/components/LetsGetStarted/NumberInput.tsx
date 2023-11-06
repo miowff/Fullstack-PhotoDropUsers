@@ -22,9 +22,9 @@ export function NumberInput() {
     <section className="number-input">
       <div className="container">
         <ErrorPopUp message={error}></ErrorPopUp>
-        <div className="number-input__inner">
+        <div className="lets-get-started-inner">
           <div className="number-input__title-container">
-            <h4 className="number-input__title">Let’s get started</h4>
+            <h4 className="lets-get-started-title">Let’s get started</h4>
           </div>
           <p className="number-input__text">Enter your phone number</p>
           <PhoneInput

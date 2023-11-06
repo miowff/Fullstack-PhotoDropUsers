@@ -40,10 +40,10 @@ export function WhatsTheCode() {
     <section className="whats-the-code">
       <div className="container">
         <ErrorPopUp message={error}></ErrorPopUp>
-        <div className="whats-the-code__inner">
+        <div className="lets-get-started-inner whats-the-code__inner">
           <div className="whats-the-code__inner-content">
             <div className="whats-the-code__title-container">
-              <h4 className="whats-the-code__title">What’s the code</h4>
+              <h4 className="lets-get-started-title">What’s the code</h4>
             </div>
             <p className="whats-the-code__text">
               Enter the code sent to <span>+{enteredNumber}</span>

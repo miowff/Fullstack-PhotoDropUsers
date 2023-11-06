@@ -56,6 +56,21 @@
     }
 }
 
+.lets-get-started-title {
+    color: #262626;
+    font-family: Termina;
+    font-size: 30px;
+
+}
+
+.lets-get-started-inner {
+    display: flex;
+    flex-direction: column;
+    max-width: 420px;
+    margin: 0 auto;
+
+}
+
 .header {
     &__inner {
         display: flex;
@@ -78,13 +93,6 @@
 
 .number-input {
     padding-bottom: 250px;
-
-    &__inner {
-        display: flex;
-        flex-direction: column;
-        max-width: 420px;
-        margin: 0 auto;
-    }
 
     &__text {
         color: #262626;
@@ -116,13 +124,6 @@
         padding-top: 130px;
         padding-right: 50px;
     }
-
-    &__title {
-        color: #262626;
-        font-family: Termina;
-        font-size: 22px;
-    }
-
 
 }
 
@@ -189,14 +190,10 @@
 }
 
 .whats-the-code {
-
-
     padding-right: 50px;
     padding-top: 125px;
 
     &__inner {
-        display: flex;
-        flex-direction: column;
         align-items: center;
     }
 
@@ -250,6 +247,22 @@
 
     &__button-container {
         padding-top: 25px;
+    }
+}
+
+.whats-your-name {
+    padding-top: 250px;
+
+    h4 {
+        padding-bottom: 30px;
+    }
+
+    &__input-name {
+        width: 420px;
+        height: 40px;
+        border: none;
+        font-family: FuturaPtMedium;
+        margin-bottom: 20px;
     }
 }
 

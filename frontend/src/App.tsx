@@ -3,11 +3,11 @@ import { HomePage } from "./pages/HomePage";
 import { LestGetStarted } from "./pages/LestGetStarted";
 import { PrivateWrapper } from "./utils/protectedRoute";
 import { useEffect } from "react";
-import { ACCESS_TOKEN_KEY } from "./enums/constants";
+import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from "./enums/constants";
 import { useDispatch } from "react-redux";
 import { useLazyGetCurrentUserQuery } from "./api/auth";
 import { UserModel } from "../../backend/src/models/user";
-import { logOut, setUser } from "./redux/user/authSlice";
+import { setUser } from "./redux/user/authSlice";
 
 function App() {
   const [getUser] = useLazyGetCurrentUserQuery();
@@ -17,8 +17,10 @@ function App() {
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const token = searchParams.get("token");
-    if (token) {
+    const refresh = searchParams.get("refresh");
+    if (token && refresh) {
       localStorage.setItem(ACCESS_TOKEN_KEY, token);
+      localStorage.setItem(REFRESH_TOKEN_KEY, refresh);
       navigate("/");
     }
   });
@@ -29,9 +31,6 @@ function App() {
         if (data) {
           dispatch(setUser(data));
           navigate("/");
-        } else {
-          console.log("logout");
-          dispatch(logOut());
         }
       });
   }, []);

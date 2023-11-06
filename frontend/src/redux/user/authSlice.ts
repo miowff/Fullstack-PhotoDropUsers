@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { UserModel } from "../../../../backend/src/models/user";
-import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from "../../enums/constants";
 
 interface AuthState {
   user: UserModel | null;
@@ -28,8 +27,6 @@ const authSlice = createSlice({
       state.accessToken = null;
       state.accessToken = null;
       state.isAuth = false;
-      localStorage.removeItem(ACCESS_TOKEN_KEY);
-      localStorage.removeItem(REFRESH_TOKEN_KEY);
     },
     setUser: (state, action) => {
       state.user = action.payload;

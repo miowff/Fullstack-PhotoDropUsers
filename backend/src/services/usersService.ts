@@ -32,9 +32,19 @@ class UsersService implements IUsersService {
         phoneNumber,
       };
       await this.usersRepository.addUser(newUser);
-      return await jwtTokenService.generateAccessToken(userId);
+      const tokens = await jwtTokenService.generateAccessToken(userId);
+      await this.usersRepository.addRefreshToken({
+        userId,
+        refreshToken: tokens.refreshToken,
+      });
+      return tokens;
     }
-    return await jwtTokenService.generateAccessToken(existsUsers.id);
+    const tokens = await jwtTokenService.generateAccessToken(existsUsers.id);
+    await this.usersRepository.addRefreshToken({
+      userId: existsUsers.id,
+      refreshToken: tokens.refreshToken,
+    });
+    return tokens;
   };
   getById = async (userId: string): Promise<UserModel> => {
     const user = await this.usersRepository.getById(userId);
