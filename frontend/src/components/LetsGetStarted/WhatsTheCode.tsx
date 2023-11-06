@@ -1,17 +1,17 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { ErrorPopUp } from "../ErrorPopUp";
+import { useRequestCode } from "../../hooks/userRequestCode";
 import { LoginRegistrationModel } from "../../../../backend/src/models/user";
 import { useLoginOrRegisterMutation } from "../../api/auth";
 import { isErrorWithMessage } from "../../utils/errorParser";
-import { ErrorPopUp } from "../ErrorPopUp";
 import { useNavigate } from "react-router-dom";
-import { useRequestCode } from "../../hooks/userRequestCode";
-
+import { setToken } from "../../redux/user/authSlice";
 export function WhatsTheCode() {
   const navigate = useNavigate();
-  const [loginOrRegisterUser] = useLoginOrRegisterMutation();
-  const [error, setError] = useState("");
+  const dispatch = useDispatch();
+
   const { enteredNumber } = useSelector(
     (state: RootState) => state.letsGetStartedStages.letsGetStartedStages
   );
@@ -19,10 +19,13 @@ export function WhatsTheCode() {
   const handleCodeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCode(e.target.value);
   };
+  const [error, setError] = useState("");
+  const [loginOrRegisterUser] = useLoginOrRegisterMutation();
   const { handleRequest: requestCode } = useRequestCode({ setError });
   const loginOrRegister = async (request: LoginRegistrationModel) => {
     try {
-      await loginOrRegisterUser(request).unwrap();
+      const tokens = await loginOrRegisterUser(request).unwrap();
+      dispatch(setToken(tokens));
       navigate("/");
     } catch (err) {
       const error = isErrorWithMessage(err);
@@ -36,8 +39,8 @@ export function WhatsTheCode() {
   return (
     <section className="whats-the-code">
       <div className="container">
+        <ErrorPopUp message={error}></ErrorPopUp>
         <div className="whats-the-code__inner">
-          <ErrorPopUp message={error}></ErrorPopUp>
           <div className="whats-the-code__inner-content">
             <div className="whats-the-code__title-container">
               <h4 className="whats-the-code__title">What’s the code</h4>
@@ -63,7 +66,6 @@ export function WhatsTheCode() {
                 className="default-button"
                 disabled={code.length !== 6}
                 onClick={async () => {
-                  console.log(code);
                   await loginOrRegister({ phoneNumber: enteredNumber, code });
                 }}
               >

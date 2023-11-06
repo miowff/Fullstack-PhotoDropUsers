@@ -9,10 +9,21 @@ class JwtTokensService {
       getEnv("ACCESS_TOKEN_SECRET_USERS") as string,
       { expiresIn: "1d" }
     );
-    return { accessToken };
+    const refreshToken = jwt.sign(
+      { userId },
+      getEnv("REFRESH_TOKEN_SECRET_USERS") as string,
+      { expiresIn: "30d" }
+    );
+    return { accessToken, refreshToken };
   };
   validateAccessToken = async (token: string) => {
     return jwt.verify(token, getEnv("ACCESS_TOKEN_SECRET_USERS") as string);
+  };
+  validateRefreshToken = async (token: string) => {
+    return jwt.verify(
+      token,
+      getEnv("REFRESH_TOKEN_SECRET_USERS") as string
+    ) as jwt.JwtPayload;
   };
 }
 

@@ -20,6 +20,13 @@ LoginOrRegister:
         path: /login-or-register
         method: POST
 
+RefreshToken:
+  handler: src/lambdas/users/refreshAccessToken.handler
+  events:
+    - httpApi:
+        path: /refresh-token
+        method: POST
+
 GetCurrent:
   handler: src/lambdas/users/getCurrentUser.handler
   events:

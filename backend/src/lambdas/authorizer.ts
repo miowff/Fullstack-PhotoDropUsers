@@ -3,6 +3,7 @@ import {
   APIGatewayRequestAuthorizerEventV2,
 } from "aws-lambda";
 import { JwtPayload } from "jsonwebtoken";
+import { ApiError } from "src/errors/apiError";
 import { jwtTokenService } from "src/services/utils/jwtTokensService";
 
 export async function handler(
@@ -32,18 +33,6 @@ export async function handler(
       },
     };
   } catch (err) {
-    return {
-      principalId: "principalId",
-      policyDocument: {
-        Version: "2012-10-17",
-        Statement: [
-          {
-            Action: "execute-api:Invoke",
-            Effect: "Deny",
-            Resource: "*",
-          },
-        ],
-      },
-    };
+    throw new ApiError("Unauthorized", 401);
   }
 }

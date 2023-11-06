@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 export const PrivateWrapper = ({ children }: { children: JSX.Element }) => {
-  const token = localStorage.getItem("ACCESS_TOKEN");
-
-  return token !== null ? children : <Navigate to="/start" replace />;
+  const isAuth = useAuth();
+  return isAuth ? children : <Navigate to="/start" replace />;
 };

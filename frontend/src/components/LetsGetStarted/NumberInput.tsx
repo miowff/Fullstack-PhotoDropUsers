@@ -7,15 +7,16 @@ import {
 } from "../../redux/letsGetStarted/letsGetStartedSlice";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { ErrorPopUp } from "../ErrorPopUp";
 import { useRequestCode } from "../../hooks/userRequestCode";
+import { ErrorPopUp } from "../ErrorPopUp";
+
 export function NumberInput() {
-  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const handleStageChange = (newStage: StageContent) => {
     dispatch(setCurrentStage(newStage));
   };
   const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [error, setError] = useState("");
   const { handleRequest: requestCode } = useRequestCode({ setError });
   return (
     <section className="number-input">

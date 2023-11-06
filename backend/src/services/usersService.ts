@@ -9,12 +9,14 @@ import { codesService } from "./codesService";
 import { jwtTokenService } from "./utils/jwtTokensService";
 import { randomUUID } from "crypto";
 import { ApiError } from "src/errors/apiError";
+import { JwtPayload } from "jsonwebtoken";
 
 class UsersService implements IUsersService {
   constructor(
     private readonly usersRepository: IUsersRepository<InsertUser, SelectUser>,
     private readonly codesService: ICodesService
   ) {}
+
   loginOrRegister = async (
     request: LoginRegistrationModel
   ): Promise<TokensResponse> => {
@@ -48,6 +50,26 @@ class UsersService implements IUsersService {
       }
     );
     return userModel;
+  };
+  refreshAccessToken = async (
+    refreshToken: string
+  ): Promise<TokensResponse> => {
+    const { userId } = (await jwtTokenService.validateRefreshToken(
+      refreshToken
+    )) as JwtPayload;
+    const token = await this.usersRepository.getRefreshToken(userId);
+    if (!token) {
+      throw new ApiError("Refresh token not found", 404);
+    }
+    if (refreshToken !== token.refreshToken) {
+      throw new ApiError("Incorrect refresh token", 403);
+    }
+    const tokens = await jwtTokenService.generateAccessToken(userId);
+    await this.usersRepository.addRefreshToken({
+      userId,
+      refreshToken: tokens.refreshToken,
+    });
+    return tokens;
   };
 }
 

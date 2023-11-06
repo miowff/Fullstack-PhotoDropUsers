@@ -15,6 +15,11 @@ provider:
     cors:
       allowedOrigins: ["*"]
       allowedHeaders: ["*"]
+      allowedMethods:
+        - "GET"
+        - "POST"
+        - "PUT"
+        - "DELETE"
     authorizers:
       usersAuthorizer:
         type: request

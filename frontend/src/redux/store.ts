@@ -1,19 +1,21 @@
 import { configureStore } from "@reduxjs/toolkit";
 import letsGetStartedStageReducer from "./letsGetStarted/letsGetStartedSlice";
-import auth from "../redux/user/authSlice";
-import { api } from "../api/apiSlice";
+import auth from "./user/authSlice";
+import { apiSlice } from "../api/api";
 import { listenerMiddleware } from "../middleware/auth";
+
 const store = configureStore({
   reducer: {
-    [api.reducerPath]: api.reducer,
+    [apiSlice.reducerPath]: apiSlice.reducer,
     auth,
     letsGetStartedStages: letsGetStartedStageReducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware()
-      .concat(api.middleware)
+      .concat(apiSlice.middleware)
       .prepend(listenerMiddleware.middleware);
   },
+  devTools: true,
 });
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
