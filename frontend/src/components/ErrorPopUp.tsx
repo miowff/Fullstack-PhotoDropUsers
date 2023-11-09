@@ -1,7 +1,7 @@
 type ErrorProps = {
   message?: string;
 };
-export function ErrorPopUp({ message }: ErrorProps) {
+export const ErrorPopUp = ({ message }: ErrorProps) => {
   if (!message) {
     return null;
   }
@@ -12,4 +12,4 @@ export function ErrorPopUp({ message }: ErrorProps) {
       </div>
     </>
   );
-}
+};

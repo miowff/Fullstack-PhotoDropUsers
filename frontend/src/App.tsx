@@ -1,13 +1,17 @@
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
 import { LestGetStarted } from "./pages/LestGetStarted";
-import { PrivateWrapper } from "./utils/protectedRoute";
+import { PrivateWrapper } from "./components/protectedRoute";
 import { useEffect } from "react";
 import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from "./enums/constants";
 import { useDispatch } from "react-redux";
 import { useLazyGetCurrentUserQuery } from "./api/auth";
 import { UserModel } from "../../backend/src/models/user";
 import { setUser } from "./redux/user/authSlice";
+import { SetUserDataPage } from "./pages/SetUserDataPage";
+import { SetFullNamePage } from "./pages/SetFullNamePage";
+import { SetProfilePhotoPage } from "./pages/SetProfilePhoto";
+import { SetEmailPage } from "./pages/SetEmailPage";
 
 function App() {
   const [getUser] = useLazyGetCurrentUserQuery();
@@ -30,7 +34,18 @@ function App() {
       .then((data: UserModel) => {
         if (data) {
           dispatch(setUser(data));
-          navigate("/");
+          const { email, fullName, profilePhotoLink } = data;
+          if (
+            email === null &&
+            fullName === null &&
+            profilePhotoLink === null
+          ) {
+            navigate("/set-user-data");
+          }
+          if (location.pathname === "/start") {
+            return navigate("/");
+          }
+          return navigate(location);
         }
       });
   }, []);
@@ -45,6 +60,38 @@ function App() {
             </PrivateWrapper>
           }
         />
+        <Route
+          path="/set-user-data"
+          element={
+            <PrivateWrapper>
+              <SetUserDataPage />
+            </PrivateWrapper>
+          }
+        ></Route>
+        <Route
+          path="/set-full-name"
+          element={
+            <PrivateWrapper>
+              <SetFullNamePage />
+            </PrivateWrapper>
+          }
+        ></Route>
+        <Route
+          path="/set-profile-photo"
+          element={
+            <PrivateWrapper>
+              <SetProfilePhotoPage />
+            </PrivateWrapper>
+          }
+        ></Route>
+        <Route
+          path="/set-email"
+          element={
+            <PrivateWrapper>
+              <SetEmailPage />
+            </PrivateWrapper>
+          }
+        ></Route>
         <Route path="/start" element={<LestGetStarted />} />
         <Route path="*" element={<div>404 Not Found</div>} />
       </Routes>

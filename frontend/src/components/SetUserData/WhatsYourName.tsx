@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function WhatsYourName() {
+export const WhatsYourName = () => {
   const [name, setName] = useState<string>("");
   const handleNameInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -8,14 +8,13 @@ export function WhatsYourName() {
   return (
     <div className="whats-your-name">
       <div className="container">
-     
         <div className="lets-get-started-inner">
           <div className="whats-your-name__inner-content">
             <div className="whats-your-name__title-container">
-              <h4 className="whats-the-code__title">Let’s get to know you</h4>
+              <h4 className="lets-get-started-title">Let’s get to know you</h4>
             </div>
             <input
-              className="whats-your-name__input-name"
+              className="default-input whats-your-name__input-name"
               placeholder="What's your name?"
               onChange={handleNameInput}
             ></input>
@@ -29,4 +28,4 @@ export function WhatsYourName() {
       </div>
     </div>
   );
-}
+};

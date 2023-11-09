@@ -10,7 +10,7 @@ import { useState } from "react";
 import { useRequestCode } from "../../hooks/userRequestCode";
 import { ErrorPopUp } from "../ErrorPopUp";
 
-export function NumberInput() {
+export const NumberInput = () => {
   const dispatch = useDispatch();
   const handleStageChange = (newStage: StageContent) => {
     dispatch(setCurrentStage(newStage));
@@ -70,4 +70,4 @@ export function NumberInput() {
       </div>
     </section>
   );
-}
+};

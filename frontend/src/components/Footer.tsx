@@ -1,6 +1,6 @@
 import FrameologyLogo from "../public/images/FrameologyLogo.svg";
 import ClimateNeutralLogo from "../public/images/ClimateNeutralLogo.svg";
-export function Footer() {
+export const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer__content">
@@ -57,4 +57,4 @@ export function Footer() {
       </div>
     </footer>
   );
-}
+};

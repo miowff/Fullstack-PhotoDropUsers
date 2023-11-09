@@ -49,7 +49,7 @@ export function WhatsTheCode() {
               Enter the code sent to <span>+{enteredNumber}</span>
             </p>
             <input
-              className="whats-the-code__input-code"
+              className="default-input whats-the-code__input-code"
               maxLength={6}
               onChange={handleCodeInput}
             ></input>

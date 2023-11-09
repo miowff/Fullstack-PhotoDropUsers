@@ -20,6 +20,22 @@
     }
 }
 
+.default-input {
+    width: 420px;
+    height: 40px;
+    border: none;
+    font-family: FuturaPtMedium;
+    color: #262626;
+    font-size: 20px;
+}
+
+.default-text {
+    color: #262626;
+    font-family: FuturaPtDefault;
+    font-size: 16px;
+    padding-bottom: 15px;
+}
+
 .photo-buttons-group {
     position: inherit;
     display: flex;
@@ -68,7 +84,6 @@
     flex-direction: column;
     max-width: 420px;
     margin: 0 auto;
-
 }
 
 .header {
@@ -107,12 +122,6 @@
         font-size: 14px;
         padding-top: 20px;
         max-width: 340px;
-    }
-
-    &__input-number {
-        width: 265px;
-        height: 40px;
-
     }
 
     &__button-container {
@@ -228,12 +237,6 @@
     }
 
     &__input-code {
-        width: 420px;
-        height: 40px;
-        border: none;
-        font-family: FuturaPtMedium;
-        font-size: 20px;
-        color: #262626;
         letter-spacing: 65px;
         margin-bottom: 25px;
     }
@@ -258,18 +261,178 @@
     }
 
     &__input-name {
-        width: 420px;
-        height: 40px;
-        border: none;
-        font-family: FuturaPtMedium;
         margin-bottom: 20px;
+    }
+}
+
+.whats-your-email {
+    padding-top: 250px;
+
+    h4 {
+        padding-bottom: 30px;
+        text-align: center;
+    }
+
+    &__input {
+        margin-bottom: 30px;
+    }
+
+    &__privacy-policy {
+        padding-top: 260px;
+        color: #262626;
+        font-family: FuturaPtDefault;
+        font-size: 16px;
+        padding-bottom: 15px;
+
+        a {
+            color: #262626;
+            text-decoration: underline #3300CC;
+        }
+    }
+}
+
+.add-a-selfie {
+    padding-top: 250px;
+    text-align: center;
+    padding-right: 50px;
+
+    &__text {
+        padding-top: 30px;
+    }
+
+
+    &__prev-photo {
+        padding-top: 30px;
+        margin: 0 auto;
+        max-width: 181px;
+        max-height: 181px;
+        border-radius: 50%;
+    }
+
+    &__plus-button {
+        position: relative;
+        left: 50px;
+        bottom: 40px;
+        background-color: #3300CC;
+        color: white;
+        border: none;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        font-size: 35px;
+        cursor: pointer;
+    }
+}
+
+.pop-up-selfie-upload-options {
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.9);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    flex-direction: column;
+
+    &__inner {
+        width: 420px;
+        height: 185px;
+        border-radius: 20px;
+        background-color: white;
+    }
+
+    &__x-mark {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+        background-image: url("../public/images/XMarkBlack.svg");
+        margin-left: 15px;
+
+
+        img {
+            padding-top: 18px;
+        }
+    }
+
+    &__content {
+        padding-top: 20px;
+        display: flex;
+        flex-direction: column;
+        font-family: FuturaPtMedium;
+        font-size: 22px;
+
+        h6 {
+            line-height: 19px;
+        }
+    }
+
+    &__buttons-container {
+        padding-top: 10px;
+    }
+
+    &__input-wrapper {
+        margin-top: 10px;
+
+        input {
+            display: none;
+        }
+
+        span {
+            cursor: pointer;
+        }
+
+    }
+
+    &__input-button {
+        width: 380px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        margin: 0 auto;
+        border-radius: 30px;
+        border: 1px solid #3300CC;
+        color: #3300CC;
+        cursor: pointer;
+    }
+
+    &__webcam-container {
+        position: absolute;
+        z-index: 101;
+        transition: all 1s;
+    }
+
+
+
+
+    &__camera-button {
+        font-family: FuturaPtMedium;
+        font-size: 18px;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top: 10px;
+        width: 180px;
+        height: 50px;
+        border-radius: 30px;
+        cursor: pointer;
+    }
+
+    &__close-camera-button {
+        background-color: #202020;
+        border: 1px solid white;
+        color: white;
     }
 }
 
 .pop-up-photo-container {
     width: 100%;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.7);
     position: fixed;
     top: 0;
     left: 0;
@@ -294,6 +457,99 @@
         position: absolute;
         bottom: 65px;
         right: 480px;
+    }
+}
+
+.selfie-edit {
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    flex-direction: column;
+
+    &__inner {
+        height: 650px;
+        width: 380px;
+        background-color: #202020;
+        border-radius: 20px;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__title {
+        font-family: FuturaPtHeavy;
+        letter-spacing: 1px;
+        font-size: 18px;
+        line-height: 13px;
+        color: white;
+    }
+
+    &__tip-text {
+        font-family: FuturaPtDefault;
+        color: white;
+        font-size: 16px;
+        line-height: 11px;
+        padding-top: 90px;
+    }
+
+    &__selected-image-container {
+        padding-top: 40px;
+        overflow: hidden;
+    }
+
+    &__selected-image {
+        width: 330px;
+        height: 310px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin: 0 auto;
+    }
+
+    &__buttons-container {
+        padding-top: 90px;
+    }
+
+    &__button {
+        font-family: FuturaPtHeavy;
+        width: 170px;
+        height: 50px;
+        margin-left: 5px;
+        margin-right: 5px;
+        border-radius: 30px;
+        font-size: 18px;
+        border: none;
+        cursor: pointer;
+    }
+
+    &__retake-button {
+        border: 1px solid white;
+        background: rgba(28, 28, 28, 0);
+        color: white
+    }
+
+    &__save-button {
+        color: #262626;
+        background-color: white;
+    }
+
+    &__x-mark {
+        position: relative;
+        top: 20px;
+        left: 15px;
+        z-index: 110;
+        cursor: pointer;
+        width: 18px;
+        height: 25px;
+        background-image: url("../public/images/X.svg");
     }
 }
 

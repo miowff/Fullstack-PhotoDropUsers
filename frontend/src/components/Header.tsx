@@ -1,7 +1,7 @@
 import PhotoDropLogo from "../public/images/PhotoDropLogo.png";
 import NoProfilePicture from "../public/images/NoProfilePicture.svg";
 import { useNavigate, useLocation } from "react-router-dom";
-export function Header() {
+export const Header = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   return (
@@ -26,4 +26,4 @@ export function Header() {
       </div>
     </header>
   );
-}
+};

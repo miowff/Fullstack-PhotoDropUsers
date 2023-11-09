@@ -4,10 +4,10 @@ interface PopUpPhotoProps {
   photoUrl: string;
   setPopUpPhotoVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
-export function PopUpPhoto({
+export const PopUpPhoto = ({
   photoUrl,
   setPopUpPhotoVisible,
-}: PopUpPhotoProps) {
+}: PopUpPhotoProps) => {
   return (
     <div className="pop-up-photo-container">
       <span
@@ -26,4 +26,4 @@ export function PopUpPhoto({
       </div>
     </div>
   );
-}
+};
