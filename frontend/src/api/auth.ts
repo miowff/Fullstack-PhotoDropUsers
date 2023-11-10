@@ -3,6 +3,7 @@ import {
   TokensResponse,
 } from "../../../backend/src/models/tokensResponse";
 import {
+  AuthResponse,
   LoginRegistrationModel,
   UserModel,
 } from "../../../backend/src/models/user";
@@ -10,7 +11,7 @@ import { apiSlice } from "./api";
 
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    loginOrRegister: builder.mutation<TokensResponse, LoginRegistrationModel>({
+    loginOrRegister: builder.mutation<AuthResponse, LoginRegistrationModel>({
       query: (userData) => ({
         url: "/login-or-register",
         method: "POST",

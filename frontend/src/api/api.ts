@@ -10,6 +10,7 @@ import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from "../enums/constants";
 import { logOut, setToken } from "../redux/user/authSlice";
 import { TokensResponse } from "../../../backend/src/models/tokensResponse";
 import { removeTokens } from "../utils/removeTokens";
+import { setTokens } from "../utils/setTokens";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "https://2orh1m3spg.execute-api.us-east-1.amazonaws.com",
@@ -40,15 +41,10 @@ const baseQueryWithReAuth: BaseQueryFn<
         api,
         extraOptions
       )) as { data: TokensResponse } | undefined;
-      console.log(refreshResult);
       if (refreshResult) {
         api.dispatch(setToken(refreshResult.data));
         result = await baseQuery(args, api, extraOptions);
-        localStorage.setItem(ACCESS_TOKEN_KEY, refreshResult.data.accessToken);
-        localStorage.setItem(
-          REFRESH_TOKEN_KEY,
-          refreshResult.data.refreshToken
-        );
+        setTokens(refreshResult.data);
       } else {
         api.dispatch(logOut());
         removeTokens();

@@ -2,7 +2,11 @@ import { IUsersRepository } from "src/db/IRepositories/IUsersRepository";
 import { IUsersService } from "./IServices/IUsersService";
 import { InsertUser, SelectUser } from "src/db/entities/users";
 import { TokensResponse } from "src/models/tokensResponse";
-import { LoginRegistrationModel, UserModel } from "src/models/user";
+import {
+  AuthResponse,
+  LoginRegistrationModel,
+  UserModel,
+} from "src/models/user";
 import { usersRepository } from "src/db/repositories/usersRepository";
 import { ICodesService } from "./IServices/ICodesService";
 import { codesService } from "./codesService";
@@ -16,10 +20,28 @@ class UsersService implements IUsersService {
     private readonly usersRepository: IUsersRepository<InsertUser, SelectUser>,
     private readonly codesService: ICodesService
   ) {}
+  updateEmail = async (userId: string, email: string): Promise<string> => {
+    const user = await this.usersRepository.getById(userId);
+    if (!user) {
+      throw ApiError.NotFound("User");
+    }
+    user.email = email;
+    await this.usersRepository.updateUser(userId, user);
+    return email;
+  };
+  updateName = async (userId: string, name: string): Promise<string> => {
+    const user = await this.usersRepository.getById(userId);
+    if (!user) {
+      throw ApiError.NotFound("User");
+    }
+    user.fullName = name;
+    await this.usersRepository.updateUser(userId, user);
+    return name;
+  };
 
   loginOrRegister = async (
     request: LoginRegistrationModel
-  ): Promise<TokensResponse> => {
+  ): Promise<AuthResponse> => {
     const { phoneNumber, code } = request;
     const existsUsers = await this.usersRepository.getByPhoneNumber(
       phoneNumber
@@ -37,14 +59,28 @@ class UsersService implements IUsersService {
         userId,
         refreshToken: tokens.refreshToken,
       });
-      return tokens;
+      const currentUser = Object.assign({}, newUser, {
+        id: undefined,
+        phoneNumber: undefined,
+        profilePhotoKey: undefined,
+        profilePhotoLink: null,
+        email: null,
+        fullName: null,
+      });
+      return { tokens, currentUser };
     }
     const tokens = await jwtTokenService.generateAccessToken(existsUsers.id);
     await this.usersRepository.addRefreshToken({
       userId: existsUsers.id,
       refreshToken: tokens.refreshToken,
     });
-    return tokens;
+    const currentUser = Object.assign({}, existsUsers, {
+      id: undefined,
+      phoneNumber: undefined,
+      profilePhotoKey: undefined,
+      profilePhotoLink: existsUsers.profilePhotoKey,
+    });
+    return { tokens, currentUser };
   };
   getById = async (userId: string): Promise<UserModel> => {
     const user = await this.usersRepository.getById(userId);

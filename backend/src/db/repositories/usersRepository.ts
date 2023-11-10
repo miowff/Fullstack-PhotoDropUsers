@@ -11,6 +11,9 @@ import {
 
 class UsersRepository implements IUsersRepository<InsertUser, SelectUser> {
   constructor(private readonly db: MySql2Database) {}
+  updateUser = async (userId: string, user: InsertUser): Promise<void> => {
+    await this.db.update(users).set(user).where(eq(users.id, userId));
+  };
   getByPhoneNumber = async (phoneNumber: string): Promise<SelectUser> => {
     const response = await this.db
       .select()

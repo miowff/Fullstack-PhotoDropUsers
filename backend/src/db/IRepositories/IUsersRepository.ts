@@ -9,4 +9,5 @@ export interface IUsersRepository<TInsert, TSelect> {
   getById(userId: string): Promise<TSelect>;
   getRefreshToken(userId: string): Promise<SelectRefreshToken>;
   addRefreshToken(insertToken: InsertRefreshToken): Promise<void>;
+  updateUser(userId: string, user: TInsert): Promise<void>;
 }

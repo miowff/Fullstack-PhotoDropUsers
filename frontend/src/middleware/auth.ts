@@ -6,7 +6,7 @@ listenerMiddleware.startListening({
   matcher: authApi.endpoints.loginOrRegister.matchFulfilled,
   effect: async (action, listenerApi) => {
     listenerApi.cancelActiveListeners();
-    const { accessToken, refreshToken } = action.payload;
+    const { accessToken, refreshToken } = action.payload.tokens;
     if (accessToken) {
       localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
       localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);

@@ -7,7 +7,7 @@ import { LoginRegistrationModel } from "../../../../backend/src/models/user";
 import { useLoginOrRegisterMutation } from "../../api/auth";
 import { isErrorWithMessage } from "../../utils/errorParser";
 import { useNavigate } from "react-router-dom";
-import { setToken } from "../../redux/user/authSlice";
+import { setToken, setUser } from "../../redux/user/authSlice";
 export function WhatsTheCode() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -24,7 +24,10 @@ export function WhatsTheCode() {
   const { handleRequest: requestCode } = useRequestCode({ setError });
   const loginOrRegister = async (request: LoginRegistrationModel) => {
     try {
-      const tokens = await loginOrRegisterUser(request).unwrap();
+      const { tokens, currentUser } = await loginOrRegisterUser(
+        request
+      ).unwrap();
+      dispatch(setUser(currentUser));
       dispatch(setToken(tokens));
       navigate("/");
     } catch (err) {

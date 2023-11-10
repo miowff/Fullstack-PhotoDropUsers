@@ -35,3 +35,21 @@ GetCurrent:
         method: GET
         authorizer:
           name: usersAuthorizer
+
+UpdateName:
+  handler: src/lambdas/users/updateName.handler
+  events:
+    - httpApi:
+        path: /update-name
+        method: PUT
+        authorizer:
+          name: usersAuthorizer
+
+UpdateEmail:
+  handler: src/lambdas/users/updateEmail.handler
+  events:
+    - httpApi:
+        path: /update-email
+        method: PUT
+        authorizer:
+          name: usersAuthorizer
