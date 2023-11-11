@@ -5,7 +5,7 @@ import { SelfieEditPopUp } from "./SelfieEditPopUp";
 export const AddASelfie = () => {
   const [isPopUpControlsVisible, setPopUpControlsVisible] =
     useState<boolean>(false);
-  const [currentPic, setCurrentPic] = useState<string | File | null>(null);
+  const [currentPic, setCurrentPic] = useState<File | null>(null);
   const [isSelfieEditVisible, setSelfieEditVisible] = useState<boolean>(
     currentPic !== null
   );
@@ -23,7 +23,7 @@ export const AddASelfie = () => {
         <SelfieEditPopUp
           isVisible={setSelfieEditVisible}
           isPopUpControlsVisible={setPopUpControlsVisible}
-          currentPic={currentPic as string}
+          currentPic={currentPic}
         />
       )}
       <div className="container">

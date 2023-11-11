@@ -53,3 +53,24 @@ UpdateEmail:
         method: PUT
         authorizer:
           name: usersAuthorizer
+
+RequestUploadProfilePicUrl:
+  handler: src/lambdas/users/requestUploadProfilePicUrl.handler
+  events:
+    - httpApi:
+        path: /request-upload-profile-pic-url
+        method: POST
+        authorizer:
+          name: usersAuthorizer
+
+UpdateUserProfilePic:
+  handler: src/lambdas/users/updateProfilePic.handler
+  events:
+    - s3:
+        bucket: photo-drop-images
+        event: s3:ObjectCreated:*
+        existing: true
+        rules:
+          - prefix: profilePics/
+  memorySize: 1000
+  timeout: 10

@@ -28,7 +28,7 @@ export const WhatsYourName = () => {
         };
         dispatch(setUser(updatedUser));
       }
-      navigate("/set-user-data");
+      navigate("/");
     } catch (err) {
       const error = isErrorWithMessage(err);
       console.log(err);

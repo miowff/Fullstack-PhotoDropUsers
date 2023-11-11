@@ -1,10 +1,11 @@
 import { useRef, useState } from "react";
 import Webcam from "react-webcam";
+import { toFile } from "../../utils/toFile";
 
 interface PopUpOptionsProps {
   setPopUpControlsVisible: React.Dispatch<React.SetStateAction<boolean>>;
   setSelfieEditVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  setSelectedFile: React.Dispatch<React.SetStateAction<string | File | null>>;
+  setSelectedFile: React.Dispatch<React.SetStateAction<File | null>>;
 }
 export const UploadSelfieOptionsPopup = ({
   setPopUpControlsVisible,
@@ -16,7 +17,10 @@ export const UploadSelfieOptionsPopup = ({
   const capture = () => {
     if (webcamRef.current) {
       const capturedImageSrc = webcamRef.current.getScreenshot();
-      setSelectedFile(capturedImageSrc);
+      if (capturedImageSrc) {
+        const capturedFile = toFile(capturedImageSrc);
+        setSelectedFile(capturedFile);
+      }
       setCameraOpened(false);
       setSelfieEditVisible(true);
       setPopUpControlsVisible(false);

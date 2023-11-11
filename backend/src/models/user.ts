@@ -20,3 +20,28 @@ export interface SetFullName {
 export interface SetEmail {
   email: string;
 }
+export interface RequestUploadPhotoUrl {
+  fileName: string;
+  type: string;
+}
+interface PresignedUrl {
+  url: string;
+  fields: Fields;
+}
+
+interface Fields {
+  Key: string;
+  ContentType: string;
+  bucket: string;
+  "X-Amz-Algorithm": string;
+  "X-Amz-Credential": string;
+  "X-Amz-Date": string;
+  "X-Amz-Security-Token": string;
+  Policy: string;
+  "X-Amz-Signature": string;
+}
+
+export interface UploadProfilePicUrlResponse {
+  url: PresignedUrl;
+  accessUrl: string;
+}

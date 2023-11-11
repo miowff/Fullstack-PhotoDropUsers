@@ -11,4 +11,5 @@ export interface IUsersService {
   refreshAccessToken(refreshToken: string): Promise<TokensResponse>;
   updateName(userId: string, name: string): Promise<string>;
   updateEmail(userId: string, email: string): Promise<string>;
+  updateProfilePhotoKey(userId: string, photoKey: string): Promise<void>;
 }

@@ -1,4 +1,9 @@
-import { SetEmail, SetFullName } from "../../../backend/src/models/user";
+import {
+  UploadProfilePicUrlResponse,
+  RequestUploadPhotoUrl,
+  SetEmail,
+  SetFullName,
+} from "../../../backend/src/models/user";
 import { apiSlice } from "./api";
 
 export const userApi = apiSlice.injectEndpoints({
@@ -17,6 +22,20 @@ export const userApi = apiSlice.injectEndpoints({
         body: email,
       }),
     }),
+    getUploadProfilePicUrl: builder.query<
+      UploadProfilePicUrlResponse,
+      RequestUploadPhotoUrl
+    >({
+      query: (request: RequestUploadPhotoUrl) => ({
+        url: "request-upload-profile-pic-url",
+        method: "POST",
+        body: request,
+      }),
+    }),
   }),
 });
-export const { useSetFullNameMutation, useSetEmailMutation } = userApi;
+export const {
+  useSetFullNameMutation,
+  useSetEmailMutation,
+  useLazyGetUploadProfilePicUrlQuery,
+} = userApi;
