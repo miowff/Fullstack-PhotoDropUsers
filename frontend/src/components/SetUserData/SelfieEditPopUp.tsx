@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 interface SelfieEditProps {
   isVisible: React.Dispatch<React.SetStateAction<boolean>>;
   isPopUpControlsVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  currentPic: File | null;
+  currentPic: string | File | null;
 }
 export const SelfieEditPopUp = ({
   isVisible,
@@ -26,14 +26,12 @@ export const SelfieEditPopUp = ({
   const user = useSelector((state: RootState) => state.auth.user);
   const uploadProfilePic = async () => {
     try {
-      if (currentPic) {
+      if (currentPic && typeof currentPic !== "string") {
         const { name: fileName, type } = currentPic;
         const { url: preSignedUrl, accessUrl } = await getUploadProfilePicUrl({
           fileName,
           type,
         }).unwrap();
-        console.log(preSignedUrl);
-        console.log(accessUrl);
         const { url, fields } = preSignedUrl;
         const formData = new FormData();
         for (const [key, value] of Object.entries(fields)) {

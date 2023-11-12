@@ -100,8 +100,10 @@
     }
 
     &__profile-thumb img {
-        max-width: 40px;
-        max-height: 40px;
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 50%;
         cursor: pointer;
     }
 }
@@ -336,7 +338,7 @@
     justify-content: center;
     z-index: 100;
     flex-direction: column;
-
+    text-align: center;
     &__inner {
         width: 420px;
         height: 185px;
@@ -472,7 +474,7 @@
     justify-content: center;
     z-index: 100;
     flex-direction: column;
-
+    text-align: center;
     &__inner {
         height: 650px;
         width: 380px;
@@ -550,6 +552,79 @@
         width: 18px;
         height: 25px;
         background-image: url("../public/images/X.svg");
+    }
+}
+
+.profile-details {
+    padding-top: 60px;
+
+    &__title-container {
+        text-align: center;
+        padding-bottom: 30px;
+    }
+
+    &__inner {
+        max-width: 480px;
+        margin: 0 auto;
+    }
+
+    &__bold-text {
+        font-family: FuturaPtMedium;
+        font-size: 18px;
+        line-height: 13px;
+    }
+
+    &__selfie-container {
+
+        padding-top: 15px;
+        margin-right: auto;
+    }
+
+    &__selfie {
+        object-fit: cover;
+        border-radius: 50%;
+        width: 150px;
+        height: 150px;
+    }
+
+    &__user-data-fields {
+        padding-top: 20px;
+    }
+
+    &__user-data-field {
+        max-width: 420px;
+        height: 50px;
+        border: 1px solid #CECCB5;
+        border-radius: 18px;
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    &__user-data-field-content {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding-top: 15px;
+        padding-left: 15px;
+        cursor: pointer;
+    }
+
+    &__edit-icon {
+        background-image: url(../public/images/PenIcon.svg);
+        width: 45px;
+        height: 45px;
+        position: absolute;
+        margin-left: 125px;
+        margin-top: -50px;
+        cursor: pointer;
+    }
+
+    &__right-arrow {
+        background-image: url(../public/images/RightArrow.svg);
+        width: 10px;
+        height: 20px;
+        margin-left: 70px;
     }
 }
 

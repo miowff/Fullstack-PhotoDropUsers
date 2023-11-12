@@ -1,9 +1,22 @@
 import PhotoDropLogo from "../public/images/PhotoDropLogo.png";
 import NoProfilePicture from "../public/images/NoProfilePicture.svg";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { useEffect, useState } from "react";
 export const Header = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const user = useSelector((state: RootState) => state.auth.user);
+  const [profilePicLink, setProfilePicLink] = useState(NoProfilePicture);
+  useEffect(() => {
+    if (user) {
+      const { profilePhotoLink } = user;
+      if (profilePhotoLink) {
+        setProfilePicLink(profilePhotoLink);
+      }
+    }
+  }, [user]);
   return (
     <header className="header">
       <div className="container">
@@ -17,9 +30,15 @@ export const Header = () => {
               }}
             ></img>
           </a>
-          {pathname !== "/start" && (
+          {pathname !== "/start" && pathname !== "/me" && (
             <a className="header__profile-thumb">
-              <img src={NoProfilePicture} alt="profile thumbnail"></img>
+              <img
+                src={profilePicLink}
+                alt="profile thumbnail"
+                onClick={() => {
+                  navigate("/me");
+                }}
+              ></img>
             </a>
           )}
         </div>

@@ -11,6 +11,7 @@ import { SetFullNamePage } from "./pages/SetFullNamePage";
 import { SetProfilePhotoPage } from "./pages/SetProfilePhoto";
 import { SetEmailPage } from "./pages/SetEmailPage";
 import { PrivateWrapper } from "./components/protectedRoute";
+import { ProfileDetails } from "./pages/ProfileDetails";
 
 function App() {
   const [getUser] = useLazyGetCurrentUserQuery();
@@ -73,6 +74,14 @@ function App() {
           element={
             <PrivateWrapper>
               <SetEmailPage />
+            </PrivateWrapper>
+          }
+        ></Route>
+        <Route
+          path="/me"
+          element={
+            <PrivateWrapper>
+              <ProfileDetails />
             </PrivateWrapper>
           }
         ></Route>

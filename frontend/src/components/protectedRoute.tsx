@@ -12,13 +12,11 @@ export const PrivateWrapper = ({ children }: { children: JSX.Element }) => {
     if (user) {
       const { email, fullName, profilePhotoLink } = user;
       if (fullName === null) {
-        navigate("/set-full-name");
+        return navigate("/set-full-name");
       } else if (email === null) {
-        navigate("/set-email");
+        return navigate("/set-email");
       } else if (profilePhotoLink === null) {
-        navigate("/set-profile-photo");
-      } else {
-        navigate("/");
+        return navigate("/set-profile-photo");
       }
     }
   }, [user, navigate]);
