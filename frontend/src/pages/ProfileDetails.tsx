@@ -16,11 +16,14 @@ export const ProfileDetails = () => {
   const [isSelfieEditVisible, setSelfieEditVisible] = useState<boolean>(false);
   const [isPopUpControlsVisible, setPopUpControlsVisible] =
     useState<boolean>(false);
-  const [currentPic, setCurrentPic] = useState<File | null>(null);
+  const [currentPic, setCurrentPic] = useState<string | File | null>(
+    profilePicLink
+  );
   useEffect(() => {
     if (user) {
       const { profilePhotoLink, fullName, email } = user;
       if (profilePhotoLink) {
+        setCurrentPic(profilePhotoLink);
         setProfilePicLink(profilePhotoLink);
         setUserFullName(fullName);
         setUserEmail(email);
@@ -42,7 +45,7 @@ export const ProfileDetails = () => {
         <SelfieEditPopUp
           isVisible={setSelfieEditVisible}
           isPopUpControlsVisible={setPopUpControlsVisible}
-          currentPic={profilePicLink}
+          currentPic={currentPic}
         />
       )}
       <div className="profile-details">

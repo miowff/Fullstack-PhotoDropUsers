@@ -12,6 +12,7 @@ import { SetProfilePhotoPage } from "./pages/SetProfilePhoto";
 import { SetEmailPage } from "./pages/SetEmailPage";
 import { PrivateWrapper } from "./components/protectedRoute";
 import { ProfileDetails } from "./pages/ProfileDetails";
+import { PrivacyPolicy } from "./pages/PrivacyPolicy";
 
 function App() {
   const [getUser] = useLazyGetCurrentUserQuery();
@@ -82,6 +83,14 @@ function App() {
           element={
             <PrivateWrapper>
               <ProfileDetails />
+            </PrivateWrapper>
+          }
+        ></Route>
+        <Route
+          path="/privacy-policy"
+          element={
+            <PrivateWrapper>
+              <PrivacyPolicy />
             </PrivateWrapper>
           }
         ></Route>

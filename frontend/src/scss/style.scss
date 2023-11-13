@@ -36,6 +36,12 @@
     padding-bottom: 15px;
 }
 
+.default-bold-text {
+    font-family: FuturaPtHeavy;
+    font-size: 18px;
+    line-height: 13px;
+}
+
 .photo-buttons-group {
     position: inherit;
     display: flex;
@@ -339,6 +345,7 @@
     z-index: 100;
     flex-direction: column;
     text-align: center;
+
     &__inner {
         width: 420px;
         height: 185px;
@@ -475,6 +482,7 @@
     z-index: 100;
     flex-direction: column;
     text-align: center;
+
     &__inner {
         height: 650px;
         width: 380px;
@@ -626,6 +634,27 @@
         height: 20px;
         margin-left: 70px;
     }
+}
+
+.privacy-policy {
+    &__inner {
+        margin-top: 15px;
+        h2{
+            text-align: center;
+        }
+    }
+
+    &__text-block {
+        max-width: 700px;
+        margin: 0 auto;
+        margin-top: 10px;
+        margin-bottom: 10px;
+
+        p {
+            margin-top: 5px;
+        }
+    }
+
 }
 
 .footer {

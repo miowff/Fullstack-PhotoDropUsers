@@ -36,20 +36,11 @@ GetCurrent:
         authorizer:
           name: usersAuthorizer
 
-UpdateName:
-  handler: src/lambdas/users/updateName.handler
+Update:
+  handler: src/lambdas/users/update.handler
   events:
     - httpApi:
-        path: /update-name
-        method: PUT
-        authorizer:
-          name: usersAuthorizer
-
-UpdateEmail:
-  handler: src/lambdas/users/updateEmail.handler
-  events:
-    - httpApi:
-        path: /update-email
+        path: /update/{update}
         method: PUT
         authorizer:
           name: usersAuthorizer
@@ -74,3 +65,12 @@ UpdateUserProfilePic:
           - prefix: profilePics/
   memorySize: 1000
   timeout: 10
+
+GetAlbums:
+  handler: src/lambdas/albums/getUserAlbums.handler
+  events:
+    - httpApi:
+        path: /albums
+        method: GET
+        authorizer:
+          name: usersAuthorizer

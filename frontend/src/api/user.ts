@@ -10,14 +10,14 @@ export const userApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     setFullName: builder.mutation<string, SetFullName>({
       query: (fullName: SetFullName) => ({
-        url: "update-name",
+        url: "update/name",
         method: "PUT",
         body: fullName,
       }),
     }),
     setEmail: builder.mutation<string, SetEmail>({
       query: (email: SetEmail) => ({
-        url: "update-email",
+        url: "update/email",
         method: "PUT",
         body: email,
       }),

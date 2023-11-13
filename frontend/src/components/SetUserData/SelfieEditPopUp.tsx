@@ -7,7 +7,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { setUser } from "../../redux/user/authSlice";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 interface SelfieEditProps {
   isVisible: React.Dispatch<React.SetStateAction<boolean>>;
   isPopUpControlsVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,9 +18,12 @@ export const SelfieEditPopUp = ({
   isPopUpControlsVisible,
   currentPic,
 }: SelfieEditProps) => {
+  const { pathname } = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [selectedImage, setSelectedImage] = useState<string>(NoProfilePicture);
+  const [selectedImage, setSelectedImage] = useState<string>(
+    currentPic as string
+  );
   const [error, setError] = useState("");
   const [getUploadProfilePicUrl] = useLazyGetUploadProfilePicUrlQuery();
   const user = useSelector((state: RootState) => state.auth.user);
@@ -49,7 +52,9 @@ export const SelfieEditPopUp = ({
           dispatch(setUser(updatedUser));
         }
       }
-      navigate("/");
+      if (pathname !== "/me") {
+        return navigate("/");
+      }
     } catch (err) {
       const error = isErrorWithMessage(err);
       if (error) {
@@ -69,7 +74,9 @@ export const SelfieEditPopUp = ({
       };
       reader.readAsDataURL(currentPic);
     }
-
+    if (typeof currentPic === "string") {
+      return setSelectedImage(currentPic);
+    }
     setSelectedImage(NoProfilePicture);
   }, [currentPic]);
 
@@ -108,6 +115,7 @@ export const SelfieEditPopUp = ({
                 className="selfie-edit__save-button selfie-edit__button"
                 onClick={async () => {
                   await uploadProfilePic();
+                  isVisible(false);
                 }}
               >
                 Save

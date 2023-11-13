@@ -5,7 +5,7 @@ import { toFile } from "../../utils/toFile";
 interface PopUpOptionsProps {
   setPopUpControlsVisible: React.Dispatch<React.SetStateAction<boolean>>;
   setSelfieEditVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  setSelectedFile: React.Dispatch<React.SetStateAction<File | null>>;
+  setSelectedFile: React.Dispatch<React.SetStateAction<string | File | null>>;
 }
 export const UploadSelfieOptionsPopup = ({
   setPopUpControlsVisible,

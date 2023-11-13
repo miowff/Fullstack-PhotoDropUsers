@@ -44,6 +44,13 @@ class ResponseCreator {
       body: JSON.stringify(`Query string params is missing.`),
     };
   };
+  missedPathParameters = () => {
+    return {
+      statusCode: 400,
+      headers: HEADERS,
+      body: JSON.stringify(`Path params is missing.`),
+    };
+  };
   missedRequestAuthorizerContext = () => {
     return {
       statusCode: 400,
