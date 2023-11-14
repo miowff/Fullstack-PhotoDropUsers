@@ -14,7 +14,7 @@ import { jwtTokenService } from "./utils/jwtTokensService";
 import { randomUUID } from "crypto";
 import { ApiError } from "src/errors/apiError";
 import { JwtPayload } from "jsonwebtoken";
-import { S3FolderNames } from "src/enums/s3FoulderNames";
+import { S3FolderNames } from "src/enums/s3FolderNames";
 import { s3Service } from "./utils/s3Service";
 
 class UsersService implements IUsersService {

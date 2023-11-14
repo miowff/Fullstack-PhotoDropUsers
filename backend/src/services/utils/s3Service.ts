@@ -1,5 +1,5 @@
 import AWS from "aws-sdk";
-import { S3FolderNames } from "src/enums/s3FoulderNames";
+import { S3FolderNames } from "src/enums/s3FolderNames";
 
 class S3Service {
   private readonly bucketName = "photo-drop-images";

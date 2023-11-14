@@ -74,3 +74,12 @@ GetAlbums:
         method: GET
         authorizer:
           name: usersAuthorizer
+
+GetAllPhotos:
+  handler: src/lambdas/photos/getAllUserPhotos.handler
+  events:
+    - httpApi:
+        path: /photos
+        method: GET
+        authorizer:
+          name: usersAuthorizer

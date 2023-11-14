@@ -4,7 +4,7 @@ import JorgeGardner from "../../public/images/ArtistsPrints/JorgeGardner.jpg";
 import { useState } from "react";
 import { PopUpPhoto } from "./PopUpPhoto";
 
-export function NoPhotosYet() {
+export const NoPhotosYet = () => {
   const [photo, setPhoto] = useState<string>("");
   const [isPopUpPhotoVisible, setPopUpPhotoVisible] = useState<boolean>(false);
   return (
@@ -69,4 +69,4 @@ export function NoPhotosYet() {
       </div>
     </section>
   );
-}
+};

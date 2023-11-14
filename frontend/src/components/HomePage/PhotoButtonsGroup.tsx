@@ -1,6 +1,6 @@
 import DownloadIcon from "../../public/images/DownloadIcon.svg";
 import ShareIcon from "../../public/images/ShareIcon.svg";
-export function PhotoButtonsGroup() {
+export const PhotoButtonsGroup = () => {
   return (
     <div className="photo-buttons-group">
       <span className="photo-buttons-group__buttons-download">
@@ -24,4 +24,4 @@ export function PhotoButtonsGroup() {
       </button>
     </div>
   );
-}
+};

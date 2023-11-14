@@ -2,7 +2,7 @@ import {
   APIGatewayProxyEvent,
   APIGatewayProxyResult,
 } from "aws-lambda/trigger/api-gateway-proxy";
-import { S3FolderNames } from "src/enums/s3FoulderNames";
+import { S3FolderNames } from "src/enums/s3FolderNames";
 import { RequestUploadPhotoUrl } from "src/models/user";
 import responseCreator from "src/services/utils/responseCreator";
 import { s3Service } from "src/services/utils/s3Service";

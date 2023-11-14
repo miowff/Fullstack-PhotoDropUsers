@@ -92,6 +92,33 @@
     margin: 0 auto;
 }
 
+.album {
+    min-width: 200px;
+    min-height: 250px;
+    background-color: red;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+
+    .album-title {
+        padding-top: 225px;
+        font-family: FuturaPtDefault;
+        font-size: 16px;
+        padding-bottom: 15px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+}
+
+.photo {
+    width: 400px;
+    height: 400px;
+    background: #3300CC;
+}
+
 .header {
     &__inner {
         display: flex;
@@ -639,7 +666,8 @@
 .privacy-policy {
     &__inner {
         margin-top: 15px;
-        h2{
+
+        h2 {
             text-align: center;
         }
     }
@@ -655,6 +683,31 @@
         }
     }
 
+}
+
+.user-content {
+    padding-top: 40px;
+     
+    &__albums-container {
+        padding-top: 20px;
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+        overflow-x: scroll;
+        flex-wrap: nowrap;
+    }
+
+    &__photos {
+        padding-top: 100px;
+    }
+
+    &__photos-container {
+        padding-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        gap: 10px;
+    }
 }
 
 .footer {

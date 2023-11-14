@@ -6,7 +6,7 @@ import { AlbumModel } from "src/models/albums";
 import { IPhotosRepository } from "src/db/IRepositories/IPhotosRepository";
 import { Photo } from "src/db/entities/photo";
 import { photosRepository } from "src/db/repositories/photosRepository";
-import { S3FolderNames } from "src/enums/s3FoulderNames";
+import { S3FolderNames } from "src/enums/s3FolderNames";
 import { s3Service } from "./utils/s3Service";
 
 class AlbumsService implements IAlbumsService {

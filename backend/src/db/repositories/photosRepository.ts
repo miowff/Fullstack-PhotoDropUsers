@@ -2,14 +2,20 @@ import { MySql2Database } from "drizzle-orm/mysql2";
 import { db } from "../dbConnection";
 
 import { IPhotosRepository } from "../IRepositories/IPhotosRepository";
-import { Photo, photos } from "../entities/photo";
+import { Photo, PhotoDetails, photos } from "../entities/photo";
 import { and, eq, getTableColumns } from "drizzle-orm";
 import { userPhotos } from "../entities/userPhotos";
 
 class PhotosRepository implements IPhotosRepository<Photo> {
   constructor(private readonly db: MySql2Database) {}
-  getAllUserPhotos = async (userId: string): Promise<Photo> => {
-    throw new Error("Method not implemented.");
+  getAllUserPhotos = async (userId: string): Promise<PhotoDetails[]> => {
+    const { ...selectPhotos } = getTableColumns(photos);
+    const resultType = { ...selectPhotos, isActivated: userPhotos.isActivated };
+    return await this.db
+      .select(resultType)
+      .from(userPhotos)
+      .innerJoin(photos, eq(photos.id, userPhotos.photoId))
+      .where(eq(userPhotos.UserId, userId));
   };
   getFirstAlbumPhoto = async (
     userId: string,
