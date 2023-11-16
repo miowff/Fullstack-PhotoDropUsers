@@ -30,7 +30,7 @@ export const WhatsYourEmail = ({ fullName }: WhatsYourEmailProps) => {
         };
         dispatch(setUser(updatedUser));
       }
-      navigate("/");
+      navigate("/me");
     } catch (err) {
       const error = isErrorWithMessage(err);
       console.log(err);

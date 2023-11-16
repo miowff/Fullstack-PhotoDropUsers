@@ -95,28 +95,61 @@
 .album {
     min-width: 200px;
     min-height: 250px;
-    background-color: red;
     border-radius: 20px;
     text-align: center;
     color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+
+    .album-content::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
+        z-index: 100;
+    }
 
     .album-title {
-        padding-top: 225px;
+        max-width: 150px;
         font-family: FuturaPtDefault;
         font-size: 16px;
-        padding-bottom: 15px;
+        padding-top: 200px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         margin-left: 5px;
         margin-right: 5px;
+        position: absolute;
+        z-index: 100;
     }
+
+    .album-background-image {
+        object-fit: cover;
+        width: 200px;
+        height: 250px;
+        z-index: -10;
+    }
+
 }
 
 .photo {
     width: 400px;
     height: 400px;
     background: #3300CC;
+    cursor: pointer;
+
+    .album-background-image {
+        object-fit: cover;
+        width: 100%;
+        height: 400px;
+    }
 }
 
 .header {
@@ -475,7 +508,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 100;
+    z-index: 110;
     flex-direction: column;
 
     &__close {
@@ -687,7 +720,7 @@
 
 .user-content {
     padding-top: 40px;
-     
+
     &__albums-container {
         padding-top: 20px;
         display: flex;
@@ -695,6 +728,12 @@
         gap: 5px;
         overflow-x: scroll;
         flex-wrap: nowrap;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
     }
 
     &__photos {
@@ -705,8 +744,7 @@
         padding-top: 20px;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(3, 1fr);
-        gap: 10px;
+        height: 30%;
     }
 }
 

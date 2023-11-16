@@ -1,8 +1,20 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Album } from "./Album";
 import { Photo } from "./Photo";
+import { AlbumModel } from "../../../../backend/src/models/albums";
+import { useLazyGetAllUserPhotosQuery } from "../../api/photos";
+import { PhotoResponse } from "../../../../backend/src/models/photo";
+import { PopUpPhoto } from "./PopUpPhoto";
 
-export const UserContent = () => {
+interface UserContentProps {
+  albums: AlbumModel[];
+}
+
+export const UserContent = ({ albums }: UserContentProps) => {
+  const [photo, setPhoto] = useState<string>("");
+  const [isPopUpPhotoVisible, setPopUpPhotoVisible] = useState<boolean>(false);
+  const [getPhotos] = useLazyGetAllUserPhotosQuery();
+  const [photos, setPhotos] = useState<PhotoResponse[]>([]);
   const handleScroll = (event: React.WheelEvent<HTMLDivElement>): void => {
     const container = event.currentTarget;
     const scrollAmount = event.deltaY;
@@ -27,8 +39,21 @@ export const UserContent = () => {
       document.removeEventListener("wheel", handleWheel);
     };
   }, []);
+  useEffect(() => {
+    getPhotos()
+      .unwrap()
+      .then((photos) => {
+        setPhotos(photos);
+      });
+  }, []);
   return (
     <section className="user-content">
+      {isPopUpPhotoVisible && (
+        <PopUpPhoto
+          photoUrl={photo}
+          setPopUpPhotoVisible={setPopUpPhotoVisible}
+        />
+      )}
       <div className="container">
         <div className="user-content__inner">
           <div className="user-content__albums">
@@ -37,48 +62,24 @@ export const UserContent = () => {
               className="user-content__albums-container"
               onWheel={(event) => handleScroll(event)}
             >
-              <Album />
-              <Album />
-              <Album />
-              <Album />
-              <Album />
-              <Album />
-              <Album />
-              <Album />
-              <Album />
-              <Album />
-              <Album />
-              <Album />
-              <Album />
-              <Album />
-              <Album />
-              <Album />
-              <Album />
-              <Album />
-              <Album />
-              <Album />
-              <Album />
-              <Album />
-              <Album />
-              <Album />
+              {albums.map((album, index) => {
+                return <Album album={album} key={index} />;
+              })}
             </div>
           </div>
           <div className="user-content__photos">
             <p className="default-bold-text">All photos</p>
             <div className="user-content__photos-container">
-              <Photo />
-              <Photo />
-              <Photo />
-              <Photo />
-              <Photo />
-              <Photo />
-              <Photo />
-              <Photo />
-              <Photo />
-              <Photo />
-              <Photo />
-              <Photo />
-              <Photo />
+              {photos.map((photo, index) => {
+                return (
+                  <Photo
+                    setPopUpPhotoVisible={setPopUpPhotoVisible}
+                    setPhoto={setPhoto}
+                    photo={photo}
+                    key={index}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>
