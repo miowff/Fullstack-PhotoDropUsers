@@ -26,13 +26,12 @@ export const UserContent = ({ albums }: UserContentProps) => {
   };
   useEffect(() => {
     const handleWheel = (event: WheelEvent) => {
-      const albumsContainer = document.querySelector(
-        ".user-content__albums-container"
-      );
-
-      if (albumsContainer?.contains(event.target as Node)) {
-        event.preventDefault();
-      }
+      const albums = document.querySelectorAll(".album");
+      albums.forEach((album) => {
+        if (album.contains(event.target as Node)) {
+          event.preventDefault();
+        }
+      });
     };
     document.addEventListener("wheel", handleWheel, { passive: false });
     return () => {

@@ -9,6 +9,5 @@ export const toFile = (imageString: string) => {
   const imageFile = new File([blob], `${Date.now()}.jpg`, {
     type: "image/jpeg",
   });
-  console.log(imageFile);
   return imageFile;
 };

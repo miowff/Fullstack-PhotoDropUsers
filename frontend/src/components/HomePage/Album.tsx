@@ -4,6 +4,7 @@ interface AlbumProps {
   album: AlbumModel;
 }
 export const Album = ({ album }: AlbumProps) => {
+  
   return (
     <div className="album">
       <div className="album-content">

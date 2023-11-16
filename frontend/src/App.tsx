@@ -35,7 +35,6 @@ function App() {
       .then((data: UserModel) => {
         if (data) {
           dispatch(setUser(data));
-          console.log(data);
           if (location.pathname === "/start") {
             return navigate("/");
           }

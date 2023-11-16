@@ -14,7 +14,6 @@ export function HomePage() {
     getAlbums()
       .unwrap()
       .then((albums) => {
-        console.log(albums);
         setAlbums(albums);
       });
   }, []);
@@ -22,7 +21,6 @@ export function HomePage() {
     <>
       <Header />
       {albums.length !== 0 ? <UserContent albums={albums} /> : <NoPhotosYet />}
-
       <Footer />
     </>
   );
