@@ -1,6 +1,5 @@
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
-import { LestGetStarted } from "./pages/LestGetStarted";
 import { useEffect } from "react";
 import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from "./enums/constants";
 import { useDispatch } from "react-redux";
@@ -13,6 +12,8 @@ import { SetEmailPage } from "./pages/SetEmailPage";
 import { PrivateWrapper } from "./components/protectedRoute";
 import { ProfileDetails } from "./pages/ProfileDetails";
 import { PrivacyPolicy } from "./pages/PrivacyPolicy";
+import { NumberInputPage } from "./pages/LetsGetStarted/NumberInputPage";
+import { CodeInputPage } from "./pages/LetsGetStarted/CodeInputPage";
 
 function App() {
   const [getUser] = useLazyGetCurrentUserQuery();
@@ -93,7 +94,8 @@ function App() {
             </PrivateWrapper>
           }
         ></Route>
-        <Route path="/start" element={<LestGetStarted />} />
+        <Route path="/number-input" element={<NumberInputPage />} />
+        <Route path="/code-input" element={<CodeInputPage />} />
         <Route path="*" element={<div>404 Not Found</div>} />
       </Routes>
     </div>

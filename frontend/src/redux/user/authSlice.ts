@@ -6,13 +6,13 @@ interface AuthState {
   user: UserModel | null;
   accessToken: string | null;
   refreshToken: string | null;
-  isAuth: boolean;
+  isAuth: boolean | null;
 }
 const initialState: AuthState = {
   user: null,
   accessToken: null,
   refreshToken: null,
-  isAuth: false,
+  isAuth: null,
 };
 const authSlice = createSlice({
   name: "auth",

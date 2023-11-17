@@ -1,23 +1,41 @@
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/material.css";
-import { LetsGetStartedStages } from "../../enums/letsGetStartedStages";
 import {
   StageContent,
   setCurrentStage,
 } from "../../redux/letsGetStarted/letsGetStartedSlice";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRequestCode } from "../../hooks/userRequestCode";
 import { ErrorPopUp } from "../ErrorPopUp";
+import { useNavigate } from "react-router-dom";
+import { useEnterKeyHandler } from "../../hooks/useEnterKeyHandler";
 
 export const NumberInput = () => {
   const dispatch = useDispatch();
-  const handleStageChange = (newStage: StageContent) => {
+  const navigate = useNavigate();
+  const handlePhoneNumberInput = (newStage: StageContent) => {
     dispatch(setCurrentStage(newStage));
   };
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [error, setError] = useState("");
   const { handleRequest: requestCode } = useRequestCode({ setError });
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(
+    phoneNumber.length === 0
+  );
+  useEffect(() => {
+    setIsButtonDisabled(phoneNumber.length === 0);
+  }, [phoneNumber]);
+  const handleNextAction = async () => {
+    setIsButtonDisabled(true);
+    await requestCode(phoneNumber);
+    handlePhoneNumberInput({
+      enteredNumber: phoneNumber,
+    });
+    setIsButtonDisabled(false);
+    navigate("/code-input");
+  };
+  useEnterKeyHandler(handleNextAction);
   return (
     <section className="number-input">
       <div className="container">
@@ -41,13 +59,9 @@ export const NumberInput = () => {
           <div className="number-input__button-container">
             <button
               className="default-button"
-              disabled={phoneNumber.length === 0}
+              disabled={isButtonDisabled}
               onClick={async () => {
-                await requestCode(phoneNumber);
-                handleStageChange({
-                  enteredNumber: phoneNumber,
-                  currentStage: LetsGetStartedStages.CONFIRM_NUMBER,
-                });
+                await handleNextAction();
               }}
             >
               Next

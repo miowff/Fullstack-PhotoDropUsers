@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { setUser } from "../../redux/user/authSlice";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useEnterKeyHandler } from "../../hooks/useEnterKeyHandler";
 interface SelfieEditProps {
   isVisible: React.Dispatch<React.SetStateAction<boolean>>;
   isPopUpControlsVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -64,6 +65,10 @@ export const SelfieEditPopUp = ({
       }
     }
   };
+  useEnterKeyHandler(async () => {
+    await uploadProfilePic();
+    isVisible(false);
+  });
   useEffect(() => {
     if (currentPic instanceof File) {
       const reader = new FileReader();

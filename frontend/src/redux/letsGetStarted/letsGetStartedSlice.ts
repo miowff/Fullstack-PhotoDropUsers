@@ -1,17 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { LetsGetStartedStages } from "../../enums/letsGetStartedStages";
 
 export interface StageContent {
-  currentStage: LetsGetStartedStages;
-  enteredNumber: string;
+  enteredNumber: string | null;
 }
 interface StageState {
-  letsGetStartedStages: StageContent;
+  letsGetStarted: StageContent;
 }
 const initialState: StageState = {
-  letsGetStartedStages: {
-    currentStage: LetsGetStartedStages.INPUT_NUMBER,
-    enteredNumber: "",
+  letsGetStarted: {
+    enteredNumber: null,
   },
 };
 const letsGetStartedStageSlice = createSlice({
@@ -19,7 +16,7 @@ const letsGetStartedStageSlice = createSlice({
   initialState,
   reducers: {
     setCurrentStage(state, action: PayloadAction<StageContent>) {
-      state.letsGetStartedStages = action.payload;
+      state.letsGetStarted = action.payload;
     },
   },
 });

@@ -87,11 +87,16 @@ class UsersService implements IUsersService {
       userId: existsUsers.id,
       refreshToken: tokens.refreshToken,
     });
+    const { profilePhotoKey: photoName, id: userId } = existsUsers;
+    const profilePhotoKey = `${S3FolderNames.PROFILE_PICS}/${userId}/${photoName}`;
+    const accessProfilePicUrl = await s3Service.createAccessPhotoUrl(
+      profilePhotoKey
+    );
     const currentUser = Object.assign({}, existsUsers, {
       id: undefined,
       phoneNumber: undefined,
       profilePhotoKey: undefined,
-      profilePhotoLink: existsUsers.profilePhotoKey,
+      profilePhotoLink: accessProfilePicUrl,
     });
     return { tokens, currentUser };
   };

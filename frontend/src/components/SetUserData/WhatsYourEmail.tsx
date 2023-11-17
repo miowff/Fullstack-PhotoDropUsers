@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSetEmailMutation } from "../../api/user";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
@@ -7,6 +7,7 @@ import { SetEmail } from "../../../../backend/src/models/user";
 import { setUser } from "../../redux/user/authSlice";
 import { isErrorWithMessage } from "../../utils/errorParser";
 import { ErrorPopUp } from "../ErrorPopUp";
+import { useEnterKeyHandler } from "../../hooks/useEnterKeyHandler";
 type WhatsYourEmailProps = {
   fullName: string;
 };
@@ -20,6 +21,9 @@ export const WhatsYourEmail = ({ fullName }: WhatsYourEmailProps) => {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
   const [setUserEmail] = useSetEmailMutation();
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(
+    email.length === 0
+  );
   const setEmailRequest = async (request: SetEmail) => {
     try {
       const newEmail = await setUserEmail(request).unwrap();
@@ -30,7 +34,7 @@ export const WhatsYourEmail = ({ fullName }: WhatsYourEmailProps) => {
         };
         dispatch(setUser(updatedUser));
       }
-      navigate("/me");
+      navigate("/");
     } catch (err) {
       const error = isErrorWithMessage(err);
       console.log(err);
@@ -41,6 +45,14 @@ export const WhatsYourEmail = ({ fullName }: WhatsYourEmailProps) => {
       }
     }
   };
+  useEffect(() => {
+    setIsButtonDisabled(email.length === 0);
+  }, [email]);
+  useEnterKeyHandler(async () => {
+    setIsButtonDisabled(true);
+    await setEmailRequest({ email });
+    setIsButtonDisabled(false);
+  });
   return (
     <div className="whats-your-email">
       <div className="container">
@@ -62,7 +74,7 @@ export const WhatsYourEmail = ({ fullName }: WhatsYourEmailProps) => {
             <div className="whats-your-email__button-container">
               <button
                 className="default-button"
-                disabled={email.length === 0}
+                disabled={isButtonDisabled}
                 onClick={async () => {
                   await setEmailRequest({ email });
                 }}

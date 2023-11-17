@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSetFullNameMutation } from "../../api/user";
 import { SetFullName } from "../../../../backend/src/models/user";
 import { isErrorWithMessage } from "../../utils/errorParser";
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { setUser } from "../../redux/user/authSlice";
+import { useEnterKeyHandler } from "../../hooks/useEnterKeyHandler";
 
 export const WhatsYourName = () => {
   const navigate = useNavigate();
@@ -18,6 +19,9 @@ export const WhatsYourName = () => {
   const handleNameInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(
+    name.length === 0
+  );
   const setFullName = async (request: SetFullName) => {
     try {
       const newName = await setFullNameRequest(request).unwrap();
@@ -28,7 +32,7 @@ export const WhatsYourName = () => {
         };
         dispatch(setUser(updatedUser));
       }
-      navigate("/me");
+      navigate("/");
     } catch (err) {
       const error = isErrorWithMessage(err);
       console.log(err);
@@ -39,7 +43,14 @@ export const WhatsYourName = () => {
       }
     }
   };
-
+  useEffect(() => {
+    setIsButtonDisabled(name.length === 0);
+  }, [name]);
+  useEnterKeyHandler(async () => {
+    setIsButtonDisabled(true);
+    await setFullName({ name });
+    setIsButtonDisabled(false);
+  });
   return (
     <div className="whats-your-name">
       <div className="container">
@@ -57,7 +68,7 @@ export const WhatsYourName = () => {
             <div className="whats-your-name__button-container">
               <button
                 className="default-button"
-                disabled={name.length === 0}
+                disabled={isButtonDisabled}
                 onClick={async () => {
                   await setFullName({ name });
                 }}

@@ -1,13 +1,13 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
 import { Header } from "../components/Header";
 import NoProfilePicture from "../public/images/NoProfilePicture.svg";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SelfieEditPopUp } from "../components/SetUserData/SelfieEditPopUp";
 import { UploadSelfieOptionsPopup } from "../components/SetUserData/UploadSelfieOptionsPopup";
+import { useLazyGetCurrentUserQuery } from "../api/auth";
+import { UserModel } from "../../../backend/src/models/user";
 export const ProfileDetails = () => {
-  const user = useSelector((state: RootState) => state.auth.user);
+  const [getUser] = useLazyGetCurrentUserQuery();
   const navigate = useNavigate();
   const [profilePicLink, setProfilePicLink] =
     useState<string>(NoProfilePicture);
@@ -20,16 +20,21 @@ export const ProfileDetails = () => {
     profilePicLink
   );
   useEffect(() => {
-    if (user) {
-      const { profilePhotoLink, fullName, email } = user;
-      if (profilePhotoLink) {
-        setCurrentPic(profilePhotoLink);
-        setProfilePicLink(profilePhotoLink);
-        setUserFullName(fullName);
-        setUserEmail(email);
-      }
-    }
-  }, [user]);
+    getUser()
+      .unwrap()
+      .then((data: UserModel) => {
+        console.log(data);
+        if (data) {
+          const { profilePhotoLink, fullName, email } = data;
+          if (profilePhotoLink) {
+            setProfilePicLink(profilePhotoLink);
+          }
+          setCurrentPic(profilePhotoLink);
+          setUserFullName(fullName);
+          setUserEmail(email);
+        }
+      });
+  }, [getUser]);
 
   return (
     <>
