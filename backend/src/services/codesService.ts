@@ -14,16 +14,18 @@ class CodesService implements ICodesService {
   sendCode = async (phoneNumber: string): Promise<void> => {
     const code = crypto.randomInt(100000, 999999);
     const existsCode = await this.phoneCodesRepository.getCode(phoneNumber);
+    const date = Math.floor(Date.now() / 1000);
     if (existsCode) {
       existsCode.code = code;
       existsCode.resendTries = 1;
+      existsCode.sentTime = date;
       await this.phoneCodesRepository.updateCode(existsCode);
       return;
     }
     const insertPhoneCodePair: InsertPhoneCode = {
       phoneNumber,
       code: code,
-      sentTime: Math.floor(Date.now() / 1000),
+      sentTime: date,
       resendTries: 1,
     };
     await this.phoneCodesRepository.addCode(insertPhoneCodePair);
@@ -40,6 +42,7 @@ class CodesService implements ICodesService {
     const code = crypto.randomInt(100000, 999999);
     existsCode.code = code;
     existsCode.resendTries = 0;
+    existsCode.sentTime = Math.floor(Date.now() / 1000);
     await this.phoneCodesRepository.updateCode(existsCode);
   };
   validateCode = async (
