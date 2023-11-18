@@ -15,13 +15,8 @@ class CodesService implements ICodesService {
     const code = crypto.randomInt(100000, 999999);
     const existsCode = await this.phoneCodesRepository.getCode(phoneNumber);
     if (existsCode) {
-      let { resendTries } = existsCode;
-      if (resendTries === 0) {
-        throw new ApiError("Resend tries is over", 403);
-      }
-      //await twilioSmsSender.sendMessage(code, phoneNumber);
       existsCode.code = code;
-      existsCode.resendTries = resendTries - 1;
+      existsCode.resendTries = 1;
       await this.phoneCodesRepository.updateCode(existsCode);
       return;
     }
@@ -32,6 +27,20 @@ class CodesService implements ICodesService {
       resendTries: 1,
     };
     await this.phoneCodesRepository.addCode(insertPhoneCodePair);
+  };
+  resendCode = async (phoneNumber: string) => {
+    const existsCode = await this.phoneCodesRepository.getCode(phoneNumber);
+    if (!existsCode) {
+      throw ApiError.NotFound("Code");
+    }
+    const { resendTries } = existsCode;
+    if (resendTries === 0) {
+      throw new ApiError("Resend tries is over", 403);
+    }
+    const code = crypto.randomInt(100000, 999999);
+    existsCode.code = code;
+    existsCode.resendTries = 0;
+    await this.phoneCodesRepository.updateCode(existsCode);
   };
   validateCode = async (
     phoneNumber: string,

@@ -24,6 +24,13 @@ export const authApi = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    resendCode: builder.mutation<string, string>({
+      query: (phoneNumber) => ({
+        url: "/request-code?resend=true",
+        method: "POST",
+        body: { phoneNumber },
+      }),
+    }),
     requestCode: builder.mutation<string, string>({
       query: (phoneNumber) => ({
         url: "/request-code",
@@ -45,5 +52,6 @@ export const {
   useLazyGetCurrentUserQuery,
   useLoginOrRegisterMutation,
   useRequestCodeMutation,
+  useResendCodeMutation,
   useRefreshTokenMutation,
 } = authApi;

@@ -6,10 +6,10 @@ import {
 } from "../../redux/letsGetStarted/letsGetStartedSlice";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { useRequestCode } from "../../hooks/userRequestCode";
 import { ErrorPopUp } from "../ErrorPopUp";
 import { useNavigate } from "react-router-dom";
 import { useEnterKeyHandler } from "../../hooks/useEnterKeyHandler";
+import { useRequestCode } from "../../hooks/useRequestCode";
 
 export const NumberInput = () => {
   const dispatch = useDispatch();

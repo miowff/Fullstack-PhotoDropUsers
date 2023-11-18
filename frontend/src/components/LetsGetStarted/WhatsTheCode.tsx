@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { ErrorPopUp } from "../ErrorPopUp";
-import { useRequestCode } from "../../hooks/userRequestCode";
 import { LoginRegistrationModel } from "../../../../backend/src/models/user";
 import { useLoginOrRegisterMutation } from "../../api/auth";
 import { isErrorWithMessage } from "../../utils/errorParser";
 import { useNavigate } from "react-router-dom";
 import { setToken, setUser } from "../../redux/user/authSlice";
 import { useEnterKeyHandler } from "../../hooks/useEnterKeyHandler";
+import { useResendCode } from "../../hooks/useResendCode";
 export function WhatsTheCode() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ export function WhatsTheCode() {
 
   const [error, setError] = useState("");
   const [loginOrRegisterUser] = useLoginOrRegisterMutation();
-  const { handleRequest: requestCode } = useRequestCode({ setError });
+  const { handleRequest: requestCode } = useResendCode({ setError });
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(
     code.length !== 6
   );
