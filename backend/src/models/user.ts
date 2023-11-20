@@ -45,3 +45,7 @@ export interface UploadProfilePicUrlResponse {
   url: PresignedUrl;
   accessUrl: string;
 }
+
+export interface RequestCode {
+  phoneNumber: string;
+}

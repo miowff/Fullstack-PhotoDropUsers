@@ -1,12 +1,14 @@
+import middy from "@middy/core";
 import {
   APIGatewayProxyEvent,
   APIGatewayProxyResult,
 } from "aws-lambda/trigger/api-gateway-proxy";
+import { errorHandlerMiddleware } from "src/middleware/errorHandler";
 
 import { userService } from "src/services/usersService";
 import responseCreator from "src/services/utils/responseCreator";
 
-export const handler = async (
+const getCurrentUser = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
   try {
@@ -20,3 +22,6 @@ export const handler = async (
     return responseCreator.error(err);
   }
 };
+export const handler = middy()
+  .use(errorHandlerMiddleware())
+  .handler(getCurrentUser);
