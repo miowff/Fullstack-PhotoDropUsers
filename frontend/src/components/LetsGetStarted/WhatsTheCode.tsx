@@ -9,7 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { setToken, setUser } from "../../redux/user/authSlice";
 import { useEnterKeyHandler } from "../../hooks/useEnterKeyHandler";
 import { useResendCode } from "../../hooks/useResendCode";
-export function WhatsTheCode() {
+import { InputOtp } from "./OtpInput";
+export const WhatsTheCode = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -22,9 +23,6 @@ export function WhatsTheCode() {
     }
   }, [enteredNumber, navigate]);
   const [code, setCode] = useState<string>("");
-  const handleCodeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCode(e.target.value);
-  };
 
   const [error, setError] = useState("");
   const [loginOrRegisterUser] = useLoginOrRegisterMutation();
@@ -68,16 +66,16 @@ export function WhatsTheCode() {
         <div className="lets-get-started-inner whats-the-code__inner">
           <div className="whats-the-code__inner-content">
             <div className="whats-the-code__title-container">
-              <h4 className="lets-get-started-title">What’s the code</h4>
+              <h4 className="default-title whats-the-code__title">
+                What’s the code?
+              </h4>
             </div>
             <p className="whats-the-code__text">
               Enter the code sent to <span>+{enteredNumber}</span>
             </p>
-            <input
-              className="default-input whats-the-code__input-code"
-              maxLength={6}
-              onChange={handleCodeInput}
-            ></input>
+            <div className="whats-the-code__input-container">
+              <InputOtp onChangeOTP={setCode} />
+            </div>
             <a
               className="whats-the-code__resend-code"
               onClick={async () => {
@@ -94,6 +92,7 @@ export function WhatsTheCode() {
                 disabled={isButtonDisabled}
                 onClick={async () => {
                   if (enteredNumber) {
+                    console.log(code);
                     await loginOrRegister({ phoneNumber: enteredNumber, code });
                   }
                 }}
@@ -106,4 +105,4 @@ export function WhatsTheCode() {
       </div>
     </section>
   );
-}
+};

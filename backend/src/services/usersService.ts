@@ -106,10 +106,11 @@ class UsersService implements IUsersService {
       throw ApiError.NotFound("User");
     }
     const { profilePhotoKey: photoName } = user;
-    const pathToPhoto = `${S3FolderNames.PROFILE_PICS}/${userId}/${photoName}`;
-    const accessProfilePicUrl = await s3Service.createAccessPhotoUrl(
-      pathToPhoto
-    );
+    let accessProfilePicUrl = null;
+    if (photoName) {
+      const pathToPhoto = `${S3FolderNames.PROFILE_PICS}/${userId}/${photoName}`;
+      accessProfilePicUrl = await s3Service.createAccessPhotoUrl(pathToPhoto);
+    }
     const { id, phoneNumber, profilePhotoKey, ...userModel } = Object.assign(
       {},
       user,

@@ -30,7 +30,7 @@ export const AddASelfie = () => {
         <div className="lets-get-started-inner add-a-selfie__inner">
           <div className="add-a-selfie__inner-content">
             <div className="add-a-selfie__title-container">
-              <h4 className="lets-get-started-title">Add a selfie</h4>
+              <h4 className="default-title">Add a selfie</h4>
             </div>
             <p className="default-text add-a-selfie__text">
               A selfie allows your photos to be synced with your account.

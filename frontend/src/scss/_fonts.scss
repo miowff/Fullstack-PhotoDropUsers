@@ -4,6 +4,11 @@
 }
 
 @font-face {
+    font-family: FuturaPtDemi;
+    src: url(../public/fonts/FuturaPT-Demi.ttf);
+}
+
+@font-face {
     font-family: FuturaPtHeavy;
     src: url(../public/fonts/FuturaPT-Heavy.ttf);
 }
@@ -13,7 +18,8 @@
     src: url(../public/fonts/FuturaPT-Book.ttf);
 }
 
+
 @font-face {
-    font-family: Termina;
-    src: url(../public/fonts/TerminaTest-Heavy.otf);
+    font-family: TerminaBold;
+    src: url(../public/fonts/TerminaBold.ttf)
 }

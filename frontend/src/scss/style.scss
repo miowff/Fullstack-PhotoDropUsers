@@ -3,6 +3,31 @@
 @import 'reset';
 @import 'global';
 
+.otp-input-container {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.default-text {
+    color: #262626;
+    font-family: FuturaPtDefault;
+    font-size: 18px;
+    line-height: normal;
+
+}
+
+.otp-input-box {
+    width: 45px;
+    height: 40px;
+    gap: 15px;
+    border: none;
+    border-radius: 10px;
+    color: #262626;
+    font-family: FuturaPtMedium;
+    text-align: center;
+}
+
 .default-button {
     width: 420px;
     height: 50px;
@@ -20,188 +45,26 @@
     }
 }
 
-.default-input {
-    width: 420px;
-    height: 40px;
-    border: none;
-    font-family: FuturaPtMedium;
+@media (max-width:1024px) {
+    .default-button {
+        width: 345px;
+    }
+}
+
+.default-title {
     color: #262626;
-    font-size: 20px;
-}
-
-.default-text {
-    color: #262626;
-    font-family: FuturaPtDefault;
-    font-size: 16px;
-    padding-bottom: 15px;
-}
-
-.default-bold-text {
-    font-family: FuturaPtHeavy;
-    font-size: 18px;
-    line-height: 13px;
-}
-
-.photo-buttons-group {
-    position: inherit;
-    display: flex;
-    flex-direction: row;
-    gap: 30px;
-    justify-content: center;
-    font-family: FuturaPtDefault;
-
-    img {
-        margin: 0 auto;
-    }
-
-    p {
-        color: white;
-        font-size: 14px;
-
-    }
-
-    span {
-        cursor: pointer;
-    }
-
-    &__see-in-frame {
-        font-family: FuturaPtHeavy;
-        width: 300px;
-        height: 50px;
-        font-size: 22px;
-        border-radius: 30px;
-        border: 1px solid;
-        border-color: white;
-        background: rgba(28, 28, 28, 0);
-        color: white;
-        cursor: pointer;
-    }
-}
-
-.lets-get-started-title {
-    color: #262626;
-    font-family: Termina;
+    font-family: TerminaBold;
     font-size: 30px;
-
 }
 
-.lets-get-started-inner {
-    display: flex;
-    flex-direction: column;
-    max-width: 420px;
-    margin: 0 auto;
-}
-
-.loader {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-
-}
-
-.loader-content {
-    text-align: center;
-    width: 120px;
-
-    img {
-        padding-bottom: 25px;
-        margin: 0 auto;
-    }
-
-    @keyframes dotty {
-        0% {
-            content: '...';
-        }
-
-        25% {
-            content: '..';
-        }
-
-        50% {
-            content: '.';
-        }
-
-        75% {
-            content: '...';
-        }
-
-        100% {
-            content: '';
-        }
-    }
-
-    p::after {
-        display: inline-block;
-        animation: dotty steps(1, end) 2s infinite;
-        content: '';
-    }
-}
-
-.album {
-    min-width: 200px;
-    min-height: 250px;
-    border-radius: 20px;
-    text-align: center;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    position: relative;
-    cursor: pointer;
-
-    .album-content::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
-        z-index: 100;
-    }
-
-    .album-title {
-        max-width: 150px;
-        font-family: FuturaPtDefault;
-        font-size: 16px;
-        padding-top: 200px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        margin-left: 5px;
-        margin-right: 5px;
-        position: absolute;
-        z-index: 100;
-    }
-
-    .album-background-image {
-        object-fit: cover;
-        width: 200px;
-        height: 250px;
-        z-index: -10;
-    }
-
-}
-
-.photo {
-    width: 400px;
-    height: 400px;
-    background: #3300CC;
-    cursor: pointer;
-
-    .album-background-image {
-        object-fit: cover;
-        width: 100%;
-        height: 400px;
+@media (max-width:1024px) {
+    .default-title {
+        font-size: 22px;
     }
 }
 
 .header {
+
     &__inner {
         display: flex;
         justify-content: space-between;
@@ -212,6 +75,8 @@
     &__inner-logo {
         margin: 0 auto;
         cursor: pointer;
+        width: 179px;
+        height: 22px;
     }
 
     &__profile-thumb img {
@@ -223,26 +88,62 @@
     }
 }
 
+@media (max-width:1024px) {
+    .header {
+        &__inner {
+            height: 55px;
+        }
+
+        &__inner-logo {
+            width: 125px;
+            height: 16px;
+        }
+    }
+}
+
 .number-input {
     padding-bottom: 250px;
 
-    &__text {
-        color: #262626;
-        font-family: FuturaPtHeavy;
-        font-size: 18px;
-        padding-bottom: 20px;
+    &__title {
+        width: 345px;
     }
 
-    &__text-container {
+    &__input {
+        height: 40px;
+        min-width: 410px;
+        font-family: FuturaPtDefault;
+    }
+
+    &__text {
+        color: #262626;
+        font-family: FuturaPtDemi;
+        font-size: 18px;
+        line-height: 15px;
+        padding-bottom: 20px;
+        padding-top: 10px;
+    }
+
+    &__privacy-policy {
         color: #6D6D6D;
         font-family: FuturaPtDefault;
         font-size: 14px;
-        padding-top: 20px;
+        margin-top: 18px;
         max-width: 340px;
     }
 
+    &__privacy-policy-container {
+        margin-top: 30px;
+        line-height: normal;
+        letter-spacing: -0.28px;
+
+        a {
+            color: #6D6D6D;
+            text-decoration: underline #30C;
+        }
+    }
+
     &__button-container {
-        margin-top: 25px;
+        margin-top: 18px;
     }
 
     &__title-container {
@@ -253,71 +154,16 @@
 
 }
 
-.no-photos-yet {
-    padding-top: 40px;
-
-    &__info {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    &__info-image {
-        max-width: 90px;
-        max-height: 90px;
-    }
-
-    &__info-title {
-        line-height: 22px;
-        padding-top: 30px;
-        color: #262626;
-        font-family: FuturaPtHeavy;
-        font-size: 30px;
-    }
-
-    &__info-text {
-        padding-top: 20px;
-        color: #262626;
-        text-align: center;
-        font-family: FuturaPtDefault;
-        font-size: 22px;
-    }
-
-    &__artists-prints {
-        padding-top: 100px;
-    }
-
-    &__artists-prints-title {
-        font-size: 30px;
-        font-family: FuturaPtHeavy;
-        line-height: 20px;
-        padding-bottom: 20px;
-    }
-
-    &__artists-prints-thumbnails {
-        display: flex;
-        flex-direction: row;
-        gap: 10px;
-        padding-bottom: 100px;
-    }
-
-    &__artists-prints-thumbnail {
-        max-width: 200px;
-        max-height: 250px;
-        cursor: pointer;
-
-        img {
-            border-radius: 20px;
-            width: 100%;
-            height: 100%;
+@media (max-width:1024px) {
+    .number-input {
+        &__input {
+            min-width: 335px;
         }
-
     }
 }
 
 .whats-the-code {
-    padding-right: 50px;
-    padding-top: 125px;
+    padding-top: 100px;
 
     &__inner {
         align-items: center;
@@ -329,12 +175,12 @@
 
     &__title-container {
         text-align: center;
-        padding-bottom: 15px;
+
     }
 
     &__title {
         text-align: center;
-        font-family: Termina;
+        font-family: TerminaBold;
         font-size: 30px;
     }
 
@@ -349,13 +195,8 @@
         }
     }
 
-    &__button-container {
-        margin: 0 auto;
-    }
-
-    &__input-code {
-        letter-spacing: 65px;
-        margin-bottom: 25px;
+    &__input-container {
+        padding-bottom: 18px;
     }
 
     &__resend-code {
@@ -366,70 +207,40 @@
     }
 
     &__button-container {
-        padding-top: 25px;
+        margin-top: 15px;
     }
 }
 
-.whats-your-name {
-    padding-top: 250px;
-
-    h4 {
-        padding-bottom: 30px;
-    }
-
-    &__input-name {
-        margin-bottom: 20px;
-    }
-}
-
-.whats-your-email {
-    padding-top: 250px;
-
-    h4 {
-        padding-bottom: 30px;
-        text-align: center;
-    }
-
-    &__input {
-        margin-bottom: 30px;
-    }
-
-    &__privacy-policy {
-        padding-top: 260px;
-        color: #262626;
-        font-family: FuturaPtDefault;
-        font-size: 16px;
-        padding-bottom: 15px;
-
-        a {
-            color: #262626;
-            text-decoration: underline #3300CC;
+@media (max-width:1024px) {
+    .whats-the-code {
+        &__title {
+            font-size: 22px;
+            line-height: normal;
         }
     }
 }
 
 .add-a-selfie {
-    padding-top: 250px;
+    margin-top: 60px;
     text-align: center;
-    padding-right: 50px;
 
     &__text {
-        padding-top: 30px;
+        padding-top: 5px;
+        line-height: 20px;
     }
 
-
     &__prev-photo {
-        padding-top: 30px;
+        padding-top: 20px;
         margin: 0 auto;
-        max-width: 181px;
-        max-height: 181px;
+        max-width: 210px;
+        max-height: 210px;
         border-radius: 50%;
     }
 
     &__plus-button {
         position: relative;
-        left: 50px;
-        bottom: 40px;
+        left: 70px;
+        bottom: 45px;
         background-color: #3300CC;
         color: white;
         border: none;
@@ -439,21 +250,70 @@
         font-size: 35px;
         cursor: pointer;
     }
+
+
 }
 
 .pop-up-selfie-upload-options {
-    width: 100%;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.9);
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-    flex-direction: column;
-    text-align: center;
+
+    &__mobile {
+        position: absolute;
+        z-index: 1;
+        top: 380px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: none;
+    }
+
+    &__add-dropdown {
+        width: 226px;
+        height: 119px;
+        font-family: Helvetica;
+        font-size: 15px;
+        font-weight: 400;
+        border-radius: 11px;
+    }
+
+    &__upload-photo-options {
+        text-align: start;
+    }
+
+    &__upload-photo-option {
+        display: flex;
+        align-items: center;
+        height: 40px;
+        width: 226px;
+        padding-left: 15px;
+        color: black;
+        position: relative;
+        background-color: white;
+        border-radius: 11px;
+
+        p {
+            &::before {
+                content: "";
+                position: absolute;
+                width: 33px;
+                top: 6px;
+                left: 184px;
+            }
+        }
+    }
+
+    &__container {
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.9);
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+        flex-direction: column;
+        text-align: center;
+    }
 
     &__inner {
         width: 420px;
@@ -547,325 +407,31 @@
     }
 }
 
-.pop-up-photo-container {
-    width: 100%;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.7);
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 110;
-    flex-direction: column;
-
-    &__close {
-        position: absolute;
-        top: 25px;
-        left: 40px;
-        width: 24px;
-        height: 30px;
-        z-index: 110;
-        cursor: pointer;
-        background-image: url("../public/images/X.svg");
-    }
-
-    &__buttons {
-        position: absolute;
-        bottom: 65px;
-        right: 480px;
-    }
+.photo-library::before {
+    height: 27px;
+    background-image: url(../public/images/library-icon.svg);
 }
 
-.selfie-edit {
-    width: 100%;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.7);
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-    flex-direction: column;
-    text-align: center;
-
-    &__inner {
-        height: 650px;
-        width: 380px;
-        background-color: #202020;
-        border-radius: 20px;
-    }
-
-    &__content {
-        display: flex;
-        flex-direction: column;
-    }
-
-    &__title {
-        font-family: FuturaPtHeavy;
-        letter-spacing: 1px;
-        font-size: 18px;
-        line-height: 13px;
-        color: white;
-    }
-
-    &__tip-text {
-        font-family: FuturaPtDefault;
-        color: white;
-        font-size: 16px;
-        line-height: 11px;
-        padding-top: 90px;
-    }
-
-    &__selected-image-container {
-        padding-top: 40px;
-        overflow: hidden;
-    }
-
-    &__selected-image {
-        width: 310px;
-        height: 310px;
-        object-fit: cover;
-        border-radius: 50%;
-        margin: 0 auto;
-    }
-
-    &__buttons-container {
-        padding-top: 90px;
-    }
-
-    &__button {
-        font-family: FuturaPtHeavy;
-        width: 170px;
-        height: 50px;
-        margin-left: 5px;
-        margin-right: 5px;
-        border-radius: 30px;
-        font-size: 18px;
-        border: none;
-        cursor: pointer;
-    }
-
-    &__retake-button {
-        border: 1px solid white;
-        background: rgba(28, 28, 28, 0);
-        color: white
-    }
-
-    &__save-button {
-        color: #262626;
-        background-color: white;
-    }
-
-    &__x-mark {
-        position: relative;
-        top: 20px;
-        left: 15px;
-        z-index: 110;
-        cursor: pointer;
-        width: 18px;
-        height: 25px;
-        background-image: url("../public/images/X.svg");
-    }
+.take-photo::before {
+    height: 25px;
+    background-image: url(../public/images/camera-icon.svg);
 }
 
-.profile-details {
-    padding-top: 60px;
-
-    &__title-container {
-        text-align: center;
-        padding-bottom: 30px;
-    }
-
-    &__inner {
-        max-width: 480px;
-        margin: 0 auto;
-    }
-
-    &__bold-text {
-        font-family: FuturaPtMedium;
-        font-size: 18px;
-        line-height: 13px;
-    }
-
-    &__selfie-container {
-
-        padding-top: 15px;
-        margin-right: auto;
-    }
-
-    &__selfie {
-        object-fit: cover;
-        border-radius: 50%;
-        width: 150px;
-        height: 150px;
-    }
-
-    &__user-data-fields {
-        padding-top: 20px;
-    }
-
-    &__user-data-field {
-        max-width: 420px;
-        height: 50px;
-        border: 1px solid #CECCB5;
-        border-radius: 18px;
-        margin-top: 10px;
-        display: flex;
-        align-items: center;
-    }
-
-    &__user-data-field-content {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        padding-top: 15px;
-        padding-left: 15px;
-        cursor: pointer;
-    }
-
-    &__edit-icon {
-        background-image: url(../public/images/PenIcon.svg);
-        width: 45px;
-        height: 45px;
-        position: absolute;
-        margin-left: 125px;
-        margin-top: -50px;
-        cursor: pointer;
-    }
-
-    &__right-arrow {
-        background-image: url(../public/images/RightArrow.svg);
-        width: 10px;
-        height: 20px;
-        margin-left: 70px;
-    }
+.chose-file::before {
+    height: 20px;
+    margin-top: 5px;
+    background-image: url(../public/images/folder-icon.svg);
 }
 
-.privacy-policy {
-    &__inner {
-        margin-top: 15px;
-
-        h2 {
-            text-align: center;
+@media (max-width:1024px) {
+    .pop-up-selfie-upload-options {
+        &__mobile {
+            display: block;
         }
-    }
 
-    &__text-block {
-        max-width: 700px;
-        margin: 0 auto;
-        margin-top: 10px;
-        margin-bottom: 10px;
-
-        p {
-            margin-top: 5px;
-        }
-    }
-
-}
-
-.user-content {
-    padding-top: 40px;
-
-    &__albums-container {
-        padding-top: 20px;
-        display: flex;
-        flex-direction: row;
-        gap: 5px;
-        overflow-x: scroll;
-        flex-wrap: nowrap;
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-
-        &::-webkit-scrollbar {
+        &__container {
             display: none;
         }
     }
-
-    &__photos {
-        padding-top: 100px;
-    }
-
-    &__photos-container {
-        padding-top: 20px;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        height: 30%;
-    }
 }
 
-.footer {
-    margin-top: auto;
-
-    &__content {
-        color: white;
-        background-color: #262626;
-        padding-top: 55px;
-        padding-left: 0;
-        padding-right: 0;
-        padding-bottom: 40px;
-    }
-
-    &__info-company-logo {
-        cursor: pointer;
-    }
-
-    &__info-title {
-        font-family: Termina;
-        font-size: 22px;
-        padding-bottom: 15px;
-    }
-
-    &__inner {
-        display: flex;
-        gap: 60px;
-        justify-content: center;
-
-    }
-
-
-    &__description {
-        font-family: FuturaPtDefault;
-        font-size: 18px;
-        max-width: 420px;
-        padding-top: 25px;
-        padding-bottom: 30px;
-    }
-
-    &__order-button {
-        width: 300px;
-        height: 50px;
-        border-radius: 50px;
-        border: 1px solid #FFF;
-        color: white;
-        font-size: 22px;
-        font-family: FuturaPtMedium;
-        background-color: transparent;
-        cursor: pointer;
-    }
-
-    &__copyright {
-        font-family: FuturaPtDefault;
-        font-size: 18px;
-        margin-top: 60px;
-    }
-
-    &__menu-item {
-        font-size: 18px;
-        font-family: FuturaPtDefault;
-        cursor: pointer;
-        margin-bottom: 20px;
-    }
-
-    &__menu-link {
-        text-decoration: none;
-        color: white;
-    }
-
-    &__menu-item-logo {
-        padding-bottom: 15px;
-    }
-}
