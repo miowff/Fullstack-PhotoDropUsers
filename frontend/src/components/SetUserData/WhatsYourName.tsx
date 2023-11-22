@@ -58,7 +58,7 @@ export const WhatsYourName = () => {
         <div className="lets-get-started-inner">
           <div className="whats-your-name__inner-content">
             <div className="whats-your-name__title-container">
-              <h4 className="lets-get-started-title">Let’s get to know you</h4>
+              <h4 className="default-title">Let’s get to know you</h4>
             </div>
             <input
               className="default-input whats-your-name__input-name"

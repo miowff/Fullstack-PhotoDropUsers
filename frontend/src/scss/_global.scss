@@ -19,7 +19,7 @@ body {
     padding: 0 15px;
 }
 
-@media (min-width:375px) {
+@media (max-width:375px) {
     .container {
         max-width: 375px;
     }
