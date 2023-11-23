@@ -17,6 +17,7 @@ export const UploadSelfieOptionsPopup = ({
   const webcamRef = useRef<Webcam>(null);
   const mobileRef = useRef<HTMLDivElement>(null);
   const pcRef = useRef<HTMLDivElement>(null);
+  const mobileVideoRef = useRef<HTMLVideoElement>(null);
   const isMobilePopUpOnScreen = useIsOnScreen(mobileRef);
   const isPcPopOnScreen = useIsOnScreen(pcRef);
   const [isCameraOpened, setCameraOpened] = useState<boolean>(false);
@@ -40,6 +41,16 @@ export const UploadSelfieOptionsPopup = ({
       setPopUpControlsVisible(false);
     }
   };
+  const startMobileCamera = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      if (mobileVideoRef.current) {
+        mobileVideoRef.current.srcObject = stream;
+      }
+    } catch (error) {
+      console.error("Error accessing camera:", error);
+    }
+  };
   useEffect(() => {
     let element = React.createRef<HTMLDivElement>();
     if (isMobilePopUpOnScreen) {
@@ -59,16 +70,24 @@ export const UploadSelfieOptionsPopup = ({
   }, [isMobilePopUpOnScreen, isPcPopOnScreen, setPopUpControlsVisible]);
   return (
     <div className="pop-up-selfie-upload-options">
+      {isCameraOpened && (
+        <div className="pop-up-selfie-upload-options__mobile-camera">
+          <video ref={mobileVideoRef} autoPlay playsInline />
+        </div>
+      )}
       <div ref={mobileRef} className="pop-up-selfie-upload-options__mobile">
         <div className="pop-up-selfie-upload-options__add-dropdown">
           <ul className="pop-up-selfie-upload-options__upload-photo-options">
             <li className="pop-up-selfie-upload-options__upload-photo-option">
               <p className="photo-library">Photo Library</p>
             </li>
-            <li className="pop-up-selfie-upload-options__upload-photo-option ">
+            <li
+              className="pop-up-selfie-upload-options__upload-photo-option"
+              onClick={startMobileCamera}
+            >
               <p className="take-photo">Take Photo</p>
             </li>
-            <li className="pop-up-selfie-upload-options__upload-photo-option ">
+            <li className="pop-up-selfie-upload-options__upload-photo-option">
               <p className="chose-file">Chose File</p>
             </li>
           </ul>

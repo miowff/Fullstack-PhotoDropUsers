@@ -40,45 +40,48 @@ export const NumberInput = () => {
     <section className="number-input">
       <div className="container">
         <ErrorPopUp message={error}></ErrorPopUp>
-        <div className="lets-get-started-inner">
+        <div className="number-input__inner">
           <div className="number-input__title-container">
             <h4 className="default-title number-input__title">
               Let’s get started
             </h4>
           </div>
-          <p className="number-input__text">Enter your phone number</p>
-          <PhoneInput
-            specialLabel={""}
-            country={"us"}
-            value={phoneNumber}
-            onChange={setPhoneNumber}
-            inputClass="number-input__input"
-          />
-          <div className="number-input__button-container">
-            <button
-              className="default-button"
-              disabled={isButtonDisabled}
-              onClick={async () => {
-                await handleNextAction();
-              }}
-            >
-              Next
-            </button>
-          </div>
-
-          <div className="number-input__privacy-policy">
-            <div className="number-input__text-container">
-              <p>
-                By proceeding, you consent to get WhatsApp or SMS messages, from
-                PhotoDrop and its affiliates to the number provided. Text “STOP”
-                to 89203 to opt out.
-              </p>
+          <div className="number-input__content">
+            <p className="number-input__text">Enter your phone number</p>
+            <PhoneInput
+              specialLabel={""}
+              country={"us"}
+              value={phoneNumber}
+              onChange={setPhoneNumber}
+              inputClass="number-input__input"
+            />
+            <div className="number-input__button-container">
+              <button
+                className="default-button"
+                disabled={isButtonDisabled}
+                onClick={async () => {
+                  await handleNextAction();
+                }}
+              >
+                Next
+              </button>
             </div>
-            <div className="number-input__privacy-policy-container">
-              <p>
-                By continuing, you indicate that you have read and agree to our{" "}
-                <a href="#">Terms of Use</a> & <a href="#">Privacy Policy</a>
-              </p>
+
+            <div className="number-input__privacy-policy">
+              <div className="number-input__text-container">
+                <p>
+                  By proceeding, you consent to get WhatsApp or SMS messages,
+                  from PhotoDrop and its affiliates to the number provided. Text
+                  “STOP” to 89203 to opt out.
+                </p>
+              </div>
+              <div className="number-input__privacy-policy-container">
+                <p>
+                  By continuing, you indicate that you have read and agree to
+                  our <a href="#">Terms of Use</a> &{" "}
+                  <a href="#">Privacy Policy</a>
+                </p>
+              </div>
             </div>
           </div>
         </div>

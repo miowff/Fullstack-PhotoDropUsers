@@ -112,6 +112,7 @@
 
 .number-input {
     padding-bottom: 250px;
+    display: flex;
 
     &__title {
         width: 345px;
@@ -129,14 +130,14 @@
         font-size: 18px;
         line-height: 15px;
         padding-bottom: 20px;
-        padding-top: 10px;
+        padding-top: 5px;
     }
 
     &__privacy-policy {
         color: #6D6D6D;
         font-family: FuturaPtDefault;
         font-size: 14px;
-        margin-top: 18px;
+        margin-top: 17px;
         max-width: 340px;
     }
 
@@ -173,6 +174,7 @@
 
 .whats-the-code {
     padding-top: 100px;
+    display: flex;
 
     &__inner {
         align-items: center;
