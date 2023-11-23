@@ -18,6 +18,7 @@ export const UploadSelfieOptionsPopup = ({
   const mobileRef = useRef<HTMLDivElement>(null);
   const pcRef = useRef<HTMLDivElement>(null);
   const mobileSelfieInputRef = useRef<HTMLInputElement | null>(null);
+  const mobileStorageInputRef = useRef<HTMLInputElement | null>(null);
   const isMobilePopUpOnScreen = useIsOnScreen(mobileRef);
   const isPcPopOnScreen = useIsOnScreen(pcRef);
   const [isCameraOpened, setCameraOpened] = useState<boolean>(false);
@@ -48,6 +49,11 @@ export const UploadSelfieOptionsPopup = ({
       mobileSelfieInputRef.current.click();
     }
   };
+  const openGallery = () => {
+    if (mobileStorageInputRef.current) {
+      mobileStorageInputRef.current.click();
+    }
+  };
   useEffect(() => {
     let element = React.createRef<HTMLDivElement>();
     if (isMobilePopUpOnScreen) {
@@ -75,10 +81,7 @@ export const UploadSelfieOptionsPopup = ({
             </li>
             <li
               className="pop-up-selfie-upload-options__upload-photo-option"
-              onClick={(e) => {
-                console.log(e.target);
-                openCamera();
-              }}
+              onClick={openCamera}
             >
               <input
                 ref={mobileSelfieInputRef}
@@ -90,8 +93,18 @@ export const UploadSelfieOptionsPopup = ({
               ></input>
               <a className="take-photo">Take Photo</a>
             </li>
-            <li className="pop-up-selfie-upload-options__upload-photo-option">
+            <li
+              className="pop-up-selfie-upload-options__upload-photo-option"
+              onClick={openGallery}
+            >
               <a className="chose-file">Chose File</a>
+              <input
+                ref={mobileStorageInputRef}
+                type="file"
+                accept="image/*"
+                style={{ display: "none" }}
+                onChange={handleSelectImageChange}
+              />
             </li>
           </ul>
         </div>
