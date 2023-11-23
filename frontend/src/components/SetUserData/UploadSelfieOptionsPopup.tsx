@@ -17,7 +17,7 @@ export const UploadSelfieOptionsPopup = ({
   const webcamRef = useRef<Webcam>(null);
   const mobileRef = useRef<HTMLDivElement>(null);
   const pcRef = useRef<HTMLDivElement>(null);
-  const mobileVideoRef = useRef<HTMLVideoElement>(null);
+  const mobileVideoRef = useRef<HTMLInputElement | null>(null);
   const isMobilePopUpOnScreen = useIsOnScreen(mobileRef);
   const isPcPopOnScreen = useIsOnScreen(pcRef);
   const [isCameraOpened, setCameraOpened] = useState<boolean>(false);
@@ -33,22 +33,19 @@ export const UploadSelfieOptionsPopup = ({
       setPopUpControlsVisible(false);
     }
   };
-  const handleSelectImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const selectedPic = e.target.files[0];
+  const handleSelectImageChange = ({
+    target,
+  }: React.ChangeEvent<HTMLInputElement>) => {
+    if (target.files) {
+      const selectedPic = target.files[0];
       setSelectedFile(selectedPic);
       setSelfieEditVisible(true);
       setPopUpControlsVisible(false);
     }
   };
-  const startMobileCamera = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      if (mobileVideoRef.current) {
-        mobileVideoRef.current.srcObject = stream;
-      }
-    } catch (error) {
-      console.error("Error accessing camera:", error);
+  const openCamera = () => {
+    if (mobileVideoRef.current) {
+      mobileVideoRef.current.click();
     }
   };
   useEffect(() => {
@@ -70,21 +67,24 @@ export const UploadSelfieOptionsPopup = ({
   }, [isMobilePopUpOnScreen, isPcPopOnScreen, setPopUpControlsVisible]);
   return (
     <div className="pop-up-selfie-upload-options">
-      {isCameraOpened && (
-        <div className="pop-up-selfie-upload-options__mobile-camera">
-          <video ref={mobileVideoRef} autoPlay playsInline />
-        </div>
-      )}
       <div ref={mobileRef} className="pop-up-selfie-upload-options__mobile">
         <div className="pop-up-selfie-upload-options__add-dropdown">
           <ul className="pop-up-selfie-upload-options__upload-photo-options">
-            <li className="pop-up-selfie-upload-options__upload-photo-option">
-              <p className="photo-library">Photo Library</p>
-            </li>
             <li
               className="pop-up-selfie-upload-options__upload-photo-option"
-              onClick={startMobileCamera}
+              onClick={openCamera}
             >
+              <p className="photo-library">Photo Library</p>
+              <input
+                ref={mobileVideoRef}
+                type="file"
+                accept="image/*"
+                capture="environment"
+                style={{ display: "none" }}
+                onChange={handleSelectImageChange}
+              ></input>
+            </li>
+            <li className="pop-up-selfie-upload-options__upload-photo-option">
               <p className="take-photo">Take Photo</p>
             </li>
             <li className="pop-up-selfie-upload-options__upload-photo-option">
