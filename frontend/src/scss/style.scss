@@ -300,7 +300,9 @@
         background-color: white;
         border-radius: 11px;
 
-        p {
+        a {
+            text-decoration: none;
+
             &::before {
                 content: "";
                 position: absolute;

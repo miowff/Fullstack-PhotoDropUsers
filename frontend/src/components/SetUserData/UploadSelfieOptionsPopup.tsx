@@ -17,7 +17,7 @@ export const UploadSelfieOptionsPopup = ({
   const webcamRef = useRef<Webcam>(null);
   const mobileRef = useRef<HTMLDivElement>(null);
   const pcRef = useRef<HTMLDivElement>(null);
-  const mobileVideoRef = useRef<HTMLInputElement | null>(null);
+  const mobileSelfieInputRef = useRef<HTMLInputElement | null>(null);
   const isMobilePopUpOnScreen = useIsOnScreen(mobileRef);
   const isPcPopOnScreen = useIsOnScreen(pcRef);
   const [isCameraOpened, setCameraOpened] = useState<boolean>(false);
@@ -44,8 +44,8 @@ export const UploadSelfieOptionsPopup = ({
     }
   };
   const openCamera = () => {
-    if (mobileVideoRef.current) {
-      mobileVideoRef.current.click();
+    if (mobileSelfieInputRef.current) {
+      mobileSelfieInputRef.current.click();
     }
   };
   useEffect(() => {
@@ -70,25 +70,28 @@ export const UploadSelfieOptionsPopup = ({
       <div ref={mobileRef} className="pop-up-selfie-upload-options__mobile">
         <div className="pop-up-selfie-upload-options__add-dropdown">
           <ul className="pop-up-selfie-upload-options__upload-photo-options">
+            <li className="pop-up-selfie-upload-options__upload-photo-option">
+              <a className="photo-library">Photo Library</a>
+            </li>
             <li
               className="pop-up-selfie-upload-options__upload-photo-option"
-              onClick={openCamera}
+              onClick={(e) => {
+                console.log(e.target);
+                openCamera();
+              }}
             >
-              <p className="photo-library">Photo Library</p>
               <input
-                ref={mobileVideoRef}
+                ref={mobileSelfieInputRef}
                 type="file"
                 accept="image/*"
                 capture="environment"
                 style={{ display: "none" }}
                 onChange={handleSelectImageChange}
               ></input>
+              <a className="take-photo">Take Photo</a>
             </li>
             <li className="pop-up-selfie-upload-options__upload-photo-option">
-              <p className="take-photo">Take Photo</p>
-            </li>
-            <li className="pop-up-selfie-upload-options__upload-photo-option">
-              <p className="chose-file">Chose File</p>
+              <a className="chose-file">Chose File</a>
             </li>
           </ul>
         </div>
