@@ -33,6 +33,8 @@ export const Header = () => {
           {pathname !== "/number-input" &&
             pathname !== "/set-profile-photo" &&
             pathname !== "/code-input" &&
+            pathname !== "/set-email" &&
+            pathname !== "/set-full-name" &&
             pathname !== "/me" && (
               <a className="header__profile-thumb">
                 <img

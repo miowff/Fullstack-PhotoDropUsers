@@ -1,27 +1,24 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Webcam from "react-webcam";
+import { useHandleOutsideClick } from "../../hooks/useHandleOutsideClick";
 import { toFile } from "../../utils/toFile";
-import { useIsOnScreen } from "../../hooks/useOnScreen";
-import React from "react";
-
-interface PopUpOptionsProps {
-  setPopUpControlsVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  setSelfieEditVisible: React.Dispatch<React.SetStateAction<boolean>>;
+interface UploadSelfieOptions {
+  isVisible: React.Dispatch<React.SetStateAction<boolean>>;
   setSelectedFile: React.Dispatch<React.SetStateAction<string | File | null>>;
+  setSelfieEditVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export const UploadSelfieOptionsPopup = ({
-  setPopUpControlsVisible,
-  setSelectedFile,
+  isVisible,
   setSelfieEditVisible,
-}: PopUpOptionsProps) => {
+  setSelectedFile,
+}: UploadSelfieOptions) => {
   const webcamRef = useRef<Webcam>(null);
-  const mobileRef = useRef<HTMLDivElement>(null);
-  const pcRef = useRef<HTMLDivElement>(null);
-  const mobileSelfieInputRef = useRef<HTMLInputElement | null>(null);
-  const mobileStorageInputRef = useRef<HTMLInputElement | null>(null);
-  const isMobilePopUpOnScreen = useIsOnScreen(mobileRef);
-  const isPcPopOnScreen = useIsOnScreen(pcRef);
   const [isCameraOpened, setCameraOpened] = useState<boolean>(false);
+ 
+  const popupRef = useRef<HTMLDivElement>(null);
+  useHandleOutsideClick(popupRef, () => {
+    isVisible(false);
+  });
   const capture = () => {
     if (webcamRef.current) {
       const capturedImageSrc = webcamRef.current.getScreenshot();
@@ -30,103 +27,31 @@ export const UploadSelfieOptionsPopup = ({
         setSelectedFile(capturedFile);
       }
       setCameraOpened(false);
+      isVisible(false);
       setSelfieEditVisible(true);
-      setPopUpControlsVisible(false);
     }
   };
-  const handleSelectImageChange = ({
-    target,
-  }: React.ChangeEvent<HTMLInputElement>) => {
-    if (target.files) {
-      const selectedPic = target.files[0];
-      setSelectedFile(selectedPic);
-      setSelfieEditVisible(true);
-      setPopUpControlsVisible(false);
-    }
-  };
-  const openCamera = () => {
-    if (mobileSelfieInputRef.current) {
-      mobileSelfieInputRef.current.click();
-    }
-  };
-  const openGallery = () => {
-    if (mobileStorageInputRef.current) {
-      mobileStorageInputRef.current.click();
-    }
-  };
-  useEffect(() => {
-    let element = React.createRef<HTMLDivElement>();
-    if (isMobilePopUpOnScreen) {
-      element = mobileRef;
-    } else if (isPcPopOnScreen) {
-      element = pcRef;
-    }
-    const handleClickOutside = (event: MouseEvent) => {
-      if (element.current && !element.current.contains(event.target as Node)) {
-        setPopUpControlsVisible(false);
-      }
-    };
-    document.addEventListener("click", handleClickOutside);
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, [isMobilePopUpOnScreen, isPcPopOnScreen, setPopUpControlsVisible]);
   return (
     <div className="pop-up-selfie-upload-options">
-      <div ref={mobileRef} className="pop-up-selfie-upload-options__mobile">
-        <div className="pop-up-selfie-upload-options__add-dropdown">
-          <ul className="pop-up-selfie-upload-options__upload-photo-options">
-            <li className="pop-up-selfie-upload-options__upload-photo-option">
-              <a className="photo-library">Photo Library</a>
-            </li>
-            <li
-              className="pop-up-selfie-upload-options__upload-photo-option"
-              onClick={openCamera}
-            >
-              <input
-                ref={mobileSelfieInputRef}
-                type="file"
-                accept="image/*"
-                capture="environment"
-                style={{ display: "none" }}
-                onChange={handleSelectImageChange}
-              ></input>
-              <a className="take-photo">Take Photo</a>
-            </li>
-            <li
-              className="pop-up-selfie-upload-options__upload-photo-option"
-              onClick={openGallery}
-            >
-              <a className="chose-file">Chose File</a>
-              <input
-                ref={mobileStorageInputRef}
-                type="file"
-                accept="image/*"
-                style={{ display: "none" }}
-                onChange={handleSelectImageChange}
-              />
-            </li>
-          </ul>
-        </div>
-      </div>
       <div className="pop-up-selfie-upload-options__container">
         <div className="pop-up-selfie-upload-options__default">
           {isCameraOpened && (
             <div className="pop-up-selfie-upload-options__webcam-container">
-              <div className="container">
+              <div
+                className="pop-up-selfie-upload-options__webcam"
+                ref={popupRef}
+              >
                 <Webcam
+                  ref={webcamRef}
                   audio={false}
                   height={720}
                   width={1280}
-                  ref={webcamRef}
                   screenshotFormat="image/jpeg"
                 />
                 <div className="pop-up-selfie-upload-option__webcam-buttons-container">
                   <button
                     className="pop-up-selfie-upload-options__camera-button pop-up-selfie-upload-options__camera-save-button"
-                    onClick={() => {
-                      capture();
-                    }}
+                    onClick={capture}
                   >
                     Capture Photo
                   </button>
@@ -142,12 +67,15 @@ export const UploadSelfieOptionsPopup = ({
               </div>
             </div>
           )}
+
           <div className="container">
-            <div ref={pcRef} className="pop-up-selfie-upload-options__inner">
+            <div ref={popupRef} className="pop-up-selfie-upload-options__inner">
               <div className="pop-up-selfie-upload-options__content">
                 <span
                   className="pop-up-selfie-upload-options__x-mark"
-                  onClick={() => setPopUpControlsVisible(false)}
+                  onClick={() => {
+                    isVisible(false);
+                  }}
                 ></span>
                 <h6 className="pop-up-selfie-upload-options__title">
                   Upload options
@@ -161,7 +89,14 @@ export const UploadSelfieOptionsPopup = ({
                       <input
                         id="fileInput"
                         type="file"
-                        onChange={handleSelectImageChange}
+                        onChange={({ target }) => {
+                          if (target.files) {
+                            const selectedPic = target.files[0];
+                            setSelectedFile(selectedPic);
+                            isVisible(false);
+                            setSelfieEditVisible(true);
+                          }
+                        }}
                       />
                       <span>Select a file</span>
                     </label>

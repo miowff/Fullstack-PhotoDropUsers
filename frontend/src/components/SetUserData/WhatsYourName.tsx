@@ -55,27 +55,25 @@ export const WhatsYourName = () => {
     <div className="whats-your-name">
       <div className="container">
         <ErrorPopUp message={error}></ErrorPopUp>
-        <div className="lets-get-started-inner">
-          <div className="whats-your-name__inner-content">
-            <div className="whats-your-name__title-container">
-              <h4 className="default-title">Let’s get to know you</h4>
-            </div>
-            <input
-              className="default-input whats-your-name__input-name"
-              placeholder="What's your name?"
-              onChange={handleNameInput}
-            ></input>
-            <div className="whats-your-name__button-container">
-              <button
-                className="default-button"
-                disabled={isButtonDisabled}
-                onClick={async () => {
-                  await setFullName({ name });
-                }}
-              >
-                Next
-              </button>
-            </div>
+        <div className="whats-your-name__inner-content">
+          <div className="whats-your-name__title-container">
+            <h4 className="default-title">Let’s get to know you</h4>
+          </div>
+          <input
+            className="default-input whats-your-name__input-name"
+            placeholder="What's your name?"
+            onChange={handleNameInput}
+          ></input>
+          <div className="whats-your-name__button-container">
+            <button
+              className="default-button"
+              disabled={isButtonDisabled}
+              onClick={async () => {
+                await setFullName({ name });
+              }}
+            >
+              Next
+            </button>
           </div>
         </div>
       </div>

@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import NoProfilePicture from "../../public/images/NoProfilePicture.svg";
+import { isMobile } from "react-device-detect";
 import { UploadSelfieOptionsPopup } from "./UploadSelfieOptionsPopup";
+import { MobileUploadOptions } from "./MobileUploadOptions";
 import { SelfieEditPopUp } from "./SelfieEditPopUp";
 export const AddASelfie = () => {
   const [isPopUpControlsVisible, setPopUpControlsVisible] =
@@ -9,20 +11,31 @@ export const AddASelfie = () => {
   const [isSelfieEditVisible, setSelfieEditVisible] = useState<boolean>(
     currentPic !== null
   );
-
+  const plusButtonRef = useRef<HTMLButtonElement>(null);
   return (
     <div className="add-a-selfie">
-      {isPopUpControlsVisible && (
-        <UploadSelfieOptionsPopup
-          setPopUpControlsVisible={setPopUpControlsVisible}
-          setSelfieEditVisible={setSelfieEditVisible}
-          setSelectedFile={setCurrentPic}
-        />
-      )}
+      {isPopUpControlsVisible &&
+        (!isMobile ? (
+          <UploadSelfieOptionsPopup
+            setSelectedFile={setCurrentPic}
+            setSelfieEditVisible={setSelfieEditVisible}
+            isVisible={setPopUpControlsVisible}
+          />
+        ) : (
+          <div className="add-a-selfie__mobile-options">
+            <MobileUploadOptions
+              setSelfieEditVisible={setSelfieEditVisible}
+              setSelectedFile={setCurrentPic}
+              isVisible={setPopUpControlsVisible}
+              controlButton={plusButtonRef}
+            />
+          </div>
+        ))}
       {isSelfieEditVisible && (
         <SelfieEditPopUp
-          isVisible={setSelfieEditVisible}
-          isPopUpControlsVisible={setPopUpControlsVisible}
+          setSelectedFile={setCurrentPic}
+          setSelfieEditVisible={setSelfieEditVisible}
+          setUploadOptionsVisible={setPopUpControlsVisible}
           currentPic={currentPic}
         />
       )}
@@ -44,8 +57,13 @@ export const AddASelfie = () => {
               <button
                 className="add-a-selfie__plus-button"
                 onClick={() => {
-                  setPopUpControlsVisible(true);
+                  if (isPopUpControlsVisible) {
+                    setPopUpControlsVisible(false);
+                  } else {
+                    setPopUpControlsVisible(true);
+                  }
                 }}
+                ref={plusButtonRef}
               >
                 +
               </button>
