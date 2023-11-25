@@ -64,6 +64,7 @@ export const InputOtp = ({ onChangeOTP }: OTPInputProps) => {
       {otp.map((digit, index) => (
         <input
           className="otp-input-box"
+          type="number"
           key={index}
           value={digit}
           ref={
