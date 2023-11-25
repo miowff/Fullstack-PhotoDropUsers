@@ -7,6 +7,11 @@
     display: flex;
     flex-direction: row;
     gap: 15px;
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        display: none;
+    }
 }
 
 .otp-input-box {
@@ -123,7 +128,6 @@
 
     &__inner {
         display: flex;
-        justify-content: space-between;
         align-items: center;
         height: 60px;
     }
@@ -131,13 +135,13 @@
     &__inner-logo {
         margin: 0 auto;
         cursor: pointer;
-        width: 179px;
+        width: 170px;
         height: 22px;
     }
 
     &__profile-thumb img {
-        width: 40px;
-        height: 40px;
+        width: 35px;
+        height: 35px;
         object-fit: cover;
         border-radius: 50%;
         cursor: pointer;
@@ -153,6 +157,11 @@
         &__inner-logo {
             width: 125px;
             height: 16px;
+
+            img {
+                margin-left: 15px;
+            }
+
         }
     }
 }
@@ -741,12 +750,10 @@
             font-size: 14px;
         }
     }
-
-
 }
 
 .no-photos-yet {
-    padding-top: 40px;
+    padding-top: 20px;
 
     &__info {
         display: flex;
@@ -761,14 +768,14 @@
 
     &__info-title {
         line-height: 22px;
-        padding-top: 30px;
+        padding-top: 20px;
         color: #262626;
         font-family: FuturaPtHeavy;
         font-size: 30px;
     }
 
     &__info-text {
-        padding-top: 20px;
+        padding-top: 8px;
         color: #262626;
         text-align: center;
         font-family: FuturaPtDefault;
@@ -776,14 +783,14 @@
     }
 
     &__artists-prints {
-        padding-top: 100px;
+        padding-top: 80px;
     }
 
     &__artists-prints-title {
         font-size: 30px;
         font-family: FuturaPtHeavy;
         line-height: 20px;
-        padding-bottom: 20px;
+        padding-bottom: 15px;
     }
 
     &__artists-prints-thumbnails {
@@ -795,16 +802,38 @@
 
     &__artists-prints-thumbnail {
         max-width: 200px;
-        max-height: 250px;
+        max-height: 245px;
         cursor: pointer;
 
         img {
             border-radius: 20px;
+            max-width: 200px;
+            max-height: 250px;
             width: 100%;
             height: 100%;
         }
+    }
+}
+
+@media (max-width:1024px) {
+    .no-photos-yet {
+
+        &__info-title,
+        &__artists-prints-title {
+            font-size: 22px;
+        }
+
+        &__info-text {
+            font-size: 18px;
+        }
+
+        &__info-image {
+            width: 81px;
+            height: 74px;
+        }
 
     }
+
 }
 
 .user-content {
@@ -836,7 +865,78 @@
         height: 30%;
     }
 }
+.profile-details {
+    padding-top: 60px;
 
+    &__title-container {
+        text-align: center;
+        padding-bottom: 30px;
+    }
+
+    &__inner {
+        max-width: 480px;
+        margin: 0 auto;
+    }
+
+    &__bold-text {
+        font-family: FuturaPtMedium;
+        font-size: 18px;
+        line-height: 13px;
+    }
+
+    &__selfie-container {
+
+        padding-top: 15px;
+        margin-right: auto;
+    }
+
+    &__selfie {
+        object-fit: cover;
+        border-radius: 50%;
+        width: 150px;
+        height: 150px;
+    }
+
+    &__user-data-fields {
+        padding-top: 20px;
+    }
+
+    &__user-data-field {
+        max-width: 420px;
+        height: 50px;
+        border: 1px solid #CECCB5;
+        border-radius: 18px;
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    &__user-data-field-content {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding-top: 15px;
+        padding-left: 15px;
+        cursor: pointer;
+    }
+
+    &__edit-icon {
+        background-image: url(../public/images/PenIcon.svg);
+        width: 45px;
+        height: 45px;
+        position: absolute;
+        margin-left: 125px;
+        margin-top: -50px;
+        cursor: pointer;
+    }
+
+    &__right-arrow {
+        background-image: url(../public/images/RightArrow.svg);
+        width: 10px;
+        height: 20px;
+        margin-left: 70px;
+    }
+}
 .footer {
     margin-top: auto;
 
@@ -854,7 +954,7 @@
     }
 
     &__info-title {
-        font-family: Termina;
+        font-family: TerminaBold;
         font-size: 22px;
         padding-bottom: 15px;
     }
@@ -863,7 +963,6 @@
         display: flex;
         gap: 60px;
         justify-content: center;
-
     }
 
 
@@ -890,7 +989,6 @@
     &__copyright {
         font-family: FuturaPtDefault;
         font-size: 18px;
-        margin-top: 60px;
     }
 
     &__menu-item {
@@ -907,5 +1005,22 @@
 
     &__menu-item-logo {
         padding-bottom: 15px;
+    }
+}
+
+@media (max-width:1024px) {
+    .footer {
+        &__inner {
+            flex-direction: column;
+        }
+
+        &__info-title {
+            font-size: 18px;
+            letter-spacing: -0.36px;
+        }
+
+        &__description {
+            font-size: 16px;
+        }
     }
 }

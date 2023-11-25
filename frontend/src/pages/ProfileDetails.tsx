@@ -57,7 +57,7 @@ export const ProfileDetails = () => {
         <div className="container">
           <div className="profile-details__inner">
             <div className="profile-details__title-container">
-              <h4 className="lets-get-started-title">
+              <h4 className="default-title">
                 Welcome{fullName ? `, ${fullName}` : ``}.
               </h4>
             </div>

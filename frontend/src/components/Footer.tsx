@@ -1,5 +1,6 @@
 import FrameologyLogo from "../public/images/FrameologyLogo.svg";
 import ClimateNeutralLogo from "../public/images/ClimateNeutralLogo.svg";
+import { isMobile } from "react-device-detect";
 export const Footer = () => {
   return (
     <footer className="footer">
@@ -21,37 +22,43 @@ export const Footer = () => {
                   makes PhotoDrop possible.
                 </p>
               </div>
-              <button className="footer__order-button">Order photos</button>
-              <div className="footer__copyright">
-                <p>© 2022 FOM Online Inc</p>
-              </div>
+              <button className="footer__order-button">
+                {isMobile ? "Frame a photo" : "Order photos"}
+              </button>
             </div>
-            <nav className="footer__menu">
-              <ul className="footer__menu-list">
-                <li className="footer__menu-item">
-                  <a
-                    className="footer__menu-link"
-                    href="mailto:hello@photodrop.me"
-                  >
-                    Questions? Get in touch - hello@photodrop.me
-                  </a>
-                </li>
-                <li className="footer__menu-item">
-                  <a className="footer__menu-link" href="#">
-                    <img
-                      className="footer__menu-item-logo"
-                      src={ClimateNeutralLogo}
-                    />
-                  </a>
-                </li>
-                <li className="footer__menu-item">
-                  <a className="footer__menu-link">Terms of services</a>
-                </li>
-                <li className="footer__menu-item">
-                  <a className="footer__menu-link">Privacy Party</a>
-                </li>
-              </ul>
-            </nav>
+            {!isMobile && (
+              <>
+                <div className="footer__copyright">
+                  <p>© 2022 FOM Online Inc</p>
+                </div>
+                <nav className="footer__menu">
+                  <ul className="footer__menu-list">
+                    <li className="footer__menu-item">
+                      <a
+                        className="footer__menu-link"
+                        href="mailto:hello@photodrop.me"
+                      >
+                        Questions? Get in touch - hello@photodrop.me
+                      </a>
+                    </li>
+                    <li className="footer__menu-item">
+                      <a className="footer__menu-link" href="#">
+                        <img
+                          className="footer__menu-item-logo"
+                          src={ClimateNeutralLogo}
+                        />
+                      </a>
+                    </li>
+                    <li className="footer__menu-item">
+                      <a className="footer__menu-link">Terms of services</a>
+                    </li>
+                    <li className="footer__menu-item">
+                      <a className="footer__menu-link">Privacy Party</a>
+                    </li>
+                  </ul>
+                </nav>
+              </>
+            )}
           </div>
         </div>
       </div>

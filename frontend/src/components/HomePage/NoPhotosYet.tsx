@@ -33,7 +33,7 @@ export const NoPhotosYet = () => {
           </div>
           <div className="no-photos-yet__artists-prints">
             <h4 className="no-photos-yet__artists-prints-title">
-              Browse Artist Prints
+              Browse Art Prints
             </h4>
             <div className="no-photos-yet__artists-prints-thumbnails">
               <div
