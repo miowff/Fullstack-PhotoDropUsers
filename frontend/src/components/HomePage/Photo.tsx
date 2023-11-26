@@ -19,7 +19,7 @@ export const Photo = ({
         setPhoto(fullPhotoAccessLink);
       }}
     >
-      <img className="album-background-image" src={thumbnailAccessLink} />
+      <img className="photo-img" src={thumbnailAccessLink} />
     </div>
   );
 };

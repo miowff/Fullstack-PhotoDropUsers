@@ -10,7 +10,7 @@ export const Album = ({ album }: AlbumProps) => {
       <div className="album-content">
         <img className="album-background-image" src={album.previewPhotoLink} />
       </div>
-      <p className="album-title">{album.title}</p>
+      <h6 className="album-title">{album.title}</h6>
     </div>
   );
 };

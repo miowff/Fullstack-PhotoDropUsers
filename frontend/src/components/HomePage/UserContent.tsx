@@ -66,21 +66,23 @@ export const UserContent = ({ albums }: UserContentProps) => {
               })}
             </div>
           </div>
-          <div className="user-content__photos">
-            <p className="default-bold-text">All photos</p>
-            <div className="user-content__photos-container">
-              {photos.map((photo, index) => {
-                return (
-                  <Photo
-                    setPopUpPhotoVisible={setPopUpPhotoVisible}
-                    setPhoto={setPhoto}
-                    photo={photo}
-                    key={index}
-                  />
-                );
-              })}
-            </div>
-          </div>
+        </div>
+      </div>
+      <div className="user-content__photos">
+        <div className="container">
+          <p className="default-bold-text">All photos</p>
+        </div>
+        <div className="user-content__photos-container">
+          {photos.map((photo, index) => {
+            return (
+              <Photo
+                setPopUpPhotoVisible={setPopUpPhotoVisible}
+                setPhoto={setPhoto}
+                photo={photo}
+                key={index}
+              />
+            );
+          })}
         </div>
       </div>
     </section>
