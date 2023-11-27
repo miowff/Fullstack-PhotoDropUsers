@@ -6,10 +6,10 @@ import {
 } from "../../redux/letsGetStarted/letsGetStartedSlice";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { ErrorPopUp } from "../ErrorPopUp";
 import { useNavigate } from "react-router-dom";
 import { useEnterKeyHandler } from "../../hooks/useEnterKeyHandler";
 import { useRequestCode } from "../../hooks/useRequestCode";
+import { Alert, AlertData } from "../Alert";
 
 export const NumberInput = () => {
   const dispatch = useDispatch();
@@ -18,8 +18,8 @@ export const NumberInput = () => {
     dispatch(setCurrentStage(newStage));
   };
   const [phoneNumber, setPhoneNumber] = useState<string>("");
-  const [error, setError] = useState("");
-  const { handleRequest: requestCode } = useRequestCode({ setError });
+  const [alert, setAlert] = useState<AlertData | null>(null);
+  const { handleRequest: requestCode } = useRequestCode({ setAlert });
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(
     phoneNumber.length === 0
   );
@@ -39,7 +39,12 @@ export const NumberInput = () => {
   return (
     <section className="number-input">
       <div className="container">
-        <ErrorPopUp message={error}></ErrorPopUp>
+        <Alert
+          data={alert}
+          onClose={() => {
+            setAlert(null);
+          }}
+        ></Alert>
         <div className="number-input__inner">
           <div className="number-input__title-container">
             <h4 className="default-title number-input__title">

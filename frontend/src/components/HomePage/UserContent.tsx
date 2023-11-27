@@ -39,6 +39,7 @@ export const UserContent = ({ albums }: UserContentProps) => {
     };
   }, []);
   useEffect(() => {
+    console.log("mount");
     getPhotos()
       .unwrap()
       .then((photos) => {

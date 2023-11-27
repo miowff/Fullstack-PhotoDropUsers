@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { ErrorPopUp } from "../ErrorPopUp";
 import { LoginRegistrationModel } from "../../../../backend/src/models/user";
 import { useLoginOrRegisterMutation } from "../../api/auth";
-import { isErrorWithMessage } from "../../utils/errorParser";
 import { useNavigate } from "react-router-dom";
 import { setToken, setUser } from "../../redux/user/authSlice";
 import { useEnterKeyHandler } from "../../hooks/useEnterKeyHandler";
 import { useResendCode } from "../../hooks/useResendCode";
 import { InputOtp } from "./OtpInput";
+import { Alert, AlertData } from "../Alert";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 export const WhatsTheCode = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -23,10 +23,9 @@ export const WhatsTheCode = () => {
     }
   }, [enteredNumber, navigate]);
   const [code, setCode] = useState<string>("");
-
-  const [error, setError] = useState("");
+  const [alert, setAlert] = useState<AlertData | null>(null);
   const [loginOrRegisterUser] = useLoginOrRegisterMutation();
-  const { handleRequest: requestCode } = useResendCode({ setError });
+  const { handleRequest: requestCode } = useResendCode({ setAlert });
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(
     code.length !== 6
   );
@@ -36,20 +35,18 @@ export const WhatsTheCode = () => {
   const loginOrRegister = async (request: LoginRegistrationModel) => {
     try {
       setIsButtonDisabled(true);
-      const { tokens, currentUser } = await loginOrRegisterUser(
-        request
-      ).unwrap();
+      const loginRequestResult = await loginOrRegisterUser(request).unwrap();
+      const { tokens, currentUser } = loginRequestResult;
       dispatch(setUser(currentUser));
       dispatch(setToken(tokens));
       setIsButtonDisabled(false);
-      console.log(currentUser);
       navigate("/");
     } catch (err) {
-      const error = isErrorWithMessage(err);
-      if (error) {
-        setError(err.message);
+      const { data } = err as FetchBaseQueryError;
+      if (data) {
+        setAlert({ message: data as string, isError: true });
       } else {
-        setError("Unknown error");
+        setAlert({ message: "Unknown error", isError: true });
       }
       setIsButtonDisabled(false);
     }
@@ -62,7 +59,12 @@ export const WhatsTheCode = () => {
   return (
     <section className="whats-the-code">
       <div className="container">
-        <ErrorPopUp message={error}></ErrorPopUp>
+        <Alert
+          data={alert}
+          onClose={() => {
+            setAlert(null);
+          }}
+        ></Alert>
         <div className="lets-get-started-inner whats-the-code__inner">
           <div className="whats-the-code__inner-content">
             <div className="whats-the-code__title-container">
@@ -92,7 +94,6 @@ export const WhatsTheCode = () => {
                 disabled={isButtonDisabled}
                 onClick={async () => {
                   if (enteredNumber) {
-                    console.log(code);
                     await loginOrRegister({ phoneNumber: enteredNumber, code });
                   }
                 }}

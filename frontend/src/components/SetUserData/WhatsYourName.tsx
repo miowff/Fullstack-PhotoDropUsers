@@ -2,19 +2,19 @@ import { useEffect, useState } from "react";
 import { useSetFullNameMutation } from "../../api/user";
 import { SetFullName } from "../../../../backend/src/models/user";
 import { isErrorWithMessage } from "../../utils/errorParser";
-import { ErrorPopUp } from "../ErrorPopUp";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { setUser } from "../../redux/user/authSlice";
 import { useEnterKeyHandler } from "../../hooks/useEnterKeyHandler";
+import { Alert, AlertData } from "../Alert";
 
 export const WhatsYourName = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
   const [name, setName] = useState<string>("");
-  const [error, setError] = useState("");
+  const [alert, setAlert] = useState<AlertData | null>(null);
   const [setFullNameRequest] = useSetFullNameMutation();
   const handleNameInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -37,9 +37,10 @@ export const WhatsYourName = () => {
       const error = isErrorWithMessage(err);
       console.log(err);
       if (error) {
-        setError(err.message);
+        const { message } = err;
+        setAlert({ message, isError: true });
       } else {
-        setError("Unknown error");
+        setAlert({ message: "Unknown error", isError: true });
       }
     }
   };
@@ -54,7 +55,12 @@ export const WhatsYourName = () => {
   return (
     <div className="whats-your-name">
       <div className="container">
-        <ErrorPopUp message={error}></ErrorPopUp>
+        <Alert
+          data={alert}
+          onClose={() => {
+            setAlert(null);
+          }}
+        ></Alert>
         <div className="whats-your-name__inner-content">
           <div className="whats-your-name__title-container">
             <h4 className="default-title">Let’s get to know you</h4>

@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { SetEmail } from "../../../../backend/src/models/user";
 import { setUser } from "../../redux/user/authSlice";
 import { isErrorWithMessage } from "../../utils/errorParser";
-import { ErrorPopUp } from "../ErrorPopUp";
 import { useEnterKeyHandler } from "../../hooks/useEnterKeyHandler";
+import { Alert, AlertData } from "../Alert";
 type WhatsYourEmailProps = {
   fullName: string;
 };
@@ -16,7 +16,7 @@ export const WhatsYourEmail = ({ fullName }: WhatsYourEmailProps) => {
   const handleEmailInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
-  const [error, setError] = useState<string>("");
+  const [alert, setAlert] = useState<AlertData | null>(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
@@ -37,11 +37,11 @@ export const WhatsYourEmail = ({ fullName }: WhatsYourEmailProps) => {
       navigate("/");
     } catch (err) {
       const error = isErrorWithMessage(err);
-      console.log(err);
       if (error) {
-        setError(err.message);
+        const { message } = err;
+        setAlert({ message, isError: true });
       } else {
-        setError("Unknown error");
+        setAlert({ message: "Unknown error", isError: true });
       }
     }
   };
@@ -56,7 +56,12 @@ export const WhatsYourEmail = ({ fullName }: WhatsYourEmailProps) => {
   return (
     <div className="whats-your-email">
       <div className="container">
-        <ErrorPopUp message={error}></ErrorPopUp>
+        <Alert
+          data={alert}
+          onClose={() => {
+            setAlert(null);
+          }}
+        ></Alert>
         <div className="lets-get-started-inner whats-your-email__inner">
           <div className="whats-your-email__inner-content">
             <div className="whats-your-email__title-container">

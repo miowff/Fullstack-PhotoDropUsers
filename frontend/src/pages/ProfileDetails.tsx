@@ -23,7 +23,6 @@ export const ProfileDetails = () => {
     getUser()
       .unwrap()
       .then((data: UserModel) => {
-        console.log(data);
         if (data) {
           const { profilePhotoLink, fullName, email } = data;
           if (profilePhotoLink) {
@@ -41,30 +40,34 @@ export const ProfileDetails = () => {
       <Header />
       {isPopUpControlsVisible && (
         <UploadSelfieOptionsPopup
-          setPopUpControlsVisible={setPopUpControlsVisible}
+          isVisible={setPopUpControlsVisible}
           setSelfieEditVisible={setSelfieEditVisible}
           setSelectedFile={setCurrentPic}
         />
       )}
       {isSelfieEditVisible && (
         <SelfieEditPopUp
-          isVisible={setSelfieEditVisible}
-          isPopUpControlsVisible={setPopUpControlsVisible}
           currentPic={currentPic}
+          setSelectedFile={setCurrentPic}
+          setSelfieEditVisible={setSelfieEditVisible}
+          setUploadOptionsVisible={setPopUpControlsVisible}
         />
       )}
       <div className="profile-details">
         <div className="container">
           <div className="profile-details__inner">
             <div className="profile-details__title-container">
-              <h4 className="default-title">
+              <h4 className="profile-details__title">
                 Welcome{fullName ? `, ${fullName}` : ``}.
               </h4>
             </div>
             <div className="profile-details__content">
               <p className="profile-details__bold-text">Your selfie</p>
               <div className="profile-details__selfie-container">
-                <img className="profile-details__selfie" src={profilePicLink} />
+                <img
+                  className="profile-details__selfie"
+                  src={currentPic as string}
+                />
                 <span
                   className="profile-details__edit-icon"
                   onClick={() => {
@@ -83,7 +86,7 @@ export const ProfileDetails = () => {
                     <p className="profile-details__bold-text">
                       Your name{fullName ? `: ${fullName}` : ""}
                     </p>
-                    <p className="default-text">
+                    <p className="profile-details__text">
                       Tell us your name to personalize communications.
                     </p>
                   </div>
@@ -99,7 +102,7 @@ export const ProfileDetails = () => {
                     <p className="profile-details__bold-text">
                       Your email{email ? `: ${email}` : ""}
                     </p>
-                    <p className="default-text">
+                    <p className="profile-details__text">
                       Tell us your email to personalize communications.
                     </p>
                   </div>

@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { ErrorPopUp } from "../ErrorPopUp";
 import NoProfilePicture from "../../public/images/NoProfilePicture.svg";
 import { MobileUploadOptions } from "./MobileUploadOptions";
 import { isMobile } from "react-device-detect";
@@ -11,6 +10,7 @@ import { RootState } from "../../redux/store";
 import { setUser } from "../../redux/user/authSlice";
 import { isErrorWithMessage } from "../../utils/errorParser";
 import { useHandleOutsideClick } from "../../hooks/useHandleOutsideClick";
+import { Alert, AlertData } from "../Alert";
 interface SelfieEditProps {
   currentPic: string | File | null;
   setSelectedFile: React.Dispatch<React.SetStateAction<string | File | null>>;
@@ -35,8 +35,9 @@ export const SelfieEditPopUp = ({
   const selfieEditAreaRef = useRef<HTMLDivElement>(null);
   const [isMobileOptionsVisible, setMobileOptionsVisible] =
     useState<boolean>(false);
-  const [error, setError] = useState<string>("");
+  const [alert, setAlert] = useState<AlertData | null>(null);
   const [isSelfieUploading, setIsSelfieUploading] = useState<boolean>(false);
+
   useEffect(() => {
     if (currentPic instanceof File) {
       const reader = new FileReader();
@@ -91,9 +92,10 @@ export const SelfieEditPopUp = ({
     } catch (err) {
       const error = isErrorWithMessage(err);
       if (error) {
-        setError(err.message);
+        const { message } = err;
+        setAlert({ message, isError: true });
       } else {
-        setError("Unknown error");
+        setAlert({ message: "Unknown error", isError: true });
       }
     }
   };
@@ -112,7 +114,12 @@ export const SelfieEditPopUp = ({
   return (
     <div className="selfie-edit">
       <div className="container">
-        <ErrorPopUp message={error}></ErrorPopUp>
+        <Alert
+          data={alert}
+          onClose={() => {
+            setAlert(null);
+          }}
+        ></Alert>
         <div className="selfie-edit__inner" ref={selfieEditAreaRef}>
           <div className="selfie-edit__content">
             <span

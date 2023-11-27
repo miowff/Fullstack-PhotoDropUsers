@@ -1,21 +1,23 @@
-import { Dispatch, SetStateAction } from "react";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { useResendCodeMutation } from "../api/auth";
-import { isErrorWithMessage } from "../utils/errorParser";
+import { AlertData } from "../components/Alert";
+
 interface Props {
-  setError: Dispatch<SetStateAction<string>>;
+  setAlert: React.Dispatch<React.SetStateAction<AlertData | null>>;
 }
-export const useResendCode = ({ setError }: Props) => {
+export const useResendCode = ({ setAlert }: Props) => {
   const [requestCode] = useResendCodeMutation();
   const handleRequest = async (phoneNumber: string): Promise<void> => {
-    try {
-      await requestCode(phoneNumber);
-    } catch (err) {
-      const error = isErrorWithMessage(err);
-      if (error) {
-        setError(err.message);
+    const result = await requestCode(phoneNumber);
+    if ("error" in result) {
+      const { data } = result.error as FetchBaseQueryError;
+      if (data) {
+        return setAlert({ message: data as string, isError: true });
       } else {
-        setError("Unknown error");
+        return setAlert({ message: "Unknown error", isError: true });
       }
+    } else if ("data" in result) {
+      setAlert({ message: result.data, isError: false });
     }
   };
   return { handleRequest };

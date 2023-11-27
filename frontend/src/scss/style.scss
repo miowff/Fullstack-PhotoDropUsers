@@ -3,6 +3,56 @@
 @import 'reset';
 @import 'global';
 
+
+.alert {
+    text-align: center;
+    color: white;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 130px;
+    width: 350px;
+
+    div {
+        opacity: 0;
+        animation: fadeInOut 2s ease-in-out;
+        border-radius: 11px;
+    }
+
+    @keyframes fadeInOut {
+        0% {
+            opacity: 0;
+        }
+
+        25% {
+            opacity: 1;
+        }
+
+        75% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 0;
+        }
+    }
+
+    &__success {
+        background-color: green;
+    }
+
+    &__error {
+        background-color: red;
+    }
+
+    &__text {
+        color: white;
+        font-family: FuturaPtDefault;
+    }
+}
+
 .album {
     max-width: 200px;
     max-height: 250px;
@@ -184,6 +234,12 @@
     font-size: 30px;
 }
 
+@media (max-width:1024px) {
+    .default-title {
+        font-size: 22px;
+    }
+}
+
 .loading {
     text-align: center;
     width: 375px;
@@ -221,17 +277,12 @@
     }
 }
 
-@media (max-width:1024px) {
-    .default-title {
-        font-size: 22px;
-    }
-}
-
 .header {
 
     &__inner {
         display: flex;
         align-items: center;
+        justify-content: center;
         height: 60px;
     }
 
@@ -243,6 +294,9 @@
     }
 
     &__profile-thumb img {
+        position: absolute;
+        top: 10px;
+        right: 30px;
         width: 35px;
         height: 35px;
         object-fit: cover;
@@ -260,13 +314,13 @@
         &__inner-logo {
             width: 125px;
             height: 16px;
+        }
 
-            img {
-                margin-left: 15px;
-            }
-
+        &__profile-thumb img {
+            right: 15px;
         }
     }
+
 }
 
 .number-input {
@@ -623,8 +677,6 @@
     }
 }
 
-
-
 .pop-up-photo-container {
     width: 100%;
     height: 100vh;
@@ -939,42 +991,19 @@
 
 }
 
-.user-content {
-    padding-top: 40px;
-
-    &__albums-container {
-        padding-top: 20px;
-        display: flex;
-        flex-direction: row;
-        gap: 5px;
-        overflow-x: scroll;
-        flex-wrap: nowrap;
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-
-        &::-webkit-scrollbar {
-            display: none;
-        }
-    }
-
-    &__photos {
-        padding-top: 100px;
-    }
-
-    &__photos-container {
-        padding-top: 20px;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        height: 30%;
-    }
-}
 
 .profile-details {
-    padding-top: 60px;
+    padding-top: 10px;
 
     &__title-container {
         text-align: center;
-        padding-bottom: 30px;
+        padding-bottom: 15px;
+    }
+
+    &__title {
+        color: #262626;
+        font-family: TerminaBold;
+        font-size: 30px;
     }
 
     &__inner {
@@ -989,7 +1018,6 @@
     }
 
     &__selfie-container {
-
         padding-top: 15px;
         margin-right: auto;
     }
@@ -1002,17 +1030,24 @@
     }
 
     &__user-data-fields {
-        padding-top: 20px;
+        padding-top: 10px;
     }
 
     &__user-data-field {
         max-width: 420px;
         height: 50px;
         border: 1px solid #CECCB5;
-        border-radius: 18px;
+        border-radius: 11px;
         margin-top: 10px;
         display: flex;
         align-items: center;
+    }
+
+    &__text {
+        font-size: 16px;
+        font-family: FuturaPtDefault;
+        padding-bottom: 10px;
+        width: 365px;
     }
 
     &__user-data-field-content {
@@ -1038,7 +1073,38 @@
         background-image: url(../public/images/RightArrow.svg);
         width: 10px;
         height: 20px;
-        margin-left: 70px;
+        margin-left: 10px;
+    }
+}
+
+@media (max-width:1024px) {
+    .profile-details {
+        &__title {
+            font-size: 18px;
+        }
+
+        &__selfie {
+            width: 100px;
+            height: 100px;
+        }
+
+        &__edit-icon {
+            margin-left: 75px;
+            margin-top: -40px;
+        }
+
+        &__text {
+            font-size: 14px;
+            width: 292px;
+        }
+
+        &__bold-text {
+            p {
+                font-size: 14px;
+            }
+        }
+
+
     }
 }
 
@@ -1076,12 +1142,16 @@
 
 @media (max-width:1024px) {
     .user-content {
+        &__photos {
+            padding-top: 35px;
+        }
+
         &__photos-container {
+            padding-top: 10px;
             padding-right: 150px;
             width: 375px;
         }
     }
-
 }
 
 
