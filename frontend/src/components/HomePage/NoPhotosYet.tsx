@@ -3,15 +3,16 @@ import ChaseBaker from "../../public/images/ArtistsPrints/ChaseBaker.jpg";
 import JorgeGardner from "../../public/images/ArtistsPrints/JorgeGardner.jpg";
 import { useState } from "react";
 import { PopUpPhoto } from "./PopUpPhoto";
+import { PhotoResponse } from "../../../../backend/src/models/photo";
 
 export const NoPhotosYet = () => {
-  const [photo, setPhoto] = useState<string>("");
+  const [photo, setPhoto] = useState<PhotoResponse | null>(null);
   const [isPopUpPhotoVisible, setPopUpPhotoVisible] = useState<boolean>(false);
   return (
     <section className="no-photos-yet">
       {isPopUpPhotoVisible && (
         <PopUpPhoto
-          photoUrl={photo}
+          photo={photo as PhotoResponse}
           setPopUpPhotoVisible={setPopUpPhotoVisible}
         />
       )}
@@ -39,7 +40,11 @@ export const NoPhotosYet = () => {
               <div
                 className="no-photos-yet__artists-prints-thumbnail"
                 onClick={() => {
-                  setPhoto(ChaseBaker);
+                  setPhoto({
+                    isActivated: true,
+                    fullPhotoAccessLink: ChaseBaker,
+                    thumbnailAccessLink: ChaseBaker,
+                  });
                   setPopUpPhotoVisible(true);
                 }}
               >
@@ -53,7 +58,11 @@ export const NoPhotosYet = () => {
               <div
                 className="no-photos-yet__artists-prints-thumbnail"
                 onClick={() => {
-                  setPhoto(JorgeGardner);
+                  setPhoto({
+                    isActivated: true,
+                    fullPhotoAccessLink: JorgeGardner,
+                    thumbnailAccessLink: JorgeGardner,
+                  });
                   setPopUpPhotoVisible(true);
                 }}
               >

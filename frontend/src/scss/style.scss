@@ -142,7 +142,6 @@
     }
 }
 
-
 .default-bold-text {
     font-family: FuturaPtHeavy;
     font-size: 18px;
@@ -268,6 +267,33 @@
 
     p {
         color: white;
+    }
+
+    p::after {
+        display: inline-block;
+        animation: dotty steps(1, end) 2s infinite;
+        content: '';
+    }
+}
+
+.loader {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+
+}
+
+.loader-content {
+    text-align: center;
+    width: 120px;
+
+    img {
+        padding-bottom: 25px;
+        margin: 0 auto;
     }
 
     p::after {
@@ -703,8 +729,46 @@
 
     &__buttons {
         position: absolute;
-        bottom: 65px;
+        bottom: 85px;
         right: 480px;
+    }
+
+    &__button {
+        position: absolute;
+        bottom: 30px;
+    }
+
+    &__unlock {
+        width: 200px;
+        height: 50px;
+        border: none;
+        border-radius: 25px;
+        color: #262626;
+        font-family: FuturaPtMedium;
+        font-size: 22px;
+    }
+}
+
+@media (max-width:1024px) {
+    .pop-up-photo-container {
+        background: #262626;
+
+        &__buttons {
+            width: 340px;
+            right: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            margin: 0 auto;
+        }
+
+        &__button {
+            bottom: 30px;
+        }
+
+        &__unlock {
+            font-size: 18px;
+            width: 345px;
+        }
     }
 }
 
@@ -1154,6 +1218,52 @@
     }
 }
 
+.photo-buttons-group {
+    position: inherit;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    font-family: FuturaPtDefault;
+    height: 50px;
+
+    img {
+        margin: 0 auto;
+    }
+
+    p {
+        color: white;
+        font-size: 14px;
+
+    }
+
+    span {
+        cursor: pointer;
+    }
+
+    &__see-in-frame {
+        font-family: FuturaPtHeavy;
+        width: 300px;
+        height: 50px;
+        font-size: 22px;
+        border-radius: 30px;
+        border: 1px solid;
+        border-color: white;
+        background: rgba(28, 28, 28, 0);
+        color: white;
+        cursor: pointer;
+    }
+}
+
+@media (max-width:1024px) {
+    .photo-buttons-group {
+        &__see-in-frame {
+            font-size: 18px;
+            width: 196px;
+        }
+    }
+}
 
 .footer {
     margin-top: auto;
@@ -1228,8 +1338,17 @@
 
 @media (max-width:1024px) {
     .footer {
+
+        &__menu-container {
+            display: none;
+        }
+
         &__inner {
             flex-direction: column;
+        }
+
+        &__info {
+            margin: 0 auto;
         }
 
         &__info-title {

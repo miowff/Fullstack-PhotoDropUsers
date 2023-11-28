@@ -11,4 +11,4 @@ export const photosApi = apiSlice.injectEndpoints({
     }),
   }),
 });
-export const { useLazyGetAllUserPhotosQuery } = photosApi;
+export const { useGetAllUserPhotosQuery } = photosApi;

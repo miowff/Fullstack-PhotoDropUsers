@@ -82,6 +82,7 @@ export const SelfieEditPopUp = ({
             ...user,
             profilePhotoLink: accessUrl,
           };
+          setSelectedFile(updatedUser.profilePhotoLink);
           dispatch(setUser(updatedUser));
         }
       }

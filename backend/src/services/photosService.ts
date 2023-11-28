@@ -30,7 +30,7 @@ class PhotosService implements IPhotosService {
         const thumbnailAccessLink = await s3Service.createAccessPhotoUrl(
           thumbnailKey
         );
-        return { fullPhotoAccessLink, thumbnailAccessLink };
+        return { fullPhotoAccessLink, thumbnailAccessLink, isActivated };
       })
     );
   };

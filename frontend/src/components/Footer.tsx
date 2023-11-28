@@ -26,39 +26,37 @@ export const Footer = () => {
                 {isMobile ? "Frame a photo" : "Order photos"}
               </button>
             </div>
-            {!isMobile && (
-              <>
-                <div className="footer__copyright">
-                  <p>© 2022 FOM Online Inc</p>
-                </div>
-                <nav className="footer__menu">
-                  <ul className="footer__menu-list">
-                    <li className="footer__menu-item">
-                      <a
-                        className="footer__menu-link"
-                        href="mailto:hello@photodrop.me"
-                      >
-                        Questions? Get in touch - hello@photodrop.me
-                      </a>
-                    </li>
-                    <li className="footer__menu-item">
-                      <a className="footer__menu-link" href="#">
-                        <img
-                          className="footer__menu-item-logo"
-                          src={ClimateNeutralLogo}
-                        />
-                      </a>
-                    </li>
-                    <li className="footer__menu-item">
-                      <a className="footer__menu-link">Terms of services</a>
-                    </li>
-                    <li className="footer__menu-item">
-                      <a className="footer__menu-link">Privacy Party</a>
-                    </li>
-                  </ul>
-                </nav>
-              </>
-            )}
+            <div className="footer__menu-container">
+              <div className="footer__copyright">
+                <p>© 2022 FOM Online Inc</p>
+              </div>
+              <nav className="footer__menu">
+                <ul className="footer__menu-list">
+                  <li className="footer__menu-item">
+                    <a
+                      className="footer__menu-link"
+                      href="mailto:hello@photodrop.me"
+                    >
+                      Questions? Get in touch - hello@photodrop.me
+                    </a>
+                  </li>
+                  <li className="footer__menu-item">
+                    <a className="footer__menu-link" href="#">
+                      <img
+                        className="footer__menu-item-logo"
+                        src={ClimateNeutralLogo}
+                      />
+                    </a>
+                  </li>
+                  <li className="footer__menu-item">
+                    <a className="footer__menu-link">Terms of services</a>
+                  </li>
+                  <li className="footer__menu-item">
+                    <a className="footer__menu-link">Privacy Party</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
           </div>
         </div>
       </div>

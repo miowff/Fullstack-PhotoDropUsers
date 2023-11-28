@@ -11,4 +11,5 @@ export const albumsApi = apiSlice.injectEndpoints({
     }),
   }),
 });
-export const { useLazyGetAllUserAlbumsQuery } = albumsApi;
+export const {  useGetAllUserAlbumsQuery } =
+  albumsApi;

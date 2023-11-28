@@ -5,7 +5,7 @@ export const Loader = () => {
       <div className="container">
         <div className="loader-content">
           <img src={loaderIcon} />
-          <p className="default-bold-text">Almost there</p>{" "}
+          <p className="default-bold-text">Almost there</p>
         </div>
       </div>
     </div>

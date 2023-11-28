@@ -2,7 +2,7 @@ import { PhotoResponse } from "../../../../backend/src/models/photo";
 
 interface PhotoProps {
   photo: PhotoResponse;
-  setPhoto: React.Dispatch<React.SetStateAction<string>>;
+  setPhoto: React.Dispatch<React.SetStateAction<PhotoResponse | null>>;
   setPopUpPhotoVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export const Photo = ({
@@ -10,16 +10,17 @@ export const Photo = ({
   setPhoto,
   setPopUpPhotoVisible,
 }: PhotoProps) => {
-  const { fullPhotoAccessLink, thumbnailAccessLink } = photo;
+  const { fullPhotoAccessLink, isActivated } = photo;
   return (
     <div
       className="photo"
       onClick={() => {
+        console.log(isActivated);
         setPopUpPhotoVisible(true);
-        setPhoto(fullPhotoAccessLink);
+        setPhoto(photo);
       }}
     >
-      <img className="photo-img" src={thumbnailAccessLink} />
+      <img className="photo-img" src={fullPhotoAccessLink} />
     </div>
   );
 };

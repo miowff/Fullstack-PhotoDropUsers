@@ -2,19 +2,17 @@ import { useEffect, useState } from "react";
 import { Album } from "./Album";
 import { Photo } from "./Photo";
 import { AlbumModel } from "../../../../backend/src/models/albums";
-import { useLazyGetAllUserPhotosQuery } from "../../api/photos";
 import { PhotoResponse } from "../../../../backend/src/models/photo";
 import { PopUpPhoto } from "./PopUpPhoto";
 
 interface UserContentProps {
   albums: AlbumModel[];
+  photos: PhotoResponse[];
 }
 
-export const UserContent = ({ albums }: UserContentProps) => {
-  const [photo, setPhoto] = useState<string>("");
+export const UserContent = ({ albums, photos }: UserContentProps) => {
+  const [photo, setPhoto] = useState<PhotoResponse | null>(null);
   const [isPopUpPhotoVisible, setPopUpPhotoVisible] = useState<boolean>(false);
-  const [getPhotos] = useLazyGetAllUserPhotosQuery();
-  const [photos, setPhotos] = useState<PhotoResponse[]>([]);
   const handleScroll = (event: React.WheelEvent<HTMLDivElement>): void => {
     const container = event.currentTarget;
     const scrollAmount = event.deltaY;
@@ -38,19 +36,12 @@ export const UserContent = ({ albums }: UserContentProps) => {
       document.removeEventListener("wheel", handleWheel);
     };
   }, []);
-  useEffect(() => {
-    console.log("mount");
-    getPhotos()
-      .unwrap()
-      .then((photos) => {
-        setPhotos(photos);
-      });
-  }, []);
+
   return (
     <section className="user-content">
       {isPopUpPhotoVisible && (
         <PopUpPhoto
-          photoUrl={photo}
+          photo={photo as PhotoResponse}
           setPopUpPhotoVisible={setPopUpPhotoVisible}
         />
       )}

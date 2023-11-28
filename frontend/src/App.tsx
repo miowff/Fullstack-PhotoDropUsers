@@ -15,7 +15,7 @@ import { PrivacyPolicy } from "./pages/PrivacyPolicy";
 import { NumberInputPage } from "./pages/LetsGetStarted/NumberInputPage";
 import { CodeInputPage } from "./pages/LetsGetStarted/CodeInputPage";
 
-function App() {
+const App = () => {
   const [getUser] = useLazyGetCurrentUserQuery();
   const dispatch = useDispatch();
   const location = useLocation();
@@ -34,8 +34,9 @@ function App() {
     getUser()
       .unwrap()
       .then((data: UserModel) => {
+        console.log("get current user")
         if (data) {
-          console.log(data)
+          console.log(data);
           dispatch(setUser(data));
           if (location.pathname === "/start") {
             return navigate("/");
@@ -101,6 +102,6 @@ function App() {
       </Routes>
     </div>
   );
-}
+};
 export const foo = 12;
 export default App;
