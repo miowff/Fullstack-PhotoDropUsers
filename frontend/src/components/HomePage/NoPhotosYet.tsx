@@ -4,10 +4,13 @@ import JorgeGardner from "../../public/images/ArtistsPrints/JorgeGardner.jpg";
 import { useState } from "react";
 import { PopUpPhoto } from "./PopUpPhoto";
 import { PhotoResponse } from "../../../../backend/src/models/photo";
+import { usePreventVerticalScroll } from "../../hooks/useHorizontalScroll";
+import { handleScroll } from "../../hooks/useHandleHorizontalScroll";
 
 export const NoPhotosYet = () => {
   const [photo, setPhoto] = useState<PhotoResponse | null>(null);
   const [isPopUpPhotoVisible, setPopUpPhotoVisible] = useState<boolean>(false);
+  usePreventVerticalScroll(".no-photos-yet__artists-prints-image");
   return (
     <section className="no-photos-yet">
       {isPopUpPhotoVisible && (
@@ -36,7 +39,10 @@ export const NoPhotosYet = () => {
             <h4 className="no-photos-yet__artists-prints-title">
               Browse Art Prints
             </h4>
-            <div className="no-photos-yet__artists-prints-thumbnails">
+            <div
+              className="no-photos-yet__artists-prints-thumbnails"
+              onWheel={(event) => handleScroll(event)}
+            >
               <div
                 className="no-photos-yet__artists-prints-thumbnail"
                 onClick={() => {

@@ -4,7 +4,7 @@ import { useHandleOutsideClick } from "../../hooks/useHandleOutsideClick";
 import { toFile } from "../../utils/toFile";
 interface UploadSelfieOptions {
   isVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  setSelectedFile: React.Dispatch<React.SetStateAction<string | File | null>>;
+  setSelectedFile: React.Dispatch<React.SetStateAction<string | File>>;
   setSelfieEditVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export const UploadSelfieOptionsPopup = ({

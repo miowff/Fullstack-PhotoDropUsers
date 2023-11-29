@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { useHandleOutsideClick } from "../../hooks/useHandleOutsideClick";
 interface MobileUploadProps {
   isVisible: React.Dispatch<React.SetStateAction<boolean>> | (() => void);
-  setSelectedFile: React.Dispatch<React.SetStateAction<string | File | null>>;
+  setSelectedFile: React.Dispatch<React.SetStateAction<string | File>>;
   setSelfieEditVisible: React.Dispatch<React.SetStateAction<boolean>>;
   controlButton: React.RefObject<HTMLElement>;
 }

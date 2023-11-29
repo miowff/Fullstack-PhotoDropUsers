@@ -1,9 +1,8 @@
 import { Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
 import { useEffect } from "react";
-//import { Loader } from "./Loader";
+import { RootState } from "../redux/store";
 
 export const PrivateWrapper = ({ children }: { children: JSX.Element }) => {
   const isAuth = useAuth();

@@ -11,9 +11,10 @@ import { setUser } from "../../redux/user/authSlice";
 import { isErrorWithMessage } from "../../utils/errorParser";
 import { useHandleOutsideClick } from "../../hooks/useHandleOutsideClick";
 import { Alert, AlertData } from "../Alert";
+import { useEnterKeyHandler } from "../../hooks/useEnterKeyHandler";
 interface SelfieEditProps {
   currentPic: string | File | null;
-  setSelectedFile: React.Dispatch<React.SetStateAction<string | File | null>>;
+  setSelectedFile: React.Dispatch<React.SetStateAction<string | File>>;
   setSelfieEditVisible: React.Dispatch<React.SetStateAction<boolean>>;
   setUploadOptionsVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -55,9 +56,14 @@ export const SelfieEditPopUp = ({
   }, [currentPic]);
   useHandleOutsideClick(selfieEditAreaRef, () => {
     setSelfieEditVisible(false);
+    console.log(currentPic);
     if (!isMobile) {
       setUploadOptionsVisible(true);
     }
+  });
+  useEnterKeyHandler(async () => {
+    await uploadProfilePic();
+    setSelfieEditVisible(false);
   });
   const uploadProfilePic = async () => {
     try {

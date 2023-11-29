@@ -1,19 +1,11 @@
-import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
-import { HomePage } from "./pages/HomePage";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from "./enums/constants";
 import { useDispatch } from "react-redux";
 import { useLazyGetCurrentUserQuery } from "./api/auth";
 import { UserModel } from "../../backend/src/models/user";
 import { setUser } from "./redux/user/authSlice";
-import { SetFullNamePage } from "./pages/SetFullNamePage";
-import { SetProfilePhotoPage } from "./pages/SetProfilePhoto";
-import { SetEmailPage } from "./pages/SetEmailPage";
-import { PrivateWrapper } from "./components/protectedRoute";
-import { ProfileDetails } from "./pages/ProfileDetails";
-import { PrivacyPolicy } from "./pages/PrivacyPolicy";
-import { NumberInputPage } from "./pages/LetsGetStarted/NumberInputPage";
-import { CodeInputPage } from "./pages/LetsGetStarted/CodeInputPage";
+import { AppRoutes } from "./components/Routes";
 
 const App = () => {
   const [getUser] = useLazyGetCurrentUserQuery();
@@ -34,7 +26,6 @@ const App = () => {
     getUser()
       .unwrap()
       .then((data: UserModel) => {
-        console.log("get current user")
         if (data) {
           console.log(data);
           dispatch(setUser(data));
@@ -46,61 +37,11 @@ const App = () => {
       });
   }, []);
   return (
-    <div className="wrapper">
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <PrivateWrapper>
-              <HomePage />
-            </PrivateWrapper>
-          }
-        />
-        <Route
-          path="/set-full-name"
-          element={
-            <PrivateWrapper>
-              <SetFullNamePage />
-            </PrivateWrapper>
-          }
-        ></Route>
-        <Route
-          path="/set-profile-photo"
-          element={
-            <PrivateWrapper>
-              <SetProfilePhotoPage />
-            </PrivateWrapper>
-          }
-        ></Route>
-        <Route
-          path="/set-email"
-          element={
-            <PrivateWrapper>
-              <SetEmailPage />
-            </PrivateWrapper>
-          }
-        ></Route>
-        <Route
-          path="/me"
-          element={
-            <PrivateWrapper>
-              <ProfileDetails />
-            </PrivateWrapper>
-          }
-        ></Route>
-        <Route
-          path="/privacy-policy"
-          element={
-            <PrivateWrapper>
-              <PrivacyPolicy />
-            </PrivateWrapper>
-          }
-        ></Route>
-        <Route path="/number-input" element={<NumberInputPage />} />
-        <Route path="/code-input" element={<CodeInputPage />} />
-        <Route path="*" element={<div>404 Not Found</div>} />
-      </Routes>
-    </div>
+    <>
+      <div className="wrapper">
+        <AppRoutes />
+      </div>
+    </>
   );
 };
 export const foo = 12;

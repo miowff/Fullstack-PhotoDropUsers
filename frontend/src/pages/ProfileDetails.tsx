@@ -4,31 +4,37 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SelfieEditPopUp } from "../components/SetUserData/SelfieEditPopUp";
 import { UploadSelfieOptionsPopup } from "../components/SetUserData/UploadSelfieOptionsPopup";
-import { useGetCurrentUserQuery } from "../api/auth";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 export const ProfileDetails = () => {
   const navigate = useNavigate();
-  const { data: user, isFetching, isLoading } = useGetCurrentUserQuery();
+  const user = useSelector((state: RootState) => state.auth.user);
   const [isSelfieEditVisible, setSelfieEditVisible] = useState<boolean>(false);
   const [isPopUpControlsVisible, setPopUpControlsVisible] =
     useState<boolean>(false);
   const [fullName, setFullName] = useState<string | null>(null);
   const [email, setEmail] = useState<string | null>(null);
-  const [currentPic, setCurrentPic] = useState<string | File | null>(
-    NoProfilePicture
-  );
+  const [currentPic, setCurrentPic] = useState<string | File>(NoProfilePicture);
+  const [profilePhoto, setProfilePhoto] = useState<string>(NoProfilePicture);
   useEffect(() => {
     if (user) {
       const { fullName, email, profilePhotoLink } = user;
       setFullName(fullName);
       setEmail(email);
-      if (currentPic) {
+      if (profilePhotoLink) {
         setCurrentPic(profilePhotoLink);
+        setProfilePhoto(profilePhotoLink);
       }
     }
   }, [user]);
+  useEffect(() => {
+    if (typeof currentPic === "string") {
+      setProfilePhoto(currentPic);
+    }
+  }, [currentPic]);
   return (
     <>
-      {!isFetching && !isLoading && user && (
+      {user && (
         <>
           <Header />
           {isPopUpControlsVisible && (
@@ -59,7 +65,7 @@ export const ProfileDetails = () => {
                   <div className="profile-details__selfie-container">
                     <img
                       className="profile-details__selfie"
-                      src={currentPic as string}
+                      src={profilePhoto}
                     />
                     <span
                       className="profile-details__edit-icon"

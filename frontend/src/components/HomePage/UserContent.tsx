@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Album } from "./Album";
 import { Photo } from "./Photo";
 import { AlbumModel } from "../../../../backend/src/models/albums";
 import { PhotoResponse } from "../../../../backend/src/models/photo";
 import { PopUpPhoto } from "./PopUpPhoto";
+import { usePreventVerticalScroll } from "../../hooks/useHorizontalScroll";
+import { handleScroll } from "../../hooks/useHandleHorizontalScroll";
 
 interface UserContentProps {
   albums: AlbumModel[];
@@ -13,30 +15,7 @@ interface UserContentProps {
 export const UserContent = ({ albums, photos }: UserContentProps) => {
   const [photo, setPhoto] = useState<PhotoResponse | null>(null);
   const [isPopUpPhotoVisible, setPopUpPhotoVisible] = useState<boolean>(false);
-  const handleScroll = (event: React.WheelEvent<HTMLDivElement>): void => {
-    const container = event.currentTarget;
-    const scrollAmount = event.deltaY;
-    container.scrollTo({
-      top: 0,
-      left: container.scrollLeft + scrollAmount,
-      behavior: "smooth",
-    });
-  };
-  useEffect(() => {
-    const handleWheel = (event: WheelEvent) => {
-      const albums = document.querySelectorAll(".album");
-      albums.forEach((album) => {
-        if (album.contains(event.target as Node)) {
-          event.preventDefault();
-        }
-      });
-    };
-    document.addEventListener("wheel", handleWheel, { passive: false });
-    return () => {
-      document.removeEventListener("wheel", handleWheel);
-    };
-  }, []);
-
+  usePreventVerticalScroll(".album");
   return (
     <section className="user-content">
       {isPopUpPhotoVisible && (
