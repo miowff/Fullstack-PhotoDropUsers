@@ -8,6 +8,7 @@ import { NumberInputPage } from "../pages/LetsGetStarted/NumberInputPage";
 import { CodeInputPage } from "../pages/LetsGetStarted/CodeInputPage";
 import { Route, Routes } from "react-router-dom";
 import { HomePage } from "../pages/HomePage";
+import { AlbumDetails } from "../pages/AlbumDetails";
 export const AppRoutes = () => {
   return (
     <Routes>
@@ -56,6 +57,14 @@ export const AppRoutes = () => {
         element={
           <PrivateWrapper>
             <PrivacyPolicy />
+          </PrivateWrapper>
+        }
+      ></Route>
+      <Route
+        path="/album/:id"
+        element={
+          <PrivateWrapper>
+            <AlbumDetails />
           </PrivateWrapper>
         }
       ></Route>

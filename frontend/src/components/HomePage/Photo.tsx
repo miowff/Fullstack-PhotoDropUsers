@@ -10,12 +10,11 @@ export const Photo = ({
   setPhoto,
   setPopUpPhotoVisible,
 }: PhotoProps) => {
-  const { fullPhotoAccessLink, isActivated } = photo;
+  const { fullPhotoAccessLink} = photo;
   return (
     <div
       className="photo"
       onClick={() => {
-        console.log(isActivated);
         setPopUpPhotoVisible(true);
         setPhoto(photo);
       }}

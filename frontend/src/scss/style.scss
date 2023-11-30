@@ -3,6 +3,13 @@
 @import 'reset';
 @import 'global';
 
+.photos-container {
+    padding-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    height: 30%;
+    margin: 0;
+}
 
 .alert {
     text-align: center;
@@ -1202,13 +1209,6 @@
         padding-top: 100px;
     }
 
-    &__photos-container {
-        padding-top: 20px;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        height: 30%;
-        margin: 0;
-    }
 }
 
 @media (max-width:1024px) {

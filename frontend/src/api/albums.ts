@@ -1,4 +1,7 @@
-import { AlbumModel } from "../../../backend/src/models/albums";
+import {
+  AlbumModel,
+  AlbumWithPhotos,
+} from "../../../backend/src/models/albums";
 import { apiSlice } from "./api";
 
 export const albumsApi = apiSlice.injectEndpoints({
@@ -9,7 +12,13 @@ export const albumsApi = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    getAlbumWithPhotos: builder.query<AlbumWithPhotos, string>({
+      query: (albumId) => ({
+        url: `album?albumId=${albumId}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
-export const {  useGetAllUserAlbumsQuery } =
+export const { useGetAllUserAlbumsQuery, useGetAlbumWithPhotosQuery } =
   albumsApi;

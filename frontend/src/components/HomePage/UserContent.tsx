@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Album } from "./Album";
-import { Photo } from "./Photo";
 import { AlbumModel } from "../../../../backend/src/models/albums";
 import { PhotoResponse } from "../../../../backend/src/models/photo";
 import { PopUpPhoto } from "./PopUpPhoto";
 import { usePreventVerticalScroll } from "../../hooks/useHorizontalScroll";
 import { handleScroll } from "../../hooks/useHandleHorizontalScroll";
+import { PhotosGroup } from "../Photos/PhotosGroup";
 
 interface UserContentProps {
   albums: AlbumModel[];
@@ -43,17 +43,12 @@ export const UserContent = ({ albums, photos }: UserContentProps) => {
         <div className="container">
           <p className="default-bold-text">All photos</p>
         </div>
-        <div className="user-content__photos-container">
-          {photos.map((photo, index) => {
-            return (
-              <Photo
-                setPopUpPhotoVisible={setPopUpPhotoVisible}
-                setPhoto={setPhoto}
-                photo={photo}
-                key={index}
-              />
-            );
-          })}
+        <div>
+          <PhotosGroup
+            photos={photos}
+            setPopUpPhotoVisible={setPopUpPhotoVisible}
+            setPhoto={setPhoto}
+          />
         </div>
       </div>
     </section>

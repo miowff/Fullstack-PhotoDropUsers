@@ -14,23 +14,17 @@ class PhotosService implements IPhotosService {
       photos.map(async (photo) => {
         const { isActivated, photoName, albumTitle } = photo;
         let photoKey = ``;
-        let thumbnailKey = ``;
         if (isActivated) {
-          thumbnailKey = S3FolderNames.THUMBNAILS;
           photoKey = S3FolderNames.ORIGINAL_PHOTOS;
         } else {
-          thumbnailKey = S3FolderNames.WATERMARKED_THUMBNAILS;
           photoKey = S3FolderNames.WATERMARKED_PHOTOS;
         }
         photoKey += `/${albumTitle}/${photoName}`;
-        thumbnailKey += `/${albumTitle}/${photoName}`;
         const fullPhotoAccessLink = await s3Service.createAccessPhotoUrl(
           photoKey
         );
-        const thumbnailAccessLink = await s3Service.createAccessPhotoUrl(
-          thumbnailKey
-        );
-        return { fullPhotoAccessLink, thumbnailAccessLink, isActivated };
+
+        return { fullPhotoAccessLink, isActivated };
       })
     );
   };

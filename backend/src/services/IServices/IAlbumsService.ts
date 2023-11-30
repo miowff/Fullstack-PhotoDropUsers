@@ -1,5 +1,6 @@
-import { AlbumModel } from "src/models/albums";
+import { AlbumModel, AlbumWithPhotos } from "src/models/albums";
 
 export interface IAlbumsService {
   getAllUserAlbums(userId: string): Promise<AlbumModel[]>;
+  getAlbumWithPhotos(albumId: string, userId: string): Promise<AlbumWithPhotos>;
 }

@@ -83,3 +83,12 @@ GetAllPhotos:
         method: GET
         authorizer:
           name: usersAuthorizer
+
+GetAlbumWithPhotos:
+  handler: src/lambdas/albums/getAlbumWithPhotos.handler
+  events:
+    - httpApi:
+        path: /album
+        method: GET
+        authorizer:
+          name: usersAuthorizer
