@@ -49,7 +49,6 @@ export const NoPhotosYet = () => {
                   setPhoto({
                     isActivated: true,
                     fullPhotoAccessLink: ChaseBaker,
-                    thumbnailAccessLink: ChaseBaker,
                   });
                   setPopUpPhotoVisible(true);
                 }}
@@ -67,7 +66,6 @@ export const NoPhotosYet = () => {
                   setPhoto({
                     isActivated: true,
                     fullPhotoAccessLink: JorgeGardner,
-                    thumbnailAccessLink: JorgeGardner,
                   });
                   setPopUpPhotoVisible(true);
                 }}

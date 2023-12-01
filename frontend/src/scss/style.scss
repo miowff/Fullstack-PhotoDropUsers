@@ -1036,7 +1036,7 @@
     &__artists-prints-thumbnails {
         display: flex;
         flex-direction: row;
-        gap: 10px;
+        gap: 8px;
         margin-bottom: 100px;
         overflow-x: scroll;
         flex-wrap: nowrap;
@@ -1049,8 +1049,8 @@
     }
 
     &__artists-prints-thumbnail {
-        min-width: 200px;
-        min-height: 245px;
+        width: 200px;
+        height: 245px;
         cursor: pointer;
 
         img {
@@ -1071,6 +1071,11 @@
 
         &__info-text {
             font-size: 18px;
+        }
+
+        &__artists-prints-thumbnail {
+            width: 170px;
+            height: 213px;
         }
 
         &__info-image {
@@ -1476,6 +1481,9 @@
 
 @media (max-width:1024px) {
     .footer {
+        &__content {
+            margin: 0 auto;
+        }
 
         &__menu-container {
             display: none;

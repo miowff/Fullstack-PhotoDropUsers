@@ -31,12 +31,18 @@ export const InputOtp = ({ onChangeOTP }: OTPInputProps) => {
     onChangeOTP(newOtp.join(""));
   };
   const handleOnKeyDown = (
-    { key }: React.KeyboardEvent<HTMLInputElement>,
+    event: React.KeyboardEvent<HTMLInputElement>,
     index: number
   ) => {
+    const { key } = event;
     currentIndex = index;
     if (key === "Backspace") {
-      setCurrentOtpIndex(currentIndex - 1);
+      event.preventDefault();
+      const updatedOtp = [...otp];
+      updatedOtp[index] = "";
+      const prevIndex = index > 0 ? index - 1 : 0;
+      setCurrentOtpIndex(prevIndex);
+      setOtp(updatedOtp);
     }
   };
   const handlePaste = useCallback(
