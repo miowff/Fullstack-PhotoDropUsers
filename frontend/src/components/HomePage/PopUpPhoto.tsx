@@ -13,7 +13,7 @@ export const PopUpPhoto = ({
   const { fullPhotoAccessLink, isActivated } = photo;
   useEffect(() => {
     const closePopUpOnClickOutside = (event: MouseEvent) => {
-      const popUpContainer = document.querySelector(".pop-up-photo-container");
+      const popUpContainer = document.querySelector(".pop-up-photo-container__image");
       if (popUpContainer && popUpContainer === event.target) {
         setPopUpPhotoVisible(false);
       }
@@ -39,11 +39,13 @@ export const PopUpPhoto = ({
         onClick={() => setPopUpPhotoVisible(false)}
       ></span>
       <div className="container">
-        <img
-          className="pop-up-photo-container__photo"
-          src={fullPhotoAccessLink}
-          alt="full photo"
-        />
+        <div className="pop-up-photo-container__image">
+          <img
+            className="pop-up-photo-container__photo"
+            src={fullPhotoAccessLink}
+            alt="full photo"
+          />
+        </div>
       </div>
       {isActivated ? (
         <div className="pop-up-photo-container__buttons">
