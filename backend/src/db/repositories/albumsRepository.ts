@@ -7,6 +7,20 @@ import { and, eq, getTableColumns } from "drizzle-orm";
 
 class AlbumsRepository implements IAlbumsRepository<Album> {
   constructor(private readonly db: MySql2Database) {}
+  isUserHasAlbum = async (
+    userId: string,
+    albumId: string
+  ): Promise<boolean> => {
+    const result = await this.db
+      .select()
+      .from(albums)
+      .innerJoin(userPhotos, eq(userPhotos.albumId, albumId))
+      .where(
+        and(eq(userPhotos.UserId, userId), eq(userPhotos.albumId, albumId))
+      )
+      .groupBy(userPhotos.albumId);
+    return result.length > 0;
+  };
   isAlbumActivated = async (
     albumId: string,
     userId: string
