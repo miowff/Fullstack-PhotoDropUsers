@@ -92,3 +92,12 @@ GetAlbumWithPhotos:
         method: GET
         authorizer:
           name: usersAuthorizer
+
+CreatePaymentIntent:
+  handler: src/lambdas/payments/createIntent.handler
+  events:
+    - httpApi:
+        path: /activate
+        method: GET
+        authorizer:
+          name: usersAuthorizer

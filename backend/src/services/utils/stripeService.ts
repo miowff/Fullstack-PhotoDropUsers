@@ -1,4 +1,6 @@
-import { PaymentIntentDescription } from "src/models/payments";
+import {
+  CreateStripeSession,
+} from "src/models/payments";
 import Stripe from "stripe";
 import getEnv from "./getEnv";
 
@@ -6,12 +8,12 @@ class StripeService {
   private stripe = new Stripe(getEnv("STRIPE_SECRET_KEY") as string, {
     apiVersion: "2022-11-15",
   });
-  createSession = async (
-    toPay: number,
-    currency: string,
-    description: PaymentIntentDescription,
-    productDescription: string
-  ): Promise<string | null> => {
+  createSession = async ({
+    toPay,
+    currency,
+    productDescription,
+    description,
+  }: CreateStripeSession): Promise<string | null> => {
     const session = await this.stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: [

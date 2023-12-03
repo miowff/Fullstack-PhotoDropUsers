@@ -13,8 +13,7 @@ class AlbumsRepository implements IAlbumsRepository<Album> {
   ): Promise<boolean> => {
     const result = await this.db
       .select()
-      .from(albums)
-      .innerJoin(userPhotos, eq(userPhotos.albumId, albumId))
+      .from(userPhotos)
       .where(
         and(eq(userPhotos.UserId, userId), eq(userPhotos.albumId, albumId))
       )

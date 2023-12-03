@@ -1,4 +1,10 @@
 export interface PaymentIntentDescription {
-  personId: string;
+  userId: string;
   albumId: string;
+}
+export interface CreateStripeSession {
+  toPay: number;
+  currency: string;
+  description: PaymentIntentDescription;
+  productDescription: string;
 }
