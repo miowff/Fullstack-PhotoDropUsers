@@ -2,6 +2,7 @@ import {
   AlbumModel,
   AlbumWithPhotos,
 } from "../../../backend/src/models/albums";
+import { PaymentUrlResponse } from "../../../backend/src/models/payments";
 import { apiSlice } from "./api";
 
 export const albumsApi = apiSlice.injectEndpoints({
@@ -18,7 +19,23 @@ export const albumsApi = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    getAlbumInfo: builder.query<AlbumModel, string>({
+      query: (albumId) => ({
+        url: `album-info?albumId=${albumId}`,
+        method: "GET",
+      }),
+    }),
+    getPaymentUrl: builder.query<PaymentUrlResponse, string>({
+      query: (albumId) => ({
+        url: `activate?albumId=${albumId}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
-export const { useGetAllUserAlbumsQuery, useGetAlbumWithPhotosQuery } =
-  albumsApi;
+export const {
+  useGetAllUserAlbumsQuery,
+  useGetAlbumWithPhotosQuery,
+  useLazyGetPaymentUrlQuery,
+  useGetAlbumInfoQuery,
+} = albumsApi;

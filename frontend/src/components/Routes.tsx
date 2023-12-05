@@ -9,6 +9,7 @@ import { CodeInputPage } from "../pages/LetsGetStarted/CodeInputPage";
 import { Route, Routes } from "react-router-dom";
 import { HomePage } from "../pages/HomePage";
 import { AlbumDetails } from "../pages/AlbumDetails";
+import { Success } from "../pages/Sucess";
 export const AppRoutes = () => {
   return (
     <Routes>
@@ -65,6 +66,14 @@ export const AppRoutes = () => {
         element={
           <PrivateWrapper>
             <AlbumDetails />
+          </PrivateWrapper>
+        }
+      ></Route>
+      <Route
+        path="/success/:id"
+        element={
+          <PrivateWrapper>
+            <Success />
           </PrivateWrapper>
         }
       ></Route>

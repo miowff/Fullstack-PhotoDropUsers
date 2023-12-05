@@ -75,6 +75,15 @@ GetAlbums:
         authorizer:
           name: usersAuthorizer
 
+GetAlbum:
+  handler: src/lambdas/albums/getAlbum.handler
+  events:
+    - httpApi:
+        path: /album-info
+        method: GET
+        authorizer:
+          name: usersAuthorizer
+
 GetAllPhotos:
   handler: src/lambdas/photos/getAllUserPhotos.handler
   events:
@@ -101,3 +110,10 @@ CreatePaymentIntent:
         method: GET
         authorizer:
           name: usersAuthorizer
+
+HandlePayment:
+  handler: src/lambdas/payments/handlePayment.handler
+  events:
+    - httpApi:
+        path: /handlePaymentWebhook
+        method: POST

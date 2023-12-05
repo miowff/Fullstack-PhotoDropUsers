@@ -56,7 +56,6 @@ export const SelfieEditPopUp = ({
   }, [currentPic]);
   useHandleOutsideClick(selfieEditAreaRef, () => {
     setSelfieEditVisible(false);
-    console.log(currentPic);
     if (!isMobile) {
       setUploadOptionsVisible(true);
     }
@@ -182,8 +181,10 @@ export const SelfieEditPopUp = ({
                     </button>
                   </>
                 ) : (
-                  <div className="loading">
-                    <p className="default-text">Loading</p>
+                  <div className="selfie-edit__loader">
+                    <div className="loading">
+                      <p className="default-text">Loading</p>
+                    </div>
                   </div>
                 )}
               </div>

@@ -8,11 +8,17 @@ import { s3Service } from "./utils/s3Service";
 
 class PhotosService implements IPhotosService {
   constructor(private readonly photosRepository: IPhotosRepository<Photo>) {}
+  activateAlbumPhotos = async (
+    albumId: string,
+    userId: string
+  ): Promise<void> => {
+    await this.photosRepository.activateAlbumPhotos(albumId, userId);
+  };
   getAllUserPhotos = async (userId: string): Promise<PhotoResponse[]> => {
     const photos = await this.photosRepository.getAllUserPhotos(userId);
     return await Promise.all(
       photos.map(async (photo) => {
-        const { isActivated, photoName, albumTitle } = photo;
+        const { isActivated, photoName, albumTitle, albumId } = photo;
         let photoKey = ``;
         if (isActivated) {
           photoKey = S3FolderNames.ORIGINAL_PHOTOS;
@@ -24,7 +30,7 @@ class PhotosService implements IPhotosService {
           photoKey
         );
 
-        return { fullPhotoAccessLink, isActivated };
+        return { fullPhotoAccessLink, isActivated, albumId, albumTitle };
       })
     );
   };

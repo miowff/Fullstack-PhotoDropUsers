@@ -31,22 +31,17 @@ export const Header = () => {
             ></img>
           </a>
         </div>
-        {pathname !== "/number-input" &&
-          pathname !== "/set-profile-photo" &&
-          pathname !== "/code-input" &&
-          pathname !== "/set-email" &&
-          pathname !== "/set-full-name" &&
-          pathname !== "/me" && (
-            <a className="header__profile-thumb">
-              <img
-                src={profilePicLink}
-                alt="profile thumbnail"
-                onClick={() => {
-                  navigate("/me");
-                }}
-              ></img>
-            </a>
-          )}
+        {pathname === "/" && (
+          <a className="header__profile-thumb">
+            <img
+              src={profilePicLink}
+              alt="profile thumbnail"
+              onClick={() => {
+                navigate("/me");
+              }}
+            ></img>
+          </a>
+        )}
       </div>
     </header>
   );

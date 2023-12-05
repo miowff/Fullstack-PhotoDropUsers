@@ -6,6 +6,7 @@ import { PhotoResponse } from "../../../backend/src/models/photo";
 import { PhotosGroup } from "../components/Photos/PhotosGroup";
 import { PopUpPhoto } from "../components/HomePage/PopUpPhoto";
 import { Footer } from "../components/Footer";
+import { PaymentPopUp } from "../components/ActivateAlbum/PaymentPopUp";
 
 export const AlbumDetails = () => {
   const { id } = useParams();
@@ -17,6 +18,8 @@ export const AlbumDetails = () => {
   const [albumTitle, setAlbumTitle] = useState<string>("");
   const [createdDate, setCreatedDate] = useState<string>("");
   const [photo, setPhoto] = useState<PhotoResponse | null>(null);
+  const [isPaymentPopUpVisible, setPaymentPopUpVisible] =
+    useState<boolean>(false);
   const [isPopUpPhotoVisible, setPopUpPhotoVisible] = useState<boolean>(false);
   useEffect(() => {
     if (data) {
@@ -39,7 +42,13 @@ export const AlbumDetails = () => {
                 setPopUpPhotoVisible={setPopUpPhotoVisible}
               />
             )}
-
+            {isPaymentPopUpVisible && (
+              <PaymentPopUp
+                albumTitle={albumTitle}
+                albumId={id as string}
+                setPaymentPopUpVisible={setPaymentPopUpVisible}
+              />
+            )}
             <div className="container">
               <div className="album-details__inner">
                 <div className="album-details__header">
@@ -76,12 +85,19 @@ export const AlbumDetails = () => {
               </div>
               <div className="container">
                 <div className="album-details__unlock-button">
-                  <button className="default-button">Unlock your photos</button>
+                  <button
+                    className="default-button"
+                    onClick={() => {
+                      setPaymentPopUpVisible(true);
+                    }}
+                  >
+                    Unlock your photos
+                  </button>
                 </div>
               </div>
             </div>
           </section>
-          <Footer />
+          <>{!isPaymentPopUpVisible && <Footer />}</>
         </>
       )}
     </>

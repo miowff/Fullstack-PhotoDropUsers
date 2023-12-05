@@ -3,6 +3,20 @@
 @import 'reset';
 @import 'global';
 
+.container-with-bg {
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 110;
+    flex-direction: column;
+}
+
 .photos-container {
     padding-top: 20px;
     display: grid;
@@ -62,6 +76,7 @@
 
 .album {
     max-width: 200px;
+    min-width: 200px;
     max-height: 250px;
     border-radius: 11px;
     border-bottom-right-radius: 20px;
@@ -111,6 +126,7 @@
 
 @media (max-width:1024px) {
     .album {
+        min-width: 110px;
         max-width: 110px;
         height: 140px;
     }
@@ -270,10 +286,6 @@
         100% {
             content: '';
         }
-    }
-
-    p {
-        color: white;
     }
 
     p::after {
@@ -712,17 +724,6 @@
 }
 
 .pop-up-photo-container {
-    width: 100%;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.9);
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 110;
-    flex-direction: column;
 
     &__image {
         &::after {
@@ -767,6 +768,7 @@
         color: #262626;
         font-family: FuturaPtMedium;
         font-size: 22px;
+        cursor: pointer;
     }
 }
 
@@ -897,6 +899,12 @@
 
     &__mobile-options {
         align-self: self-start;
+    }
+
+    &__loader {
+        p {
+            color: white;
+        }
     }
 }
 
@@ -1404,6 +1412,262 @@
         &__unlock-button {
             padding-top: 40px;
             padding-bottom: 40px;
+        }
+    }
+}
+
+.payment-pop-up {
+    &__container {
+        width: 480px;
+        height: 257px;
+        background-color: white;
+        border-radius: 20px;
+        position: absolute;
+    }
+
+    &__title {
+        font-family: TerminaBold;
+        font-size: 22px;
+        text-align: center;
+        padding-top: 10px;
+    }
+
+    &__description {
+        display: flex;
+        align-items: center;
+        gap: 70px;
+    }
+
+    &__text {
+        width: 350px;
+        height: 36px;
+        margin-left: 20px;
+        padding-top: 8px;
+    }
+
+    &__price {
+        font-family: FuturaPtHeavy;
+        font-size: 18px;
+        line-height: 13px;
+        margin-right: 20px;
+    }
+
+    &__buttons {
+        margin-left: 20px;
+        padding-top: 42px;
+
+        button {
+            height: 50px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+
+            &:disabled {
+                opacity: 0.3;
+            }
+        }
+    }
+
+    &__apple-pay-button {
+        width: 440px;
+        background-color: black;
+
+        img {
+            margin: 0 auto;
+        }
+    }
+
+    &__extra-payment-buttons {
+        display: flex;
+        flex-direction: row;
+        padding-top: 15px;
+        gap: 10px;
+    }
+
+    &__stripe-button {
+        width: 214px;
+        font-family: FuturaPtHeavy;
+        font-size: 22px;
+        background-color: #3300CC;
+        color: white;
+    }
+
+    &__paypal-button {
+        width: 215px;
+        background-color: #FFC439;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__x-mark {
+        width: 18px;
+        height: 18px;
+        background-image: url(../public/images/XMarkBlack.svg);
+        position: absolute;
+        cursor: pointer;
+        margin-left: 5%;
+        margin-top: 4%;
+    }
+
+}
+
+@media (max-width:1024px) {
+    .payment-pop-up {
+        background: rgba(0, 0, 0, 0);
+
+        &__container {
+            width: 100vw;
+            height: 274px;
+            bottom: 0;
+            box-shadow: 0px -3px 8px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 0px;
+        }
+
+        &__inner {
+            padding-bottom: 35px;
+        }
+
+        &__title {
+            font-size: 18px;
+        }
+
+        &__description {
+            gap: 1px;
+
+            p {
+                font-size: 16px;
+            }
+        }
+
+        &__inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        &__buttons {
+            margin-right: 20px;
+        }
+
+        &__text {
+            padding-left: 20px;
+        }
+
+        &__price {
+            padding-right: 20px;
+        }
+
+        &__buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        &__apple-pay-button {
+            width: 345px;
+        }
+
+        &__stripe-button {
+            width: 168px;
+        }
+
+        &__paypal-button {
+            width: 167px;
+        }
+
+        &__x-mark {
+            left: -1%;
+            top: 2%
+        }
+    }
+}
+
+.success {
+    padding-top: 28px;
+
+    &__inner {
+        max-width: 420px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 auto;
+
+        p {
+            font-family: FuturaPtDefault;
+        }
+    }
+
+    &__title {
+        color: #262626;
+        font-family: TerminaBold, FuturaPtDemi;
+        font-size: 30px;
+    }
+
+    &__main-text {
+        font-size: 22px;
+        align-self: self-start;
+    }
+
+    &__bold-text {
+        font-family: FuturaPtHeavy;
+    }
+
+    &__description-text {
+        padding-top: 10px;
+    }
+
+    &__see-photos {
+        margin-top: 40px;
+        width: 350px;
+        height: 50px;
+        color: white;
+        background-color: #30C;
+        border-radius: 30px;
+        border: none;
+        font-family: FuturaPtMedium;
+        font-size: 22px;
+        cursor: pointer;
+    }
+
+    &__album-preview-image {
+        margin-top: 43px;
+        max-width: 420px;
+        max-height: 250px;
+        border-radius: 20px;
+    }
+
+    &__under-button-text {
+        font-size: 18px;
+        padding-top: 15px;
+    }
+}
+
+@media (max-width:1024px) {
+    .success {
+        padding-top: 10px;
+
+        &__title {
+            font-size: 18px;
+        }
+
+        &__main-text {
+            padding-top: 10px;
+            font-size: 18px;
+        }
+
+        &__album-preview-image {
+            margin-top: 25px;
+            max-width: 346px;
+            max-height: 228px;
+        }
+
+        &__under-button-text {
+            display: none;
         }
     }
 }

@@ -8,3 +8,6 @@ export interface CreateStripeSession {
   description: PaymentIntentDescription;
   productDescription: string;
 }
+export interface PaymentUrlResponse {
+  paymentUrl: string;
+}

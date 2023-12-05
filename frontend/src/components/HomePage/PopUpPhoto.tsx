@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { PhotoButtonsGroup } from "./PhotoButtonsGroup";
 import { PhotoResponse } from "../../../../backend/src/models/photo";
+import { PaymentPopUp } from "../ActivateAlbum/PaymentPopUp";
 
 interface PopUpPhotoProps {
   photo: PhotoResponse;
@@ -10,10 +11,14 @@ export const PopUpPhoto = ({
   photo,
   setPopUpPhotoVisible,
 }: PopUpPhotoProps) => {
-  const { fullPhotoAccessLink, isActivated } = photo;
+  const { fullPhotoAccessLink, isActivated, albumTitle, albumId } = photo;
+  const [isPaymentPopUpVisible, setPaymentPopUpVisible] =
+    useState<boolean>(false);
   useEffect(() => {
     const closePopUpOnClickOutside = (event: MouseEvent) => {
-      const popUpContainer = document.querySelector(".pop-up-photo-container__image");
+      const popUpContainer = document.querySelector(
+        ".pop-up-photo-container__image"
+      );
       if (popUpContainer && popUpContainer === event.target) {
         setPopUpPhotoVisible(false);
       }
@@ -33,7 +38,14 @@ export const PopUpPhoto = ({
     };
   }, []);
   return (
-    <div className="pop-up-photo-container">
+    <div className="pop-up-photo-container container-with-bg">
+      {isPaymentPopUpVisible && (
+        <PaymentPopUp
+          albumTitle={albumTitle}
+          albumId={albumId}
+          setPaymentPopUpVisible={setPaymentPopUpVisible}
+        />
+      )}
       <span
         className="pop-up-photo-container__close"
         onClick={() => setPopUpPhotoVisible(false)}
@@ -52,11 +64,20 @@ export const PopUpPhoto = ({
           <PhotoButtonsGroup />
         </div>
       ) : (
-        <div className="pop-up-photo-container__button">
-          <button className="pop-up-photo-container__unlock">
-            Unlock photos
-          </button>
-        </div>
+        <>
+          {!isPaymentPopUpVisible && (
+            <div className="pop-up-photo-container__button">
+              <button
+                className="pop-up-photo-container__unlock"
+                onClick={() => {
+                  setPaymentPopUpVisible(true);
+                }}
+              >
+                Unlock photos
+              </button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

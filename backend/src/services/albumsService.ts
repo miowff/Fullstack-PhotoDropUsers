@@ -9,16 +9,47 @@ import { photosRepository } from "src/db/repositories/photosRepository";
 import { S3FolderNames } from "src/enums/s3FolderNames";
 import { s3Service } from "./utils/s3Service";
 import { format } from "date-fns";
+import { ApiError } from "src/errors/apiError";
 
 class AlbumsService implements IAlbumsService {
   constructor(
     private readonly albumsRepository: IAlbumsRepository<Album>,
     private readonly photosRepository: IPhotosRepository<Photo>
   ) {}
+  getAlbum = async (albumId: string, userId: string): Promise<AlbumModel> => {
+    const isUserHasAlbum = await this.albumsRepository.isUserHasAlbum(
+      userId,
+      albumId
+    );
+    if (!isUserHasAlbum) {
+      throw new ApiError(
+        `User with id:${userId} doesn't has album: ${albumId}`,
+        400
+      );
+    }
+    const { title } = await this.albumsRepository.getAlbum(albumId);
+    const { photoName } = await this.photosRepository.getFirstAlbumPhoto(
+      userId,
+      albumId
+    );
+    const photoKey = `${S3FolderNames.ORIGINAL_PHOTOS}/${title}/${photoName}`;
+    const photoAccessUrl = await s3Service.createAccessPhotoUrl(photoKey);
+    return { albumId, previewPhotoLink: photoAccessUrl, title };
+  };
   getAlbumWithPhotos = async (
     albumId: string,
     userId: string
   ): Promise<AlbumWithPhotos> => {
+    const isUserHasAlbum = await this.albumsRepository.isUserHasAlbum(
+      userId,
+      albumId
+    );
+    if (!isUserHasAlbum) {
+      throw new ApiError(
+        `User with id:${userId} doesn't has album: ${albumId}`,
+        400
+      );
+    }
     const { title, createdDate } = await this.albumsRepository.getAlbum(
       albumId
     );
@@ -26,10 +57,11 @@ class AlbumsService implements IAlbumsService {
       albumId,
       userId
     );
+
     const photos = await this.photosRepository.getAlbumPhotos(albumId, userId);
     const photosResponse = await Promise.all(
       photos.map(async (photo) => {
-        const { isActivated, photoName, albumTitle } = photo;
+        const { isActivated, photoName, albumTitle, albumId } = photo;
         let photoKey = ``;
         if (isActivated) {
           photoKey = S3FolderNames.ORIGINAL_PHOTOS;
@@ -41,7 +73,7 @@ class AlbumsService implements IAlbumsService {
           photoKey
         );
 
-        return { fullPhotoAccessLink, isActivated };
+        return { fullPhotoAccessLink, isActivated, albumTitle, albumId };
       })
     );
     return {

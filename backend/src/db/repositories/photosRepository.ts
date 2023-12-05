@@ -7,6 +7,17 @@ import { userPhotos } from "../entities/userPhotos";
 
 class PhotosRepository implements IPhotosRepository<Photo> {
   constructor(private readonly db: MySql2Database) {}
+  activateAlbumPhotos = async (
+    albumId: string,
+    userId: string
+  ): Promise<void> => {
+    await this.db
+      .update(userPhotos)
+      .set({ isActivated: true })
+      .where(
+        and(eq(userPhotos.albumId, albumId), eq(userPhotos.UserId, userId))
+      );
+  };
   getAlbumPhotos = async (
     albumId: string,
     userId: string

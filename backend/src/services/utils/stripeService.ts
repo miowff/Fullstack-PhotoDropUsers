@@ -1,6 +1,4 @@
-import {
-  CreateStripeSession,
-} from "src/models/payments";
+import { CreateStripeSession } from "src/models/payments";
 import Stripe from "stripe";
 import getEnv from "./getEnv";
 
@@ -30,8 +28,8 @@ class StripeService {
         },
       ],
       mode: "payment",
-      success_url: "https://example.com/success",
-      cancel_url: "https://example.com/cancel",
+      success_url: `http://localhost:5173/success/${description.albumId}`,
+      cancel_url: `http://localhost:5173`,
       payment_intent_data: {
         description: JSON.stringify(description),
       },
