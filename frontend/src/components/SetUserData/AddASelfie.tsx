@@ -70,7 +70,6 @@ export const AddASelfie = () => {
                     type="file"
                     name="media_file"
                     accept="image/*"
-                    capture="environment"
                     onChange={handleOnChange}
                   />
                 )}
