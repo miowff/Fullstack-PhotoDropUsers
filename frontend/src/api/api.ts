@@ -45,6 +45,7 @@ const baseQueryWithReAuth: BaseQueryFn<
         api.dispatch(setToken(refreshResult.data));
         result = await baseQuery(args, api, extraOptions);
         setTokens(refreshResult.data);
+        return result;
       } else {
         api.dispatch(logOut());
         removeTokens();

@@ -21,12 +21,14 @@ export const AlbumDetails = () => {
   const [isPaymentPopUpVisible, setPaymentPopUpVisible] =
     useState<boolean>(false);
   const [isPopUpPhotoVisible, setPopUpPhotoVisible] = useState<boolean>(false);
+  const [isActivated, setIsActivated] = useState<boolean>(false);
   useEffect(() => {
     if (data) {
-      const { photos, title, createdDate } = data;
+      const { photos, title, createdDate, isActivated } = data;
       setPhotos(photos);
       setAlbumTitle(title);
       setCreatedDate(createdDate);
+      setIsActivated(isActivated);
     }
   }, [data]);
   return (
@@ -69,9 +71,11 @@ export const AlbumDetails = () => {
                       </p>
                     </div>
                   </div>
-                  <p className="album-details__unlock-photos">
-                    Unlock your photos
-                  </p>
+                  {!isActivated && (
+                    <p className="album-details__unlock-photos">
+                      Unlock your photos
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
@@ -85,14 +89,16 @@ export const AlbumDetails = () => {
               </div>
               <div className="container">
                 <div className="album-details__unlock-button">
-                  <button
-                    className="default-button"
-                    onClick={() => {
-                      setPaymentPopUpVisible(true);
-                    }}
-                  >
-                    Unlock your photos
-                  </button>
+                  {!isActivated && (
+                    <button
+                      className="default-button"
+                      onClick={() => {
+                        setPaymentPopUpVisible(true);
+                      }}
+                    >
+                      Unlock your photos
+                    </button>
+                  )}
                 </div>
               </div>
             </div>

@@ -2,35 +2,29 @@ import { useRef, useState } from "react";
 import NoProfilePicture from "../../public/images/NoProfilePicture.svg";
 import { isMobile } from "react-device-detect";
 import { UploadSelfieOptionsPopup } from "./UploadSelfieOptionsPopup";
-import { MobileUploadOptions } from "./MobileUploadOptions";
 import { SelfieEditPopUp } from "./SelfieEditPopUp";
 export const AddASelfie = () => {
   const [isPopUpControlsVisible, setPopUpControlsVisible] =
     useState<boolean>(false);
-  const [currentPic, setCurrentPic] = useState<string | File | null>(null);
-  const [isSelfieEditVisible, setSelfieEditVisible] = useState<boolean>(
-    currentPic !== null
-  );
-  const plusButtonRef = useRef<HTMLButtonElement>(null);
+  const [currentPic, setCurrentPic] = useState<string | File>("");
+  const [isSelfieEditVisible, setSelfieEditVisible] = useState<boolean>(false);
+  const photoUploadOptionsRef = useRef<HTMLInputElement>(null);
+  const handleOnChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    if (target.files) {
+      const selectedImg = target.files[0];
+      setCurrentPic(selectedImg);
+      setSelfieEditVisible(true);
+    }
+  };
   return (
     <div className="add-a-selfie">
-      {isPopUpControlsVisible &&
-        (!isMobile ? (
-          <UploadSelfieOptionsPopup
-            setSelectedFile={setCurrentPic}
-            setSelfieEditVisible={setSelfieEditVisible}
-            isVisible={setPopUpControlsVisible}
-          />
-        ) : (
-          <div className="add-a-selfie__mobile-options">
-            <MobileUploadOptions
-              setSelfieEditVisible={setSelfieEditVisible}
-              setSelectedFile={setCurrentPic}
-              isVisible={setPopUpControlsVisible}
-              controlButton={plusButtonRef}
-            />
-          </div>
-        ))}
+      {isPopUpControlsVisible && (
+        <UploadSelfieOptionsPopup
+          setSelectedFile={setCurrentPic}
+          setSelfieEditVisible={setSelfieEditVisible}
+          isVisible={setPopUpControlsVisible}
+        />
+      )}
       {isSelfieEditVisible && (
         <SelfieEditPopUp
           setSelectedFile={setCurrentPic}
@@ -57,15 +51,29 @@ export const AddASelfie = () => {
               <button
                 className="add-a-selfie__plus-button"
                 onClick={() => {
-                  if (isPopUpControlsVisible) {
-                    setPopUpControlsVisible(false);
+                  if (isMobile) {
+                    photoUploadOptionsRef.current?.click();
                   } else {
-                    setPopUpControlsVisible(true);
+                    if (isPopUpControlsVisible) {
+                      setPopUpControlsVisible(false);
+                    } else {
+                      setPopUpControlsVisible(true);
+                    }
                   }
                 }}
-                ref={plusButtonRef}
               >
                 +
+                {isMobile && (
+                  <input
+                    className="add-a-selfie__photo-upload-options"
+                    ref={photoUploadOptionsRef}
+                    type="file"
+                    name="media_file"
+                    accept="image/*"
+                    capture="environment"
+                    onChange={handleOnChange}
+                  />
+                )}
               </button>
             </div>
           </div>
