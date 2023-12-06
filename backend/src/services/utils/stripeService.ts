@@ -12,6 +12,7 @@ class StripeService {
     productDescription,
     description,
   }: CreateStripeSession): Promise<string | null> => {
+    const frontendClientBaseUrl = getEnv("FRONTEND_CLIENT_BASE_URL");
     const session = await this.stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: [
@@ -28,8 +29,8 @@ class StripeService {
         },
       ],
       mode: "payment",
-      success_url: `http://localhost:5173/success/${description.albumId}`,
-      cancel_url: `http://localhost:5173`,
+      success_url: `${frontendClientBaseUrl}/success/${description.albumId}`,
+      cancel_url: `${frontendClientBaseUrl}`,
       payment_intent_data: {
         description: JSON.stringify(description),
       },

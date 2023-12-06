@@ -109,8 +109,9 @@ export const SelfieEditPopUp = ({
   const handleOnChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     if (target.files) {
       const selectedImg = target.files[0];
-      setSelectedFile(selectedImg);
-      setSelfieEditVisible(true);
+      if (selectedImg) {
+        setSelectedFile(selectedImg);
+      }
     }
   };
   return (
@@ -148,7 +149,7 @@ export const SelfieEditPopUp = ({
                     <button
                       className="selfie-edit__retake-button selfie-edit__button"
                       onClick={() => {
-                        handleRetakeClick;
+                        handleRetakeClick();
                         photoUploadOptionsRef.current?.click();
                       }}
                       ref={retakeButtonRef}
