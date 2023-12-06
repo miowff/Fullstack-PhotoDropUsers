@@ -147,7 +147,10 @@ export const SelfieEditPopUp = ({
                   <>
                     <button
                       className="selfie-edit__retake-button selfie-edit__button"
-                      onClick={handleRetakeClick}
+                      onClick={() => {
+                        handleRetakeClick;
+                        photoUploadOptionsRef.current?.click();
+                      }}
                       ref={retakeButtonRef}
                     >
                       Retake
