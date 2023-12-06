@@ -489,6 +489,10 @@
     }
 }
 
+.photo-upload-options {
+    display: none;
+}
+
 .add-a-selfie {
     margin-top: 60px;
     text-align: center;
@@ -528,10 +532,6 @@
         transform: translate(-50%);
         background-color: white;
         border-radius: 11px;
-    }
-
-    &__photo-upload-options {
-        display: none;
     }
 }
 

@@ -65,7 +65,7 @@ export const AddASelfie = () => {
                 +
                 {isMobile && (
                   <input
-                    className="add-a-selfie__photo-upload-options"
+                    className="photo-upload-options"
                     ref={photoUploadOptionsRef}
                     type="file"
                     name="media_file"

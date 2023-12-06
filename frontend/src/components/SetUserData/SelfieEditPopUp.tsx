@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import NoProfilePicture from "../../public/images/NoProfilePicture.svg";
-import { MobileUploadOptions } from "./MobileUploadOptions";
 import { isMobile } from "react-device-detect";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -34,11 +33,9 @@ export const SelfieEditPopUp = ({
   );
   const retakeButtonRef = useRef<HTMLButtonElement>(null);
   const selfieEditAreaRef = useRef<HTMLDivElement>(null);
-  const [isMobileOptionsVisible, setMobileOptionsVisible] =
-    useState<boolean>(false);
   const [alert, setAlert] = useState<AlertData | null>(null);
   const [isSelfieUploading, setIsSelfieUploading] = useState<boolean>(false);
-
+  const photoUploadOptionsRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     if (currentPic instanceof File) {
       const reader = new FileReader();
@@ -106,15 +103,14 @@ export const SelfieEditPopUp = ({
     }
   };
   const handleRetakeClick = () => {
-    if (isMobile) {
-      if (isMobileOptionsVisible) {
-        setMobileOptionsVisible(false);
-      } else {
-        setMobileOptionsVisible(true);
-      }
-    } else {
-      setSelfieEditVisible(false);
-      setUploadOptionsVisible(true);
+    setSelfieEditVisible(false);
+    setUploadOptionsVisible(true);
+  };
+  const handleOnChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    if (target.files) {
+      const selectedImg = target.files[0];
+      setSelectedFile(selectedImg);
+      setSelfieEditVisible(true);
     }
   };
   return (
@@ -147,20 +143,6 @@ export const SelfieEditPopUp = ({
                 />
               </div>
               <div className="selfie-edit__buttons-container">
-                {isMobile && (
-                  <>
-                    {isMobileOptionsVisible && (
-                      <div className="selfie-edit__mobile-options">
-                        <MobileUploadOptions
-                          setSelfieEditVisible={setSelfieEditVisible}
-                          setSelectedFile={setSelectedFile}
-                          isVisible={setMobileOptionsVisible}
-                          controlButton={retakeButtonRef}
-                        />
-                      </div>
-                    )}
-                  </>
-                )}
                 {!isSelfieUploading ? (
                   <>
                     <button
@@ -169,6 +151,16 @@ export const SelfieEditPopUp = ({
                       ref={retakeButtonRef}
                     >
                       Retake
+                      {isMobile && (
+                        <input
+                          className="photo-upload-options"
+                          ref={photoUploadOptionsRef}
+                          type="file"
+                          name="media_file"
+                          accept="image/*"
+                          onChange={handleOnChange}
+                        />
+                      )}
                     </button>
                     <button
                       className="selfie-edit__save-button selfie-edit__button"
