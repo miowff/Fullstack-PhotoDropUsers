@@ -1,5 +1,5 @@
 import { PhotoResponse } from "../../../../backend/src/models/photo";
-import { Photo } from "../HomePage/Photo";
+import { Photo } from "./Photo";
 
 interface PhotosGroupProps {
   photos: PhotoResponse[];

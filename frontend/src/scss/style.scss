@@ -146,7 +146,6 @@
 .photo {
     width: 400px;
     height: 400px;
-    background: #3300CC;
     cursor: pointer;
     overflow: hidden;
 
@@ -155,6 +154,7 @@
         width: 100%;
         height: 100%;
     }
+
 }
 
 @media (max-width:1024px) {
@@ -1571,12 +1571,21 @@
         cursor: pointer;
     }
 
-    &__album-preview-image {
+    &__image-container {
         margin-top: 43px;
-        max-width: 420px;
-        max-height: 250px;
+        width: 420px;
+        height: 250px;
         border-radius: 20px;
+        overflow: hidden;
+        background-color: #3300CC;
     }
+
+    &__album-preview-image {
+        width: 100%;
+        height: 100%;
+    }
+
+
 
     &__under-button-text {
         font-size: 18px;

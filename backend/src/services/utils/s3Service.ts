@@ -1,5 +1,6 @@
 import AWS from "aws-sdk";
 import { S3FolderNames } from "src/enums/s3FolderNames";
+import { ApiError } from "src/errors/apiError";
 
 class S3Service {
   private readonly bucketName = "photo-drop-images";
@@ -36,6 +37,17 @@ class S3Service {
         }
       });
     });
+  };
+  getImageAsBase64 = async (key: string): Promise<string> => {
+    const params = {
+      Bucket: this.bucketName,
+      Key: key,
+    };
+    const { Body } = await this.s3.getObject(params).promise();
+    if (!Body) {
+      throw ApiError.NotFound("S3 Object");
+    }
+    return Body.toString("base64");
   };
 }
 

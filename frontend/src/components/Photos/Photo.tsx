@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { PhotoResponse } from "../../../../backend/src/models/photo";
 
 interface PhotoProps {
@@ -10,7 +11,8 @@ export const Photo = ({
   setPhoto,
   setPopUpPhotoVisible,
 }: PhotoProps) => {
-  const { fullPhotoAccessLink} = photo;
+  const { fullPhotoAccessLink, previewBase64 } = photo;
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
   return (
     <div
       className="photo"
@@ -19,7 +21,15 @@ export const Photo = ({
         setPhoto(photo);
       }}
     >
-      <img className="photo-img" src={fullPhotoAccessLink} />
+      <img
+        className={"photo-img"}
+        src={isLoaded ? fullPhotoAccessLink : previewBase64}
+        loading="lazy"
+        onLoad={() => {
+          setIsLoaded(true);
+          console.log(`im loaded ${photo} ${isLoaded}`);
+        }}
+      />
     </div>
   );
 };

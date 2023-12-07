@@ -20,6 +20,7 @@ class PhotosService implements IPhotosService {
       photos.map(async (photo) => {
         const { isActivated, photoName, albumTitle, albumId } = photo;
         let photoKey = ``;
+        const previewKey = `${S3FolderNames.PREVIEWS}/${albumTitle}/${photoName}`;
         if (isActivated) {
           photoKey = S3FolderNames.ORIGINAL_PHOTOS;
         } else {
@@ -29,8 +30,15 @@ class PhotosService implements IPhotosService {
         const fullPhotoAccessLink = await s3Service.createAccessPhotoUrl(
           photoKey
         );
-
-        return { fullPhotoAccessLink, isActivated, albumId, albumTitle };
+        const preview = await s3Service.getImageAsBase64(previewKey);
+        let previewBase64 = `data:image/jpeg;base64,${preview}`;
+        return {
+          fullPhotoAccessLink,
+          isActivated,
+          albumId,
+          albumTitle,
+          previewBase64,
+        };
       })
     );
   };

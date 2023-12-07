@@ -37,10 +37,12 @@ export const Success = () => {
                   You can now download, share, post, and print your hi-res,
                   watermark-free, glorious memories.
                 </p>
-                <img
-                  className="success__album-preview-image"
-                  src={previewUrl}
-                />
+                <div className="success__image-container">
+                  <img
+                    className="success__album-preview-image"
+                    src={previewUrl}
+                  />
+                </div>
                 <button
                   className="success__see-photos"
                   onClick={() => {
