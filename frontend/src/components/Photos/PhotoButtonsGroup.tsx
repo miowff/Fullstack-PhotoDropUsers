@@ -29,7 +29,7 @@ export const PhotoButtonsGroup = ({
     try {
       await navigator.share({
         title: photoName,
-        url: "https://example.com",
+        url: downloadPhotoUrl,
       });
     } catch (error) {
       console.error("Error sharing content:", error);
