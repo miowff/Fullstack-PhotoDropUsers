@@ -4,7 +4,7 @@ import { Loader } from "../components/Loader";
 import { useEffect, useState } from "react";
 import { PhotoResponse } from "../../../backend/src/models/photo";
 import { PhotosGroup } from "../components/Photos/PhotosGroup";
-import { PopUpPhoto } from "../components/HomePage/PopUpPhoto";
+import { PopUpPhoto } from "../components/Photos/PopUpPhoto";
 import { Footer } from "../components/Footer";
 import { PaymentPopUp } from "../components/ActivateAlbum/PaymentPopUp";
 

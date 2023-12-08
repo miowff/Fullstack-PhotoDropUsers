@@ -4,6 +4,7 @@ export interface AlbumModel {
   albumId: string;
   title: string;
   previewPhotoLink: string;
+  previewBase64: string;
 }
 export interface AlbumWithPhotos {
   title: string;

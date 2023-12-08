@@ -10,9 +10,12 @@ export const Success = () => {
   const { data, isFetching, isLoading } = useGetAlbumInfoQuery(id as string);
   const [albumTitle, setAlbumTitle] = useState<string>("");
   const [previewUrl, setPreviewUrl] = useState<string>("");
+  const [previewBase64, setPreviewBase64] = useState<string>("");
+  const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false);
   useEffect(() => {
     if (data) {
-      const { title, previewPhotoLink } = data;
+      const { title, previewPhotoLink, previewBase64 } = data;
+      setPreviewBase64(previewBase64);
       setAlbumTitle(title);
       setPreviewUrl(previewPhotoLink);
     }
@@ -37,12 +40,13 @@ export const Success = () => {
                   You can now download, share, post, and print your hi-res,
                   watermark-free, glorious memories.
                 </p>
-                <div className="success__image-container">
-                  <img
-                    className="success__album-preview-image"
-                    src={previewUrl}
-                  />
-                </div>
+                <img
+                  className="success__album-preview-image"
+                  onLoad={() => {
+                    setIsImageLoaded(true);
+                  }}
+                  src={isImageLoaded ? previewUrl : previewBase64}
+                />
                 <button
                   className="success__see-photos"
                   onClick={() => {

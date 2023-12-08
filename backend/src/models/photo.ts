@@ -4,4 +4,5 @@ export interface PhotoResponse {
   isActivated: boolean;
   albumId: string;
   albumTitle: string;
+  photoName: string;
 }

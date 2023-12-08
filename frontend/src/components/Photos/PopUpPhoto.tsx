@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { PhotoButtonsGroup } from "./PhotoButtonsGroup";
 import { PhotoResponse } from "../../../../backend/src/models/photo";
 import { PaymentPopUp } from "../ActivateAlbum/PaymentPopUp";
+import { Alert, AlertData } from "../Alert";
 
 interface PopUpPhotoProps {
   photo: PhotoResponse;
@@ -11,9 +12,11 @@ export const PopUpPhoto = ({
   photo,
   setPopUpPhotoVisible,
 }: PopUpPhotoProps) => {
-  const { fullPhotoAccessLink, isActivated, albumTitle, albumId } = photo;
+  const { fullPhotoAccessLink, isActivated, albumTitle, albumId, photoName } =
+    photo;
   const [isPaymentPopUpVisible, setPaymentPopUpVisible] =
     useState<boolean>(false);
+  const [alert, setAlert] = useState<AlertData | null>(null);
   useEffect(() => {
     const closePopUpOnClickOutside = (event: MouseEvent) => {
       const popUpContainer = document.querySelector(
@@ -37,8 +40,15 @@ export const PopUpPhoto = ({
       document.removeEventListener("wheel", handleWheel);
     };
   }, []);
+
   return (
     <div className="pop-up-photo-container container-with-bg">
+      <Alert
+        data={alert}
+        onClose={() => {
+          setAlert(null);
+        }}
+      />
       {isPaymentPopUpVisible && (
         <PaymentPopUp
           albumTitle={albumTitle}
@@ -61,7 +71,11 @@ export const PopUpPhoto = ({
       </div>
       {isActivated ? (
         <div className="pop-up-photo-container__buttons">
-          <PhotoButtonsGroup />
+          <PhotoButtonsGroup
+            downloadPhotoUrl={fullPhotoAccessLink}
+            photoName={photoName}
+            setAlert={setAlert}
+          />
         </div>
       ) : (
         <>

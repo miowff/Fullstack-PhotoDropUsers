@@ -38,6 +38,7 @@ class PhotosService implements IPhotosService {
           albumId,
           albumTitle,
           previewBase64,
+          photoName,
         };
       })
     );

@@ -1571,18 +1571,11 @@
         cursor: pointer;
     }
 
-    &__image-container {
+    &__album-preview-image {
         margin-top: 43px;
+        border-radius: 20px;
         width: 420px;
         height: 250px;
-        border-radius: 20px;
-        overflow: hidden;
-        background-color: #3300CC;
-    }
-
-    &__album-preview-image {
-        width: 100%;
-        height: 100%;
     }
 
 

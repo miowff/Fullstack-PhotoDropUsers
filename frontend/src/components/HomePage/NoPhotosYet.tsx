@@ -2,7 +2,7 @@ import NewSms from "../../public/images/NewSms.svg";
 import ChaseBaker from "../../public/images/ArtistsPrints/ChaseBaker.jpg";
 import JorgeGardner from "../../public/images/ArtistsPrints/JorgeGardner.jpg";
 import { useState } from "react";
-import { PopUpPhoto } from "./PopUpPhoto";
+import { PopUpPhoto } from "../Photos/PopUpPhoto";
 import { PhotoResponse } from "../../../../backend/src/models/photo";
 import { usePreventVerticalScroll } from "../../hooks/useHorizontalScroll";
 import { handleScroll } from "../../hooks/useHandleHorizontalScroll";

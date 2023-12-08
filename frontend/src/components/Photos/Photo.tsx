@@ -27,7 +27,6 @@ export const Photo = ({
         loading="lazy"
         onLoad={() => {
           setIsLoaded(true);
-          console.log(`im loaded ${photo} ${isLoaded}`);
         }}
       />
     </div>

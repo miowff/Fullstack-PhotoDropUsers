@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Album } from "./Album";
 import { AlbumModel } from "../../../../backend/src/models/albums";
 import { PhotoResponse } from "../../../../backend/src/models/photo";
-import { PopUpPhoto } from "./PopUpPhoto";
+import { PopUpPhoto } from "../Photos/PopUpPhoto";
 import { usePreventVerticalScroll } from "../../hooks/useHorizontalScroll";
 import { handleScroll } from "../../hooks/useHandleHorizontalScroll";
 import { PhotosGroup } from "../Photos/PhotosGroup";

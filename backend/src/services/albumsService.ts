@@ -32,9 +32,12 @@ class AlbumsService implements IAlbumsService {
       userId,
       albumId
     );
+    const previewKey = `${S3FolderNames.PREVIEWS}/${title}/${photoName}`;
+    const preview = await s3Service.getImageAsBase64(previewKey);
+    const previewBase64 = `data:image/jpeg;base64,${preview}`;
     const photoKey = `${S3FolderNames.ORIGINAL_PHOTOS}/${title}/${photoName}`;
     const photoAccessUrl = await s3Service.createAccessPhotoUrl(photoKey);
-    return { albumId, previewPhotoLink: photoAccessUrl, title };
+    return { albumId, previewPhotoLink: photoAccessUrl, title, previewBase64 };
   };
   getAlbumWithPhotos = async (
     albumId: string,
@@ -69,11 +72,20 @@ class AlbumsService implements IAlbumsService {
           photoKey = S3FolderNames.WATERMARKED_PHOTOS;
         }
         photoKey += `/${albumTitle}/${photoName}`;
+        const previewKey = `${S3FolderNames.PREVIEWS}/${albumTitle}/${photoName}`;
+        const preview = await s3Service.getImageAsBase64(previewKey);
+        let previewBase64 = `data:image/jpeg;base64,${preview}`;
         const fullPhotoAccessLink = await s3Service.createAccessPhotoUrl(
           photoKey
         );
-
-        return { fullPhotoAccessLink, isActivated, albumTitle, albumId };
+        return {
+          fullPhotoAccessLink,
+          isActivated,
+          albumTitle,
+          albumId,
+          previewBase64,
+          photoName,
+        };
       })
     );
     return {
@@ -92,9 +104,17 @@ class AlbumsService implements IAlbumsService {
           userId,
           albumId
         );
+        const previewKey = `${S3FolderNames.PREVIEWS}/${title}/${photoName}`;
+        const preview = await s3Service.getImageAsBase64(previewKey);
+        const previewBase64 = `data:image/jpeg;base64,${preview}`;
         const photoKey = `${S3FolderNames.ORIGINAL_PHOTOS}/${title}/${photoName}`;
         const photoAccessUrl = await s3Service.createAccessPhotoUrl(photoKey);
-        return { albumId, previewPhotoLink: photoAccessUrl, title };
+        return {
+          albumId,
+          previewPhotoLink: photoAccessUrl,
+          title,
+          previewBase64,
+        };
       })
     );
     return result;
