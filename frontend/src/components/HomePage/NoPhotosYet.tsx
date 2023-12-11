@@ -6,16 +6,17 @@ import { PopUpPhoto } from "../Photos/PopUpPhoto";
 import { PhotoResponse } from "../../../../backend/src/models/photo";
 import { usePreventVerticalScroll } from "../../hooks/useHorizontalScroll";
 import { handleScroll } from "../../hooks/useHandleHorizontalScroll";
+import { PhotoExample } from "../../models/photo";
 
 export const NoPhotosYet = () => {
-  const [photo, setPhoto] = useState<PhotoResponse | null>(null);
+  const [photo, setPhoto] = useState<PhotoResponse | PhotoExample | null>(null);
   const [isPopUpPhotoVisible, setPopUpPhotoVisible] = useState<boolean>(false);
   usePreventVerticalScroll(".no-photos-yet__artists-prints-image");
   return (
     <section className="no-photos-yet">
       {isPopUpPhotoVisible && (
         <PopUpPhoto
-          photo={photo as PhotoResponse}
+          photo={photo as PhotoResponse | PhotoExample}
           setPopUpPhotoVisible={setPopUpPhotoVisible}
         />
       )}
@@ -47,6 +48,7 @@ export const NoPhotosYet = () => {
                 className="no-photos-yet__artists-prints-thumbnail"
                 onClick={() => {
                   setPhoto({
+                    photoName: "Chase Baker",
                     isActivated: true,
                     fullPhotoAccessLink: ChaseBaker,
                   });
@@ -64,6 +66,7 @@ export const NoPhotosYet = () => {
                 className="no-photos-yet__artists-prints-thumbnail"
                 onClick={() => {
                   setPhoto({
+                    photoName: "Jorge Gardner",
                     isActivated: true,
                     fullPhotoAccessLink: JorgeGardner,
                   });

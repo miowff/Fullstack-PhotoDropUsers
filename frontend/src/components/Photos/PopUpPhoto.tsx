@@ -3,9 +3,10 @@ import { PhotoButtonsGroup } from "./PhotoButtonsGroup";
 import { PhotoResponse } from "../../../../backend/src/models/photo";
 import { PaymentPopUp } from "../ActivateAlbum/PaymentPopUp";
 import { Alert, AlertData } from "../Alert";
+import { PhotoExample } from "../../models/photo";
 
 interface PopUpPhotoProps {
-  photo: PhotoResponse;
+  photo: PhotoResponse | PhotoExample;
   setPopUpPhotoVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export const PopUpPhoto = ({
@@ -51,8 +52,8 @@ export const PopUpPhoto = ({
       />
       {isPaymentPopUpVisible && (
         <PaymentPopUp
-          albumTitle={albumTitle}
-          albumId={albumId}
+          albumTitle={albumTitle as string}
+          albumId={albumId as string}
           setPaymentPopUpVisible={setPaymentPopUpVisible}
         />
       )}

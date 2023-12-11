@@ -34,6 +34,15 @@ provider:
             - s3:PutObject
           Resource:
             - "arn:aws:s3:::photo-drop-images/*"
+        - Effect: "Allow"
+          Action:
+            - "s3:ListBucket"
+          Resource:
+            - "arn:aws:s3:::photo-drop-images/*"
+        - Effect: Allow
+          Action:
+            - ssm:GetParameter
+          Resource: "*"
   environment:
     PHOTO_DROP_DB_USERNAME: ${ssm:PHOTO_DROP_DB_USERNAME}
     PHOTO_DROP_DB_PASSWORD: ${ssm:PHOTO_DROP_DB_PASSWORD}

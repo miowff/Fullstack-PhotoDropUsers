@@ -6,6 +6,7 @@ export const errorHandlerMiddleware = (): middy.MiddlewareObj<
   APIGatewayProxyResult
 > => {
   const onError: middy.MiddlewareFn<APIGatewayProxyEvent> = async (request) => {
+    console.log(request.error)
     return responseCreator.error(request.error);
   };
   return {

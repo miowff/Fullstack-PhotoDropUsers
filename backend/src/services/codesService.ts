@@ -4,6 +4,7 @@ import { InsertPhoneCode, SelectPhoneCode } from "src/db/entities/phoneCode";
 import { codesRepository } from "src/db/repositories/codesRepository";
 import crypto from "crypto";
 import { ApiError } from "src/errors/apiError";
+import twilioSmsSender from "./utils/twilioSmsSender";
 class CodesService implements ICodesService {
   constructor(
     private readonly phoneCodesRepository: ICodesRepository<
@@ -15,6 +16,10 @@ class CodesService implements ICodesService {
     const code = crypto.randomInt(100000, 999999);
     const existsCode = await this.phoneCodesRepository.getCode(phoneNumber);
     const date = Math.floor(Date.now() / 1000);
+    await twilioSmsSender.sendMessage(
+      `PhotoDrop login code: ${code}`,
+      `+${phoneNumber}`
+    );
     if (existsCode) {
       existsCode.code = code;
       existsCode.resendTries = 1;
@@ -43,6 +48,10 @@ class CodesService implements ICodesService {
     existsCode.code = code;
     existsCode.resendTries = 0;
     existsCode.sentTime = Math.floor(Date.now() / 1000);
+    await twilioSmsSender.sendMessage(
+      `PhotoDrop login code: ${code}`,
+      `+${phoneNumber}`
+    );
     await this.phoneCodesRepository.updateCode(existsCode);
   };
   validateCode = async (
