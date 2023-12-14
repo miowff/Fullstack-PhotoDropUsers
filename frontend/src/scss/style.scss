@@ -1245,6 +1245,7 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+
     }
 
     &__info {
@@ -1258,6 +1259,11 @@
             color: #262626;
             font-family: TerminaBold, FuturaPtDemi;
             font-size: 22px;
+            max-width: 300px;
+            text-decoration: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     }
 

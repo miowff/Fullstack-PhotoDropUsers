@@ -30,8 +30,8 @@ class PhotosService implements IPhotosService {
         const fullPhotoAccessLink = await s3Service.createAccessPhotoUrl(
           photoKey
         );
-        const preview = await s3Service.getImageAsBase64(previewKey);
-        let previewBase64 = `data:image/jpeg;base64,${preview}`;
+        const preview = await s3Service.createAccessPhotoUrl(previewKey);
+        let previewBase64 = preview;
         return {
           fullPhotoAccessLink,
           isActivated,

@@ -15,7 +15,6 @@ export const sendSmsAlerts = async (phoneNumbers: string[]) => {
         `PhotoDrop: your photos have dropped. Check them out here: ${accessUrl}`,
         `+${number}`
       );
-      console.log("alert sent!")
     }
   }
 };
