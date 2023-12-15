@@ -1,6 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from "./enums/constants";
 import { useDispatch } from "react-redux";
 import { useLazyGetCurrentUserQuery } from "./api/auth";
 import { UserModel } from "../../backend/src/models/user";
@@ -12,16 +11,6 @@ const App = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const token = searchParams.get("token");
-    const refresh = searchParams.get("refresh");
-    if (token && refresh) {
-      localStorage.setItem(ACCESS_TOKEN_KEY, token);
-      localStorage.setItem(REFRESH_TOKEN_KEY, refresh);
-      navigate("/");
-    }
-  });
   useEffect(() => {
     getUser()
       .unwrap()
@@ -44,5 +33,4 @@ const App = () => {
     </>
   );
 };
-export const foo = 12;
 export default App;

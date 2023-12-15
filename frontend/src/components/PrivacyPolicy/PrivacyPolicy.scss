@@ -1,0 +1,39 @@
+.privacy-policy {
+    &__inner {
+        margin-top: 15px;
+    }
+    &__text-container{
+        display: flex;
+        flex-direction: column;
+    }
+    &__title {
+        font-size: 30px;
+        font-family: TerminaBold;
+        text-align: center;
+    }
+
+    &__bold-text {
+        font-family: FuturaPtHeavy;
+        font-size: 18px;
+    }
+
+    &__text-block {
+        max-width: 700px;
+        margin: 0 auto;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+}
+
+@media (max-width:1024px) {
+    .privacy-policy {
+        &__title {
+            font-size: 18px;
+        }
+
+        &__bold-text {
+            font-size: 16px;
+        }
+    }
+}

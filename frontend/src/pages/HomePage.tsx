@@ -1,9 +1,9 @@
-import { Footer } from "../components/Footer";
-import { Header } from "../components/Header";
-import { NoPhotosYet } from "../components/HomePage/NoPhotosYet";
-import { UserContent } from "../components/HomePage/UserContent";
+import { Footer } from "../components/Footer/Footer";
+import { Header } from "../components/Header/Header";
+import { NoPhotosYet } from "../components/HomePage/NoPhotosYet/NoPhotosYet";
+import { UserContent } from "../components/HomePage/UserContent/UserContent";
 import { useGetAllUserAlbumsQuery } from "../api/albums";
-import { Loader } from "../components/Loader";
+import { Loader } from "../components/Loader/Loader";
 import { useGetAllUserPhotosQuery } from "../api/photos";
 
 export function HomePage() {

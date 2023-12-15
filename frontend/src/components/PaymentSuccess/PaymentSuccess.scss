@@ -1,0 +1,86 @@
+.success {
+    padding-top: 28px;
+
+    &__inner {
+        max-width: 420px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 auto;
+
+        p {
+            font-family: FuturaPtDefault;
+        }
+    }
+
+    &__title {
+        color: #262626;
+        font-family: TerminaBold, FuturaPtDemi;
+        font-size: 30px;
+    }
+
+    &__main-text {
+        font-size: 22px;
+        align-self: self-start;
+    }
+
+    &__bold-text {
+        font-family: FuturaPtHeavy;
+    }
+
+    &__description-text {
+        padding-top: 10px;
+    }
+
+    &__see-photos {
+        margin-top: 40px;
+        width: 350px;
+        height: 50px;
+        color: white;
+        background-color: #30C;
+        border-radius: 30px;
+        border: none;
+        font-family: FuturaPtMedium;
+        font-size: 22px;
+        cursor: pointer;
+    }
+
+    &__album-preview-image {
+        margin-top: 43px;
+        border-radius: 20px;
+        width: 420px;
+        height: 250px;
+    }
+
+
+
+    &__under-button-text {
+        font-size: 18px;
+        padding-top: 15px;
+    }
+}
+
+@media (max-width:1024px) {
+    .success {
+        padding-top: 10px;
+
+        &__title {
+            font-size: 18px;
+        }
+
+        &__main-text {
+            padding-top: 10px;
+            font-size: 18px;
+        }
+
+        &__album-preview-image {
+            margin-top: 25px;
+            max-width: 346px;
+            max-height: 228px;
+        }
+
+        &__under-button-text {
+            display: none;
+        }
+    }
+}

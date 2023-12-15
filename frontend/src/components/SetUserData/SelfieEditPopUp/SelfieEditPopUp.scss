@@ -1,0 +1,150 @@
+.selfie-edit {
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    flex-direction: column;
+    text-align: center;
+
+    &__inner {
+        height: 650px;
+        width: 380px;
+        background-color: #202020;
+        border-radius: 20px;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__title {
+        font-family: FuturaPtDemi;
+        letter-spacing: 1px;
+        font-size: 18px;
+        line-height: 13px;
+        color: white;
+    }
+
+    &__tip-text {
+        font-family: FuturaPtDefault;
+        color: white;
+        font-size: 16px;
+        line-height: 11px;
+        padding-top: 90px;
+    }
+
+    &__selected-image-container {
+        padding-top: 40px;
+        overflow: hidden;
+    }
+
+    &__selected-image {
+        width: 290px;
+        height: 290px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin: 0 auto;
+    }
+
+    &__buttons-container {
+        padding-top: 90px;
+    }
+
+    &__button {
+        font-family: FuturaPtHeavy;
+        width: 170px;
+        height: 50px;
+        margin-left: 5px;
+        margin-right: 5px;
+        border-radius: 30px;
+        font-size: 18px;
+        border: none;
+        cursor: pointer;
+    }
+
+    &__retake-button {
+        border: 1px solid white;
+        background: rgba(28, 28, 28, 0);
+        color: white
+    }
+
+    &__save-button {
+        color: #262626;
+        background-color: white;
+    }
+
+    &__x-mark {
+        position: relative;
+        top: 15px;
+        left: 16px;
+        z-index: 110;
+        cursor: pointer;
+        width: 18px;
+        height: 25px;
+        background-image: url("../public/images/X.svg");
+    }
+
+    &__mobile-options {
+        width: 226px;
+        height: 119px;
+        background-color: white;
+        border-radius: 11px;
+        position: absolute;
+        bottom: 60px;
+    }
+
+    &__mobile-options {
+        align-self: self-start;
+    }
+
+    &__loader {
+        p {
+            color: white;
+        }
+    }
+}
+
+@media (max-width:1024px) {
+    .selfie-edit {
+        &__inner {
+            top: 0;
+            left: 0;
+            border-radius: 0px;
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+
+        }
+
+        &__title {
+            line-height: 13px;
+            font-size: 18px;
+            letter-spacing: 0.5px;
+        }
+
+        &__preview-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &__middle-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        &__buttons-container {
+            display: flex;
+            flex-direction: row;
+        }
+    }
+}

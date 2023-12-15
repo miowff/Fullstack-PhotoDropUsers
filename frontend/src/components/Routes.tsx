@@ -2,14 +2,15 @@ import { SetFullNamePage } from "../pages/SetFullNamePage";
 import { SetProfilePhotoPage } from "../pages/SetProfilePhoto";
 import { SetEmailPage } from "../pages/SetEmailPage";
 import { PrivateWrapper } from "../components/protectedRoute";
-import { ProfileDetails } from "../pages/ProfileDetails";
-import { PrivacyPolicy } from "../pages/PrivacyPolicy";
+import { ProfileDetailsPage } from "../pages/ProfileDetailsPage";
+import { PrivacyPolicyPage } from "../pages/PrivacyPolicyPage";
 import { NumberInputPage } from "../pages/LetsGetStarted/NumberInputPage";
 import { CodeInputPage } from "../pages/LetsGetStarted/CodeInputPage";
 import { Route, Routes } from "react-router-dom";
 import { HomePage } from "../pages/HomePage";
-import { AlbumDetails } from "../pages/AlbumDetails";
 import { Success } from "../pages/Sucess";
+import { AlbumDetailsPage } from "../pages/AlbumDetailsPage";
+import { TermsOfUsePage } from "../pages/TermsOfUsePage";
 export const AppRoutes = () => {
   return (
     <Routes>
@@ -49,7 +50,7 @@ export const AppRoutes = () => {
         path="/me"
         element={
           <PrivateWrapper>
-            <ProfileDetails />
+            <ProfileDetailsPage />
           </PrivateWrapper>
         }
       ></Route>
@@ -57,7 +58,15 @@ export const AppRoutes = () => {
         path="/privacy-policy"
         element={
           <PrivateWrapper>
-            <PrivacyPolicy />
+            <PrivacyPolicyPage />
+          </PrivateWrapper>
+        }
+      ></Route>
+      <Route
+        path="/terms-of-use"
+        element={
+          <PrivateWrapper>
+            <TermsOfUsePage />
           </PrivateWrapper>
         }
       ></Route>
@@ -65,7 +74,7 @@ export const AppRoutes = () => {
         path="/album/:id"
         element={
           <PrivateWrapper>
-            <AlbumDetails />
+            <AlbumDetailsPage />
           </PrivateWrapper>
         }
       ></Route>

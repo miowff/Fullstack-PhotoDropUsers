@@ -1,0 +1,39 @@
+.whats-your-email {
+    margin-top: 130px;
+
+    &__inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__title-container {
+        text-align: center;
+        padding-bottom: 9px;
+    }
+
+    &__button-container {
+        padding-top: 20px;
+    }
+
+    &__privacy-policy {
+        padding-top: 210px;
+        color: #262626;
+        font-family: FuturaPtDefault;
+        font-size: 16px;
+        padding-bottom: 15px;
+        a {
+            cursor: pointer;
+            color: #262626;
+            text-decoration: underline #3300CC;
+        }
+    }
+}
+
+@media (max-width:1024px) {
+    .whats-your-email {
+        &__privacy-policy {
+            font-size: 14px;
+        }
+    }
+}

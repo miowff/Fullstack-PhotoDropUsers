@@ -1,0 +1,13 @@
+.whats-your-name {
+    margin-top: 155px;
+    display: flex;
+
+    &__title-container {
+        text-align: center;
+        padding-bottom: 15px;
+    }
+
+    &__button-container {
+        padding-top: 18px;
+    }
+}

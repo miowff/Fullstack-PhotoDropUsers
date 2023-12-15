@@ -1,0 +1,13 @@
+.terms-of-use {
+    a {
+        cursor: pointer;
+    }
+
+    &__inner {
+        padding-top: 30px;
+    }
+    &__text-container{
+        display: flex;
+        flex-direction: column;
+    }
+}

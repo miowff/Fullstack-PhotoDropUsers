@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { Header } from "../components/Header";
-import { WhatsYourEmail } from "../components/SetUserData/WhatsYourEmail";
+import { Header } from "../components/Header/Header";
+import { WhatsYourEmail } from "../components/SetUserData/WhatsYourEmail/WhatsYourEmail";
 
 export const SetEmailPage = () => {
   const user = useSelector((state: RootState) => state.auth.user);

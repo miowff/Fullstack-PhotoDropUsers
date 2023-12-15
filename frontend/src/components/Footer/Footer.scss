@@ -1,0 +1,108 @@
+.footer {
+    margin-top: auto;
+
+    &__content {
+        color: white;
+        background-color: #262626;
+        padding-top: 55px;
+        padding-left: 0;
+        padding-right: 0;
+        padding-bottom: 40px;
+    }
+
+    &__info-company-logo {
+        cursor: pointer;
+    }
+
+    &__info-title {
+        font-family: TerminaBold;
+        font-size: 22px;
+        padding-bottom: 15px;
+    }
+
+    &__inner {
+        display: flex;
+        gap: 60px;
+        justify-content: center;
+    }
+
+
+    &__description {
+        font-family: FuturaPtDefault;
+        font-size: 18px;
+        max-width: 420px;
+        padding-top: 25px;
+        padding-bottom: 30px;
+    }
+
+    &__order-button {
+        width: 300px;
+        height: 50px;
+        border-radius: 50px;
+        border: 1px solid #FFF;
+        color: white;
+        font-size: 22px;
+        font-family: FuturaPtMedium;
+        background-color: transparent;
+        cursor: pointer;
+    }
+
+    &__copyright {
+        font-family: FuturaPtDefault;
+        font-size: 18px;
+    }
+
+    &__menu-item {
+        font-size: 18px;
+        font-family: FuturaPtDefault;
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+
+    &__menu-link {
+        text-decoration: none;
+        color: white;
+    }
+
+    &__menu-item-logo {
+        padding-bottom: 15px;
+    }
+}
+
+@media (max-width:1024px) {
+    .footer {
+        &__content {
+            margin: 0 auto;
+        }
+
+        &__menu-container {
+            display: none;
+        }
+
+        &__info-company-logo {
+            img {
+                width: 150px;
+                height: 25px;
+            }
+        }
+
+        &__inner {
+            flex-direction: column;
+        }
+
+        &__info {
+            margin: 0 auto;
+        }
+
+        &__info-title {
+            font-size: 18px;
+            letter-spacing: -0.36px;
+            padding-bottom: 10px;
+        }
+
+        &__description {
+            padding-top: 15px;
+            font-size: 16px;
+        }
+    }
+}

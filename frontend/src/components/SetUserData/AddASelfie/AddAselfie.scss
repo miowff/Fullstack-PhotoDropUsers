@@ -1,0 +1,41 @@
+.add-a-selfie {
+    margin-top: 60px;
+    text-align: center;
+
+    &__text {
+        padding-top: 5px;
+        line-height: 20px;
+    }
+
+    &__prev-photo {
+        padding-top: 20px;
+        margin: 0 auto;
+        max-width: 210px;
+        max-height: 210px;
+        border-radius: 50%;
+    }
+
+    &__plus-button {
+        position: relative;
+        left: 70px;
+        bottom: 45px;
+        background-color: #3300CC;
+        color: white;
+        border: none;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        font-size: 35px;
+        cursor: pointer;
+    }
+
+    &__mobile-options {
+        position: absolute;
+        top: 380px;
+        left: 50%;
+        z-index: 10;
+        transform: translate(-50%);
+        background-color: white;
+        border-radius: 11px;
+    }
+}

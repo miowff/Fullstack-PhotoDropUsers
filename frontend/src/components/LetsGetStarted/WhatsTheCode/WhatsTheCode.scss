@@ -1,0 +1,57 @@
+.whats-the-code {
+    padding-top: 100px;
+    display: flex;
+
+    &__inner {
+        align-items: center;
+    }
+
+    &__inner-content {
+        max-width: 420px;
+    }
+
+    &__title-container {
+        text-align: center;
+    }
+
+    &__title {
+        text-align: center;
+        font-family: TerminaBold;
+        font-size: 30px;
+    }
+
+    &__text {
+        color: #262626;
+        font-family: FuturaPtDefault;
+        font-size: 16px;
+        padding-bottom: 15px;
+
+        span {
+            font-family: FuturaPtHeavy;
+        }
+    }
+
+    &__input-container {
+        padding-bottom: 18px;
+    }
+
+    &__resend-code {
+        font-family: FuturaPtDefault;
+        font-size: 16px;
+        color: #30C;
+        cursor: pointer;
+    }
+
+    &__button-container {
+        margin-top: 15px;
+    }
+}
+
+@media (max-width:1024px) {
+    .whats-the-code {
+        &__title {
+            font-size: 22px;
+            line-height: normal;
+        }
+    }
+}

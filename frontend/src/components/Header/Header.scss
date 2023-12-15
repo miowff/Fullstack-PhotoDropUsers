@@ -1,0 +1,45 @@
+.header {
+
+    &__inner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 60px;
+    }
+
+    &__inner-logo {
+        margin: 0 auto;
+        cursor: pointer;
+        width: 170px;
+        height: 22px;
+    }
+
+    &__profile-thumb img {
+        position: absolute;
+        top: 10px;
+        right: 30px;
+        width: 35px;
+        height: 35px;
+        object-fit: cover;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+}
+
+@media (max-width:1024px) {
+    .header {
+        &__inner {
+            height: 55px;
+        }
+
+        &__inner-logo {
+            width: 125px;
+            height: 16px;
+        }
+
+        &__profile-thumb img {
+            right: 15px;
+        }
+    }
+
+}

@@ -1,0 +1,21 @@
+.otp-input-container {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        display: none;
+    }
+}
+
+.otp-input-box {
+    width: 45px;
+    height: 40px;
+    gap: 15px;
+    border: none;
+    border-radius: 10px;
+    color: #262626;
+    font-family: FuturaPtMedium;
+    text-align: center;
+}

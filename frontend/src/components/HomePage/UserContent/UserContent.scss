@@ -1,0 +1,39 @@
+.user-content {
+    padding-top: 15px;
+    margin: 0 auto;
+
+    &__albums-container {
+        padding-top: 10px;
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+        overflow-x: scroll;
+        flex-wrap: nowrap;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    &__photos {
+        padding-top: 100px;
+        max-width: 1200px;
+    }
+
+}
+
+@media (max-width:1024px) {
+    .user-content {
+        &__photos {
+            padding-top: 35px;
+        }
+
+        &__photos-container {
+            padding-top: 10px;
+            padding-right: 150px;
+            width: 375px;
+        }
+    }
+}

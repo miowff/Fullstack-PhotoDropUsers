@@ -1,0 +1,113 @@
+.profile-details {
+    padding-top: 10px;
+
+    &__title-container {
+        text-align: center;
+        padding-bottom: 15px;
+    }
+
+    &__title {
+        color: #262626;
+        font-family: TerminaBold;
+        font-size: 30px;
+    }
+
+    &__inner {
+        max-width: 480px;
+        margin: 0 auto;
+    }
+
+    &__bold-text {
+        font-family: FuturaPtMedium;
+        font-size: 18px;
+        line-height: 13px;
+    }
+
+    &__selfie-container {
+        padding-top: 15px;
+        margin-right: auto;
+    }
+
+    &__selfie {
+        object-fit: cover;
+        border-radius: 50%;
+        width: 150px;
+        height: 150px;
+    }
+
+    &__user-data-fields {
+        padding-top: 10px;
+    }
+
+    &__user-data-field {
+        max-width: 420px;
+        height: 50px;
+        border: 1px solid #CECCB5;
+        border-radius: 11px;
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    &__text {
+        font-size: 16px;
+        font-family: FuturaPtDefault;
+        padding-bottom: 10px;
+        width: 365px;
+    }
+
+    &__user-data-field-content {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding-top: 15px;
+        padding-left: 15px;
+        cursor: pointer;
+    }
+
+    &__edit-icon {
+        background-image: url(../public/images/PenIcon.svg);
+        width: 45px;
+        height: 45px;
+        position: absolute;
+        margin-left: 125px;
+        margin-top: -50px;
+        cursor: pointer;
+    }
+
+    &__right-arrow {
+        background-image: url(../public/images/RightArrow.svg);
+        width: 10px;
+        height: 20px;
+        margin-left: 10px;
+    }
+}
+
+@media (max-width:1024px) {
+    .profile-details {
+        &__title {
+            font-size: 18px;
+        }
+
+        &__selfie {
+            width: 100px;
+            height: 100px;
+        }
+
+        &__edit-icon {
+            margin-left: 75px;
+            margin-top: -40px;
+        }
+
+        &__text {
+            font-size: 14px;
+            width: 292px;
+        }
+
+        &__bold-text {
+            p {
+                font-size: 14px;
+            }
+        }
+    }
+}
