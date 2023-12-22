@@ -1,5 +1,6 @@
 import { Header } from "../../components/Header/Header";
 import NoProfilePicture from "../../public/images/NoProfilePicture.svg";
+import PenIcon from "../../public/images/PenIcon.svg";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SelfieEditPopUp } from "../../components/SetUserData/SelfieEditPopUp/SelfieEditPopUp";
@@ -10,6 +11,7 @@ export const ProfileDetails = () => {
   const navigate = useNavigate();
   const user = useSelector((state: RootState) => state.auth.user);
   const [isSelfieEditVisible, setSelfieEditVisible] = useState<boolean>(false);
+  const [isUserPhotoLoaded, setIsUserPhotoLoaded] = useState<boolean>(false);
   const [isPopUpControlsVisible, setPopUpControlsVisible] =
     useState<boolean>(false);
   const [fullName, setFullName] = useState<string | null>(null);
@@ -65,14 +67,19 @@ export const ProfileDetails = () => {
                   <div className="profile-details__selfie-container">
                     <img
                       className="profile-details__selfie"
-                      src={profilePhoto}
+                      src={isUserPhotoLoaded ? profilePhoto : NoProfilePicture}
+                      onLoad={() => {
+                        setIsUserPhotoLoaded(true);
+                      }}
                     />
                     <span
                       className="profile-details__edit-icon"
                       onClick={() => {
                         setSelfieEditVisible(true);
                       }}
-                    ></span>
+                    >
+                      <img src={PenIcon} />
+                    </span>
                   </div>
                   <div className="profile-details__user-data-fields">
                     <div className="profile-details__user-data-field">

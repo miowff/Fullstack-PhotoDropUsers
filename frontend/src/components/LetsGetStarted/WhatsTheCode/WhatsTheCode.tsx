@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
+import { useDispatch } from "react-redux";
 import { LoginRegistrationModel } from "../../../../../backend/src/models/user";
 import { useLoginOrRegisterMutation } from "../../../api/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { setToken, setUser } from "../../../redux/user/authSlice";
 import { useEnterKeyHandler } from "../../../hooks/useEnterKeyHandler";
 import { useResendCode } from "../../../hooks/useResendCode";
@@ -14,9 +13,7 @@ export const WhatsTheCode = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { enteredNumber } = useSelector(
-    (state: RootState) => state.letsGetStartedStages.letsGetStarted
-  );
+  const { phoneNumber: enteredNumber } = useParams();
   useEffect(() => {
     if (enteredNumber === null) {
       navigate("/number-input");

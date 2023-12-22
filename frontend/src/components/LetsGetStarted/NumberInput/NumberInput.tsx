@@ -33,7 +33,7 @@ export const NumberInput = () => {
       enteredNumber: phoneNumber,
     });
     setIsButtonDisabled(false);
-    navigate("/code-input");
+    navigate(`/code-input/${phoneNumber}`);
   };
   useEnterKeyHandler(handleNextAction);
   return (

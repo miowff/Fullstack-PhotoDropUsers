@@ -58,9 +58,6 @@ export const PhotoButtonsGroup = ({
           <p>Share</p>
         </span>
       )}
-      <button className="photo-buttons-group__see-in-frame">
-        See in a frame
-      </button>
     </div>
   );
 };

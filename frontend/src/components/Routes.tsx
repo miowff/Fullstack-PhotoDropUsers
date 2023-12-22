@@ -87,7 +87,7 @@ export const AppRoutes = () => {
         }
       ></Route>
       <Route path="/number-input" element={<NumberInputPage />} />
-      <Route path="/code-input" element={<CodeInputPage />} />
+      <Route path="/code-input/:phoneNumber" element={<CodeInputPage />} />
       <Route path="*" element={<div>404 Not Found</div>} />
     </Routes>
   );
