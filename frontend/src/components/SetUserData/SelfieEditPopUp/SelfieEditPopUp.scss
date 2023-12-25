@@ -111,6 +111,27 @@
     }
 }
 
+.crop-container {
+    height: 285px;
+    width: 100%;
+}
+
+.crop-area {
+    color: rgb(32 32 32) !important;
+}
+
+.crop-inner {
+    position: relative;
+    width: 100%;
+    height: 285px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
 @media (max-width:1024px) {
     .selfie-edit {
         &__inner {

@@ -11,12 +11,15 @@ import { isErrorWithMessage } from "../../../utils/errorParser";
 import { useHandleOutsideClick } from "../../../hooks/useHandleOutsideClick";
 import { Alert, AlertData } from "../../Alert";
 import { useEnterKeyHandler } from "../../../hooks/useEnterKeyHandler";
+import Cropper, { Area } from "react-easy-crop";
+import { createCroppedImage } from "../../../utils/imageCropper";
 interface SelfieEditProps {
   currentPic: string | File | null;
   setSelectedFile: React.Dispatch<React.SetStateAction<string | File>>;
   setSelfieEditVisible: React.Dispatch<React.SetStateAction<boolean>>;
   setUploadOptionsVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
 export const SelfieEditPopUp = ({
   currentPic,
   setSelectedFile,
@@ -28,14 +31,27 @@ export const SelfieEditPopUp = ({
   const user = useSelector((state: RootState) => state.auth.user);
   const [getUploadProfilePicUrl] = useLazyGetUploadProfilePicUrlQuery();
   const { pathname } = useLocation();
-  const [selectedImage, setSelectedImage] = useState<string>(
-    currentPic as string
-  );
+
   const retakeButtonRef = useRef<HTMLButtonElement>(null);
   const selfieEditAreaRef = useRef<HTMLDivElement>(null);
+  const photoUploadOptionsRef = useRef<HTMLInputElement>(null);
+
   const [alert, setAlert] = useState<AlertData | null>(null);
   const [isSelfieUploading, setIsSelfieUploading] = useState<boolean>(false);
-  const photoUploadOptionsRef = useRef<HTMLInputElement>(null);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [selectedImage, setSelectedImage] = useState<string>(NoProfilePicture);
+  const [cropArea, setCropArea] = useState<Area>({
+    x: 0,
+    y: 0,
+    width: 66,
+    height: 100,
+  });
+
+  const onCropComplete = (croppedAreaPixels: Area) => {
+    setCropArea(croppedAreaPixels);
+  };
+
   useEffect(() => {
     if (currentPic instanceof File) {
       const reader = new FileReader();
@@ -51,21 +67,26 @@ export const SelfieEditPopUp = ({
     }
     setSelectedImage(NoProfilePicture);
   }, [currentPic]);
+
   useHandleOutsideClick(selfieEditAreaRef, () => {
     setSelfieEditVisible(false);
     if (!isMobile) {
       setUploadOptionsVisible(true);
     }
   });
+
   useEnterKeyHandler(async () => {
     await uploadProfilePic();
     setSelfieEditVisible(false);
   });
+
   const uploadProfilePic = async () => {
     try {
       setIsSelfieUploading(true);
       if (currentPic && typeof currentPic !== "string") {
-        const { name: fileName, type } = currentPic;
+        const croppedPic = await createCroppedImage(currentPic, cropArea);
+       
+        const { name: fileName, type } = croppedPic;
         const { url: preSignedUrl, accessUrl } = await getUploadProfilePicUrl({
           fileName,
           type,
@@ -102,10 +123,14 @@ export const SelfieEditPopUp = ({
       }
     }
   };
+
   const handleRetakeClick = () => {
-    setSelfieEditVisible(false);
-    setUploadOptionsVisible(true);
+    if (!isMobile) {
+      setSelfieEditVisible(false);
+      setUploadOptionsVisible(true);
+    }
   };
+
   const handleOnChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     if (target.files) {
       const selectedImg = target.files[0];
@@ -137,11 +162,23 @@ export const SelfieEditPopUp = ({
                 Drag and zoom image to crop
               </p>
               <div className="selfie-edit__selected-image-container">
-                <img
-                  className="selfie-edit__selected-image"
-                  alt="selected photo"
-                  src={selectedImage}
-                />
+                <div className="crop-inner">
+                  <Cropper
+                    classes={{
+                      containerClassName: "crop-container",
+                      cropAreaClassName: "crop-area",
+                    }}
+                    image={selectedImage}
+                    crop={crop}
+                    zoom={zoom}
+                    aspect={1}
+                    cropShape="round"
+                    showGrid={false}
+                    onCropChange={setCrop}
+                    onZoomChange={setZoom}
+                    onCropComplete={onCropComplete}
+                  />
+                </div>
               </div>
               <div className="selfie-edit__buttons-container">
                 {!isSelfieUploading ? (
@@ -150,7 +187,9 @@ export const SelfieEditPopUp = ({
                       className="selfie-edit__retake-button selfie-edit__button"
                       onClick={() => {
                         handleRetakeClick();
-                        photoUploadOptionsRef.current?.click();
+                        if (isMobile) {
+                          photoUploadOptionsRef.current?.click();
+                        }
                       }}
                       ref={retakeButtonRef}
                     >
